@@ -1,0 +1,13 @@
+#reg{
+    border-radius: 50px;
+    background: transparent;
+    padding: 10px 50px;
+    border: 2px solid #4FA1D9;
+    color: #4FA1D9;
+    text-transform: uppercase;
+    font-size: 11px;
+    -webkit-transition-property: background,color;
+    transition-property: background,color;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+}

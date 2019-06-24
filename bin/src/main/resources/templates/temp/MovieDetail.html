@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>电影详情</title>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/buyTickets.css">
+    <link rel="stylesheet" type="text/css" href="css/movieDetail.css">
+    <link rel="stylesheet" type="text/css" href="css/MovieDetail2.css">
+</head>
+<body>
+    <div class="header">
+     <div th:replace="include::commonHead" ></div>
+    <div class="banner2">
+        <div class="wrapper clearfix">
+            <div class="celeInfo-left">
+                <div class="avatar-shadow">
+                    <img class="avatar" src="" alt="">
+                </div>
+            </div>
+
+            <div class="celeInfo-right clearfix">
+                <div class="movie-brief-container">
+                    <h3 class="name"></h3>
+                    <div class="ename ellipsis"></div>
+                    <ul>
+                        <li class="ellipsis" id="type"></li>
+                        <li class="ellipsis" id="origin">
+
+                        </li>
+                        <li class="ellipsis" id="time"></li>
+                    </ul>
+                </div>
+                <div class="action-buyBtn">
+                    <div class="action clearfix" data-val="{movieid:42964}">
+                        <a class="wish " data-wish="false" data-score="" data-bid="b_gbxqtw6x">
+                            <div>
+                                <i class="icon wish-icon"></i>
+                                <span class="wish-msg" data-act="wish-click">想看</span>
+                            </div>
+                        </a>
+                        <a class="score-btn " data-bid="b_rxxpcgwd">
+                            <div>
+                                <i class="icon score-btn-icon"></i>
+                                <span class="score-btn-msg" data-act="comment-open-click">
+				                	评分
+				            		</span>
+                            </div>
+                        </a>
+                    </div>
+                    <a class="btn buy" href="./BuyTicket.html" target="_blank" data-act="more-detail-click" data-bid="b_ozuzh4j4">特惠购票</a>
+                </div>
+
+                <div class="movie-stats-container">
+
+                    <div class="movie-index">
+                        <p class="movie-index-title">用户评分</p>
+                        <div class="movie-index-content score normal-score">
+			             		<span class="index-left info-num ">
+			                		<span class="stonefont" id="my-score"></span>
+			              		</span>
+                            <div class="index-right">
+                                <div class="star-wrapper">
+                                    <div class="star-on" style="width:93%;"></div>
+                                </div>
+                                <span class="score-num"><span class="stonefont" id="score-num-my"></span>人评分</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-index">
+                        <p class="movie-index-title">累计票房</p>
+                        <div class="movie-index-content box">
+                            <span class="stonefont" id="my-box-office"></span>
+                            <span class="unit">亿</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="main">
+    <div class="main-inner">
+        <div class="main-content">
+            <div class="tab-container">
+                <div class="tab-title-container clearfix">
+                    <div class="tab-title active">介绍</div>
+                    <div class="tab-title active">演职人员</div>
+                    <div class="tab-title">奖项</div>
+                    <div class="tab-title">图集</div>
+                </div>
+
+                <div class="tab-content-container">
+                    <div class="tab-desc tab-content active">
+                        <div class="module">
+                            <div class="mod-title">
+                                <h3>剧情简介</h3>
+                            </div>
+                            <div class="mod-content">
+		                            <span class="dra">这里是剧情简介的内容
+		                            </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="footer">
+        <div class="subfooter">
+            <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+        </div>
+
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/carousel.js"></script>
+    <script type="text/javascript" src="js/layer.js"></script>
+    <script type="text/javascript" src="js/movieDetail.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
+</body>
+</html>

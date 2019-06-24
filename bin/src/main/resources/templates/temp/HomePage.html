@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>电影购票系统-首页</title>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/homepage.css">
+</head>
+<body>
+    <div class="header">
+        <div th:replace="include::commonHead" ></div>
+        <div class="banner">
+            <div class="slider">
+                <div class="carousel-content">
+                    <ul class="carousel">
+                        <li><img src="img/pic1.jpg"></li>
+                        <li><img src="img/pic2.jpg"></li>
+                        <li><img src="img/pic3.jpg"></li>
+                        <li><img src="img/pic4.jpg"></li>
+                        <li><img src="img/pic5.jpg"></li>
+                    </ul>
+                    <ul class="img-index"></ul>
+                    <div class="carousel-prev"><img src="img/left1.png"/></div>
+                    <div class="carousel-next"><img src="img/right1.png"/></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-inner">
+                <div class="panel-header">
+                        <span class="panel-more">
+                            <a href="" class="textcolor_red" data-act="all-playingMovie-click">
+                            <span>全部</span>
+                            </a>
+                            <span class="panel-arrow panel-arrow-red"></span>
+                        </span>
+                    <span class="panel-title">
+                            <span class="textcolor_red">正在热映（10部）</span>
+                        </span>
+                </div>
+                
+                
+                <span th:text="${u.username}" th:each="u:${list}">
+                </span>
+                
+                <div class="panel-content">
+                    <ul class="movie-list" id="movie-list-hot-play">
+                    
+                    			<!-- 循环 -->
+                                <li id="movie-item-hot-play1" th:each="i:${#numbers.sequence(0,5)}">
+                                    <div class="movie-item" >
+                                        <div class="movie-poster">
+                                            <a href="#" id="movie-item-img-my"><img src=""></a>
+                                            <div class="movie-overlay movie-overlay-bg">
+                                                <div class="movie-info">
+                                                    <div class="movie-score"><i class="integer" id="movie-rate">9.5</i></div>
+                                                    <div class="movie-title movie-title-padding" id="movie-name">惊奇队长11</div>
+													111
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="movie-detail movie-detail-strong movie-sale">
+                                            <a href="./BuyTicket.html" class="active">购 票</a>
+                                        </div>
+                                        <div class="movie-ver"><i class="imax3d"></i></div>
+                                    </div>
+                                </li>						
+                    </ul>
+                </div>
+        </div>
+    </div>
+      <div class="footer">
+        <div class="subfooter">
+            <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+        </div>
+
+    </div>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/carousel.js"></script>
+    <script type="text/javascript" src="js/homepage.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
+</body>
+</html>

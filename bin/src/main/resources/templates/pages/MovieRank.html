@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>热映口碑榜 - 猫眼电影 - 一网打尽好电影</title>
+  <meta charset="utf-8">
+  <meta name="keywords" content="猫眼电影,电影排行榜,热映口碑榜,最受期待榜,国内票房榜,北美票房榜,猫眼TOP100">
+  <meta name="description" content="猫眼电影热门榜单,包括热映口碑榜,最受期待榜,国内票房榜,北美票房榜,猫眼TOP100,多维度为用户进行选片决策">
+  <meta http-equiv="cleartype" content="yes" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="renderer" content="webkit" />
+
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="format-detection" content="email=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+<link rel="stylesheet" href="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/common.d0f96cc2.css"/>
+<link rel="stylesheet" href="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/board-index.92a06072.css"/>
+</head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){  
+	function UrlSearch() 
+	{
+	   var name,value; 
+	   var str=location.href; //取得整个地址栏
+	   var num=str.indexOf("?") 
+	   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+	   var arr=str.split("&"); //各个参数放到数组里
+	   for(var i=0;i < arr.length;i++){ 
+	    num=arr[i].indexOf("="); 
+	    if(num>0){ 
+	     name=arr[i].substring(0,num);
+	     value=arr[i].substr(num+1);
+	     this[name]=value;
+	     } 
+	    } 
+	} 
+	var Request=new UrlSearch(); //实例化	
+	$("#s1").find("#"+Request.type).attr("class","active");
+	
+	$("#box").find("#box"+Request.type).attr("style","display:block");
+	if(Request.type==1){
+		$(".board-content").text("榜单规则：将昨日国内热映的影片，按照评分从高到低排列取前10名，每天上午10点更新。相关数据来源于“猫眼专业版”及“猫眼电影库”。")
+	}
+	if(Request.type==2){
+		$(".board-content").text("榜单规则：将昨日国内待映影片，按照之前30天的想看数总量从高到低排列取前10名，每天上午10点更新。相关数据来源于“猫眼电影库”。")
+	}
+	if(Request.type==3){
+		$(".board-content").text("榜单规则：将昨日国内热映的影片，按照昨日票房从高到低排列，每天上午10点更新。相关数据来源于“猫眼专业版”。")
+	}
+});  
+	
+	
+</script>
+<body>
+
+<!-- 头部选项 -->
+<div th:replace="include::head(index=${index})" ></div>
+
+<div class="header-placeholder"></div>
+
+<div  class="subnav">
+  <ul id="s1" class="navbar">
+    <li>
+      <a data-act="subnav-click"  href="rank?type=1"  id="1"
+      >热映口碑榜</a>
+    </li>
+    <li>
+      <a data-act="subnav-click"  href="rank?type=2"  id="2"          
+      >最受期待榜</a>
+    </li>
+    <li>
+      <a data-act="subnav-click"  href="rank?type=3"  id="3"
+      >国内票房榜</a>
+    </li>
+    <!-- <li>
+      <a data-act="subnav-click"  href="rank?type=4" id="4"
+          onclick="select(this)"
+      >北美票房榜</a>
+    </li>
+    <li>
+     <a data-act="subnav-click"  href="rank?type=5"  id="5"
+          onclick="select(this)"
+      >TOP100榜</a>
+    </li> -->
+  </ul>
+</div>
+
+<div class="container" id="app">
+
+<div class="content">
+    <div class="wrapper">
+        <div class="main">
+           <p class="update-time"> <span  th:text="${#dates.format(new java.util.Date().getTime(),'yyyy-MM-dd')}">2019-06-17</span><span class="has-fresh-text" th:text="已更新">已更新</span></p>
+            <p class="board-content">榜单规则：将昨日国内热映的影片，按照评分从高到低排列取前10名，每天上午10点更新。相关数据来源于“猫眼专业版”及“猫眼电影库”。</p>
+            <div id="box">
+            <dl class="board-wrapper" id="box1" style="display: none;">         
+                <dd th:each="a,userStat:${movie}">
+                        <i th:class="'board-index board-index-'+${userStat.count}"  th:text="${userStat.count}">${userStat.count}</i>
+    <a  th:title="${a.name}" class="image-link" data-act="boarditem-click" data-val="{movieId:1204589}">
+      <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+      <img th:src="${a.movieImage.image}" th:alt="${a.name}" class="board-img" />
+    </a>
+    <div class="board-item-main">
+      <div class="board-item-content">
+              <div class="movie-item-info">
+        <p class="name"><a href="/films/1204589"  th:title="${a.name}" data-act="boarditem-click" data-val="{movieId:1204589}" th:text="${a.name}"></a></p>
+        <p class="star"  th:text="'主演：'+${actor.get(userStat.count-1).toString().substring(1,actor.get(userStat.count-1).toString().length()-1)}" >
+        <!-- th:text="'主演：'+${actor.get(${userStat.count}).toString().substring(1,actor.get(${userStat.count}).toString().length()-1)}" -->
+                主演：${a.aname}
+        </p>
+<p class="releasetime" th:text="'上映时间：'+${#dates.format(a.releaseTime,'yyyy-MM-dd')}">上映时间：</p>    </div>
+    <div class="movie-item-number score-num">
+<!--     数字格式化 <span th:text="${#numbers.formatDecimal(money, 0, 2)}"></span> -->
+<!-- th:text="${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}>${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 1)}?${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}-1:${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}" -->
+ <p class="score"><i class="integer">9.</i>
+<!--   th:text="${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 1).substring(1)}"  -->
+ <i class="fraction">5</i></p>  
+    
+    </div>
+
+      </div>
+    </div>
+
+                </dd>
+                </dl>
+                <dl class="board-wrapper" id="box2" style="display: none;">
+                <dd th:each="a,userStat:${movie}">
+                        <i th:class="'board-index board-index-'+${userStat.count}"  th:text="${userStat.count}">${userStat.count}</i>
+    <a  th:title="${a.name}" class="image-link" data-act="boarditem-click" data-val="{movieId:1204589}">
+      <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+      <img th:src="${a.movieImage.image}" th:alt="${a.name}" class="board-img" />
+    </a>
+    <div class="board-item-main">
+      <div class="board-item-content">
+              <div class="movie-item-info">
+        <p class="name"><a href="/films/1218029" th:title="${a.name}" data-act="boarditem-click" data-val="{movieId:1218029}" th:text="${a.name}">少年的你</a></p>
+<p class="star" th:text="'主演：'+${actor.get(userStat.count-1).toString().substring(1,actor.get(userStat.count-1).toString().length()-1)}" >主演：周冬雨,易烊千玺,尹昉</p>
+<p class="releasetime" th:text="'上映时间：'+${#dates.format(a.releaseTime,'yyyy-MM-dd')}">上映时间：2019-06-27</p>    </div>
+    <div class="movie-item-number wish">
+        <p class="month-wish">本月新增想看：<span><span class="stonefont">&#xe3ea;&#xe507;&#xe3ea;&#xf4ba;&#xea78;&#xe69f;</span></span>人</p>
+        <p class="total-wish">总想看：<span><span class="stonefont">&#xf527;&#xe688;&#xe507;&#xe7d2;&#xe4ce;&#xe3ea;</span></span>人</p>
+    </div>
+
+      </div>
+    </div>
+
+                </dd>
+                </dl>
+                <dl class="board-wrapper" id="box3" style="display: none;">
+                <dd th:each="a,userStat:${movie}">
+                        <i th:class="'board-index board-index-'+${userStat.count}"  th:text="${userStat.count}">${userStat.count}</i>
+    <a th:title="${a.name}" href="/films/1212" title="千与千寻" class="image-link" data-act="boarditem-click" data-val="{movieId:1212}">
+      <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+      <img th:src="${a.movieImage.image}" th:alt="${a.name}" class="board-img" />
+    </a>
+    <div class="board-item-main">
+      <div class="board-item-content">
+              <div class="movie-item-info">
+        <p class="name"><a href="/films/1212" th:title="${a.name}"data-act="boarditem-click" data-val="{movieId:1212}" th:text="${a.name}">千与千寻</a></p>
+<p class="star" th:text="'主演：'+${actor.get(userStat.count-1).toString().substring(1,actor.get(userStat.count-1).toString().length()-1)}" >主演：柊瑠美,周冬雨,入野自由</p>
+<p class="releasetime" th:text="'上映时间：'+${#dates.format(a.releaseTime,'yyyy-MM-dd')}">上映时间：2019-06-21</p>    </div>
+    <div class="movie-item-number boxoffice">
+        <p class="realtime">实时票房:        <span><span class="stonefont">&#xee92;&#xe15f;&#xe66b;&#xe66b;.&#xee92;</span></span>万
+</p>
+        <p class="total-boxoffice">总票房:        <span><span class="stonefont">&#xe66b;.&#xf596;&#xf5c5;</span></span>亿
+</p>
+    </div>
+
+      </div>
+    </div>
+
+                </dd>
+                </dl>
+                </div>
+                </div>
+                
+            
+
+        </div>
+    </div>
+</div>
+
+    </div>
+
+<div class="footer" style="visibility: visible;">
+		<p class="friendly-links">
+			关于猫眼 : <a href="http://ir.maoyan.com/s/index.php#pageScroll0"
+				target="_blank">关于我们</a> <span></span> <a
+				href="http://ir.maoyan.com/s/index.php#pageScroll1" target="_blank">管理团队</a>
+			<span></span> <a href="http://ir.maoyan.com/s/index.php#pageScroll2"
+				target="_blank">投资者关系</a> &nbsp;&nbsp;&nbsp;&nbsp; 友情链接 : <a
+				href="http://www.meituan.com/" data-query="utm_source=wwwmaoyan"
+				target="_blank">美团网</a> <span></span> <a
+				href="http://www.gewara.com/" data-query="utm_source=wwwmaoyan">格瓦拉</a>
+			<span></span> <a href="http://i.meituan.com/client"
+				data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a> <span></span>
+			<a href="https://www.huanxi.com/" data-query="utm_source=maoyan_pc"
+				target="_blank">欢喜首映</a>
+		</p>
+		<p class="friendly-links">
+			商务合作邮箱：v@maoyan.com 客服电话：10105335 违法和不良信息举报电话：4006018900 <br>
+			投诉举报邮箱：tousujubao@meituan.com 舞弊线索举报邮箱：wubijubao@maoyan.com
+		</p>
+		<p>
+			©2016 猫眼电影 maoyan.com <a
+				href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&amp;keyword=%E4%BA%ACICP%E8%AF%81160733%E5%8F%B7&amp;pageNo=1"
+				target="_blank">京ICP证160733号</a> <a
+				href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16022489号-1</a>
+			<a
+				href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232"
+				target="_blank">京公网安备 11010102003232号</a> <a
+				href="https://maoyan.com/about/licence" target="_blank">网络文化经营许可证</a>
+			<a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
+		</p>
+		<p>北京猫眼文化传媒有限公司</p>
+	</div>
+</body>
+</html>

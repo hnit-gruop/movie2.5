@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../../webapp/static/css/style.css" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" src="../../../webapp/static/js/thymeleaf.js" th:src="@{/js/thymeleaf.js}"></script>
+    <style>
+        h2{
+            text-decoration: underline;
+            font-size:0.9em;
+            color:gray;
+        }
+    </style>       
+</head>
+<body>
+ 
+<div class="showing">
+    <h2>条件判断</h2>
+    <p th:if="${testBoolean}" >如果testBoolean 是 true ，本句话就会显示</p>
+    <p th:if="${not testBoolean}" >取反 ，所以如果testBoolean 是 true ，本句话就不会显示</p>
+    <p th:unless="${testBoolean}" >unless 等同于上一句，所以如果testBoolean 是 true ，本句话就不会显示</p>
+    <p th:text="${testBoolean}?'当testBoolean为真的时候，显示本句话，这是用三相表达式做的':''" ></p>
+    
+    <h2>遍历</h2>
+ 
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>产品名称</th>
+                <th>价格</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p: ${ps}">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.name}"></td>
+                <td th:text="${p.price}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+            <div th:each="p: ${ps}">
+            	<h2>hahaha</h2>
+            </div>
+            
+    
+</div>
+<div class="showing">
+    <h2>显示 转义和非转义的 html 文本</h2>
+    <p th:text="${htmlContent}" ></p>
+    <p th:utext="${htmlContent}" ></p>
+    <span th:text="${currentProduct.name}"></span>
+</div>
+ 
+<div class="showing">
+    <h2>显示对象以及对象属性</h2>
+    <p th:text="${currentProduct}" ></p>
+    <p th:text="${currentProduct.name}" ></p>
+    <p th:text="${currentProduct.getName()}" ></p>
+</div>
+ 
+<div class="showing" th:object="${currentProduct}">
+    <h2>*{}方式显示属性</h2>
+    <p th:text="*{name}" ></p>
+    <p th:text="*{price}" ></p>
+</div>
+ 
+<div class="showing">
+    <h2>算数运算</h2>
+    <p th:text="${currentProduct.price+999}" ></p>
+</div>
+ <div th:replace="include::footer1" ></div>
+<div th:replace="include::footer2(2015,2018)" ></div>
+</body>
+ 
+</html>

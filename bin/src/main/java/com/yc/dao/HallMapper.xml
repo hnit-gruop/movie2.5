@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.HallMapper">
+  <resultMap id="BaseResultMap" type="com.yc.bean.Hall">
+    <id column="hall_id" jdbcType="INTEGER" property="hallId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="hall_type" jdbcType="VARCHAR" property="hallType" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="cinema_id" jdbcType="INTEGER" property="cinemaId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hall_id, name, hall_type, capacity, cinema_id
+  </sql>
+  <select id="selectByExample" parameterType="com.yc.bean.HallExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hall
+    where hall_id = #{hallId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hall
+    where hall_id = #{hallId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yc.bean.HallExample">
+    delete from hall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yc.bean.Hall">
+    insert into hall (hall_id, name, hall_type, 
+      capacity, cinema_id)
+    values (#{hallId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{hallType,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{cinemaId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yc.bean.Hall">
+    insert into hall
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hallId != null">
+        hall_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="hallType != null">
+        hall_type,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="cinemaId != null">
+        cinema_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hallId != null">
+        #{hallId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hallType != null">
+        #{hallType,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="cinemaId != null">
+        #{cinemaId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yc.bean.HallExample" resultType="java.lang.Long">
+    select count(*) from hall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hall
+    <set>
+      <if test="record.hallId != null">
+        hall_id = #{record.hallId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hallType != null">
+        hall_type = #{record.hallType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacity != null">
+        capacity = #{record.capacity,jdbcType=INTEGER},
+      </if>
+      <if test="record.cinemaId != null">
+        cinema_id = #{record.cinemaId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hall
+    set hall_id = #{record.hallId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      hall_type = #{record.hallType,jdbcType=VARCHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
+      cinema_id = #{record.cinemaId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yc.bean.Hall">
+    update hall
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hallType != null">
+        hall_type = #{hallType,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="cinemaId != null">
+        cinema_id = #{cinemaId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hall_id = #{hallId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yc.bean.Hall">
+    update hall
+    set name = #{name,jdbcType=VARCHAR},
+      hall_type = #{hallType,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      cinema_id = #{cinemaId,jdbcType=INTEGER}
+    where hall_id = #{hallId,jdbcType=INTEGER}
+  </update>
+</mapper>

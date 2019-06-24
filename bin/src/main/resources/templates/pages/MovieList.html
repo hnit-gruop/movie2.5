@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://maoyan.com/films?sortId=3 -->
+<html xmlns:th="http://www.thymeleaf.org"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>正在热映 - 猫眼电影 - 一网打尽好电影</title>
+
+  
+  <meta name="keywords" content="衡阳,正在热映,即将上映,经典电影">
+  <meta name="description" content="国内观众优选的在线购票平台，用户流行的观影决策平台。">
+  <meta http-equiv="cleartype" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+
+  <meta name="HandheldFriendly" content="true">
+  <meta name="format-detection" content="email=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/movie-list.22f5a22a.css">
+ 
+<meta name="lx:autopv" content="off"><meta name="lx:appnm" content="movie"><meta name="lx:category" content="movie"></head>
+<body>
+
+
+<div th:replace="include::head(index=${index})" ></div>
+
+<div class="header-placeholder"></div>
+
+<script type="text/javascript">
+	function select(element){
+		$("#list1").find(".active").removeAttr("class");
+		$(element).attr("class","active");
+	}
+</script>
+
+<div class="subnav">
+  <ul class="navbar" id="list1">
+    <li >
+      <a class="active" onclick = "select(this)">正在热映</a>
+    </li>
+    <li>
+      <a  onclick = "select(this)">即将上映</a>
+    </li>
+    <li>
+      <a onclick = "select(this)">经典影片</a>
+    </li>
+  </ul>
+</div>
+
+    <div class="container" id="app">
+
+
+<div class="movies-channel">
+  <div class="tags-panel">
+    <ul class="tags-lines">
+      <li class="tags-line" data-val="{tagTypeName:&#39;cat&#39;}">
+        <div class="tags-title">类型 :</div>
+        <ul class="tags">
+          <li class="active" data-state-val="{ catTagName:&#39;全部&#39;}">
+            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;爱情&#39;}" href="https://maoyan.com/films?sortId=3&amp;catId=3">爱情</a>
+          </li>
+		
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;其他&#39;}" href="https://maoyan.com/films?sortId=3&amp;catId=100">其他</a>
+          </li>
+        </ul>
+      </li>
+      <li class="tags-line tags-line-border" data-val="{tagTypeName:&#39;source&#39;}">
+        <div class="tags-title">区域 :</div>
+        <ul class="tags">
+          <li class="active" data-state-val="{ sourceTagName:&#39;全部&#39;}">
+            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;大陆&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=2">大陆</a>
+          </li>
+          
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;其他&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=100">其他</a>
+          </li>
+        </ul>
+      </li>
+      <li class="tags-line tags-line-border" data-val="{tagTypeName:&#39;year&#39;}">
+        <div class="tags-title">年代 :</div>
+        <ul class="tags">
+          <li class="active" data-state-val="{ yearTagName:&#39;全部&#39;}">
+            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2019以后&#39;}" href="#">2019以后</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2019&#39;}" href="#">2019</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2018&#39;}" href="#">2018</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2017&#39;}" href="#">2017</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2016&#39;}" href="#">2016</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2015&#39;}" href="#">2015</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2014&#39;}" href="#">2014</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2013&#39;}"href="#">2013</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2012&#39;}" href="#">2012</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2011&#39;}" href="#">2011</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;2000-2010&#39;}"href="#">2000-2010</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;90年代&#39;}" href="#">90年代</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;80年代&#39;}" href="#">80年代</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;70年代&#39;}" href="#">70年代</a>
+          </li>
+          <li>
+            <a data-act="tag-click" data-val="{TagName:&#39;更早&#39;}" href="#">更早</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="movies-panel">
+    <div class="movies-sorter">
+      <div class="cat-sorter">
+      <script>
+      	function select2(e){
+      		$("#list2").find(".sort-radio-checked").attr("class","sort-control sort-radio");
+    		$(e).attr("class","sort-control sort-radio sort-radio-checked");
+      	}
+      </script>
+        <ul id = "list2">
+          <li>
+            <span class="sort-control-group" >
+              <span class="sort-control sort-radio sort-radio-checked" onclick="select2(this)"></span>
+              <span class="sort-control-label">按热门排序</span>
+            </span>
+          </li>
+          <li>
+            <span class="sort-control-group" >
+              <span class="sort-control sort-radio" onclick="select2(this)" ></span>
+              <span class="sort-control-label">按时间排序</span>
+            </span>
+          </li>
+          <li>
+            <span class="sort-control-group"  >
+              <span class="sort-control sort-radio"  onclick="select2(this)"></span>
+              <span class="sort-control-label">按评价排序</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="play-sorter">
+        <span class="sort-control-group" data-act="isplay-click" data-val="{isplay:1}" data-href="?sortId=3&amp;isPlay=1" onclick="location.href=this.getAttribute(&#39;data-href&#39;)">
+          <span class="sort-control sort-checkbox"></span>
+          <span class="sort-control-label">可播放</span>
+        </span>
+      </div>
+    </div>
+    <div class="movies-list">
+    
+    <dl class="movie-list">
+	
+  <dd th:each="i:${#numbers.sequence(0,30)}">
+    <div class="movie-item">
+      <a href="#" target="_blank" data-act="movie-click" data-val="{movieid:1204589}">
+      <div class="movie-poster">
+        <img class="poster-default" src="">
+        <img src="img/绝杀幕尼黑.jpg">
+      </div>
+      </a>
+        <div class="channel-action channel-action-sale">
+  <a>购票</a>
+</div>
+
+      <div class="movie-ver"></div>
+    </div>
+    <div class="channel-detail movie-item-title" title="绝杀慕尼黑">
+      <a href="#" target="_blank" data-act="movies-click" data-val="{movieId:1204589}">绝杀慕尼黑</a>
+    </div>
+<div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">6</i></div>
+  
+  </dd></dl>
+
+    </div>
+    <div class="movies-pager">
+      
+    </div>
+  </div>
+</div>
+
+    </div>
+
+<div class="footer" style="visibility: visible;">
+    <p class="friendly-links">
+        关于猫眼 :
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll0" target="_blank">关于我们</a>
+        <span></span>
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll1" target="_blank">管理团队</a>
+        <span></span>
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll2" target="_blank">投资者关系</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        友情链接 :
+        <a href="http://www.meituan.com/" data-query="utm_source=wwwmaoyan" target="_blank">美团网</a>
+        <span></span>
+        <a href="http://www.gewara.com/" data-query="utm_source=wwwmaoyan">格瓦拉</a>
+        <span></span>
+        <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
+        <span></span>
+        <a href="https://www.huanxi.com/" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>
+    </p>
+    <p class="friendly-links">
+      商务合作邮箱：v@maoyan.com
+      客服电话：10105335
+      违法和不良信息举报电话：4006018900
+      <br>
+      投诉举报邮箱：tousujubao@meituan.com
+      舞弊线索举报邮箱：wubijubao@maoyan.com
+    </p>
+    <p>
+        ©2016
+        猫眼电影 maoyan.com
+        <a href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&amp;keyword=%E4%BA%ACICP%E8%AF%81160733%E5%8F%B7&amp;pageNo=1" target="_blank">京ICP证160733号</a>
+        <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16022489号-1</a>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232" target="_blank">京公网安备 11010102003232号</a>
+        <a href="https://maoyan.com/about/licence" target="_blank">网络文化经营许可证</a>
+        <a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
+    </p>
+    <p>北京猫眼文化传媒有限公司</p>
+</div>
+
+
+
+</body></html>

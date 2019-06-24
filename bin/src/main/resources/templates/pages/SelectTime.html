@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>选择观影时间</title>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/selectSeat.css">
+    <link rel="stylesheet" type="text/css" href="css/mySelectTime.css">
+</head>
+<body>
+<div class="header">
+    <div th:replace="include::commonHead" ></div>
+    <div class="banner2">
+        <div class="wrapper clearfix">
+            <div class="cinema-left">
+                <div class="avatar-shadow">
+                    <img class="avatar" src="https://p1.meituan.net/deal/__32772470__1178368.jpg@292w_292h_1e_1c">
+                    <div class="avatar-num">查看全部21张图片</div>
+                </div>
+            </div>
+
+            <div class="cinema-main clearfix">
+                <div class="cinema-brief-container">
+                    <h3 class="name text-ellipsis">${sessionScope.SingleCinema.name}</h3>
+                    <div class="address text-ellipsis">${sessionScope.SingleCinema.address}</div>
+                    <div class="telphone">电话：<span></span></div>
+
+                    <div class="features-group">
+                        <div class="group-title">影院服务</div>
+
+                        <div class="feature">
+                            <span class="tag ">3D眼镜</span>
+                            <p class="desc text-ellipsis" title="免押金">免押金</p>
+                        </div>
+                        <div class="feature">
+                            <span class="tag ">儿童优惠</span>
+                            <p class="desc text-ellipsis" title="儿童优惠">1.3米以下小朋友可享受无座免票</p>
+                        </div>
+                        <div class="feature">
+                            <span class="tag ">可停车</span>
+                            <p class="desc text-ellipsis" title="可停车">目前免费，详请现场咨询影城</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="main">
+        <div class="main-inner">
+            <div class="show-list active" data-index="0">
+                <div class="movie-info">
+                    <div>
+
+                        <h3 class="movie-name">${sessionScope.SingleMovie.name}</h3>
+                        <span class="score sc">${sessionScope.SingleMovie.score}</span>
+
+                    </div>
+
+                    <div class="movie-desc">
+                        <div>
+                            <span class="key" id="my-movie-time">时长 :</span>
+                            <span class="value" id="my-movie-time-value">${sessionScope.SingleMovie.duration}</span>
+                        </div>
+                        <div>
+                            <span class="key" id="my-movie-type">类型 :</span>
+                            <span class="value" id="my-movie-type-value"> ${sessionScope.SingleMovie.type} </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="show-date">
+                    <span>观影时间 :</span>
+
+                </div>
+
+                <div class="plist-container active">
+                    <table class="plist">
+                        <thead>
+                        <tr>
+                            <th>放映时间</th>
+                            <th>语言版本</th>
+                            <th>放映厅</th>
+                            <th>售价（元）</th>
+                            <th>选座购票</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="my-time-body">
+                            <tr class="my-time-row">
+                                <td>
+                                    <span class="begin-time">${u.time}</span>
+                                    <br>
+                                    <!-- <span class="end-time">15:18散场</span> -->
+                                </td>
+                                <td>
+                                    <span class="lang">中文2D</span>
+                                </td>
+                                <td>
+                                    <span class="hall">${u.hallName}</span>
+                                </td>
+                                <td>
+                                    <span class="sell-price"><span class="stonefont">${u.price}</span></span>
+                                </td>
+                                <td>
+                                    <a href="JavaScript:void(0)" class="buy-btn normal" >选座购票</a>
+                                </td>
+                            </tr>
+							 <tr class="my-time-row">
+                                <td>
+                                    <span class="begin-time">${u.time}</span>
+                                    <br>
+                                    <!-- <span class="end-time">15:18散场</span> -->
+                                </td>
+                                <td>
+                                    <span class="lang">中文2D</span>
+                                </td>
+                                <td>
+                                    <span class="hall">${u.hallName}</span>
+                                </td>
+                                <td>
+                                    <span class="sell-price"><span class="stonefont">${u.price}</span></span>
+                                </td>
+                                <td>
+                                    <a href="JavaScript:void(0)" class="buy-btn normal" >选座购票</a>
+                                </td>
+                            </tr>
+							 <tr class="my-time-row">
+                                <td>
+                                    <span class="begin-time">${u.time}</span>
+                                    <br>
+                                    <!-- <span class="end-time">15:18散场</span> -->
+                                </td>
+                                <td>
+                                    <span class="lang">中文2D</span>
+                                </td>
+                                <td>
+                                    <span class="hall">${u.hallName}</span>
+                                </td>
+                                <td>
+                                    <span class="sell-price"><span class="stonefont">${u.price}</span></span>
+                                </td>
+                                <td>
+                                    <a href="JavaScript:void(0)" class="buy-btn normal" >选座购票</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="footer">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/SelectTime.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8"><![endif]-->
+<!--[if IE 9]><html class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>影院 - 猫眼电影 - 一网打尽好电影</title>
+
+  <meta charset="utf-8">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta http-equiv="cleartype" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+
+  <meta name="HandheldFriendly" content="true">
+  <meta name="format-detection" content="email=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+ <script type="text/javascript" src="js/jquery.min.js"></script>
+ <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/cinemas-list.css">
+
+</head>
+<div th:replace="include::head(index=${index})" ></div>
+<div class="header-placeholder"></div>
+
+
+    <div class="container" id="app">
+  <div class="tags-panel">
+    <ul class="tags-lines">
+    
+        <li class="tags-line" data-type="brand">
+          <div class="tags-title">品牌:</div>
+          <ul class="tags">
+            <li class="active">
+              <a data-act="tag-click" data-val="{TagName:'全部', city_id:265}" data-id="-1" href="https://maoyan.com/cinemas?brandId=-1" data-bid="b_x9tdpsnb">全部</a>
+            </li>
+            <li class="">
+              <a data-act="tag-click" data-val="{TagName:'星美国际影城', city_id:265}" data-id="30032" href="https://maoyan.com/cinemas?brandId=30032" data-bid="b_x9tdpsnb">星美国际影城</a>
+            </li>
+            <li class="">
+              <a data-act="tag-click" data-val="{TagName:'其他', city_id:265}" data-id="0" href="https://maoyan.com/cinemas?brandId=0" data-bid="b_x9tdpsnb">其他</a>
+            </li>
+          </ul>
+        </li>
+        <li class="tags-line tags-line-border" data-type="district">
+          <div class="tags-title">行政1区:</div>
+          <ul class="tags">
+            <li class="active">
+              <a data-act="tag-click" data-val="{TagName:'全部', city_id:265}" data-id="-1" href="https://maoyan.com/cinemas?districtId=-1" data-bid="b_arz3865r">全部</a>
+            </li>
+            <li class="">
+              <a data-act="tag-click" data-val="{TagName:'衡东县', city_id:265}" data-id="3547" href="https://maoyan.com/cinemas?districtId=3547" data-bid="b_arz3865r">衡东县</a>
+            </li>
+          </ul>
+        </li>
+		
+		
+        <li class="tags-line tags-line-border" data-type="hallType">
+          <div class="tags-title">特殊厅:</div>
+          <ul class="tags">
+            <li class="active">
+              <a data-act="tag-click" data-val="{TagName:'全部', city_id:265}" data-id="-1" href="https://maoyan.com/cinemas?hallType=-1" data-bid="b_bmcmwqi9">全部</a>
+            </li>
+            <li class="">
+              <a data-act="tag-click" data-val="{TagName:'IMAX厅', city_id:265}" data-id="2" href="https://maoyan.com/cinemas?hallType=2" data-bid="b_bmcmwqi9">IMAX厅</a>
+            </li>
+          </ul>
+        </li>
+    </ul>
+  </div>
+
+  <div class="cinemas-list">
+    <h2 class="cinemas-list-header">影院列表</h2>
+    
+      <div class="cinema-cell" th:each="i:${#numbers.sequence(0,5)}">
+        <div class="cinema-info">
+          <a href="https://maoyan.com/cinema/9749?poi=6575579" class="cinema-name" data-act="cinema-name-click" data-bid="b_4tkpau4m" data-val="{city_id: 265, cinema_id: 9749}">搏广电影院</a>
+          <p class="cinema-address">地址：衡南县雅园南路三元超市隔壁</p>
+        </div>
+
+        <div class="buy-btn">
+          <a href="https://maoyan.com/cinema/9749?poi=6575579" data-act="buy-btn-click" data-val="{city_id: 265, cinema_id: 9749}" data-bid="b_4tkpau4m">选座购票</a>
+        </div>
+        
+        <div class="price">
+            <span class="rmb red">￥</span>
+            <span class="price-num red"><span class="stonefont">33.5</span></span>
+            <span>起</span>
+        </div>
+      </div>
+  </div>
+
+ <div class="cinema-pager">
+  <ul class="list-pager">
+  <li>  <a class="page_2" href="#">上一页</a>
+ </li>
+    <li class="active">
+    <a class="page_1" href="javascript:void(0);" style="cursor: default">1</a>
+	</li>
+  <li>
+    <a class="page_2" href="https://maoyan.com/cinemas?offset=12">2</a>
+	</li>
+  <li>
+    <a class="page_3" href="https://maoyan.com/cinemas?offset=24">3</a>
+</li>
+<li>  <a class="page_2" href="https://maoyan.com/cinemas?offset=12">下一页</a>
+</li>
+</ul>
+  </div>
+  
+  
+    </div>
+
+<div class="footer" style="visibility: visible;">
+    <p class="friendly-links">
+        关于猫眼 :
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll0" target="_blank">关于我们</a>
+        <span></span>
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll1" target="_blank">管理团队</a>
+        <span></span>
+        <a href="http://ir.maoyan.com/s/index.php#pageScroll2" target="_blank">投资者关系</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        友情链接 :
+        <a href="http://www.meituan.com/" data-query="utm_source=wwwmaoyan" target="_blank">美团网</a>
+        <span></span>
+        <a href="http://www.gewara.com/" data-query="utm_source=wwwmaoyan">格瓦拉</a>
+        <span></span>
+        <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
+        <span></span>
+        <a href="https://www.huanxi.com/" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>
+    </p>
+    <p class="friendly-links">
+      商务合作邮箱：v@maoyan.com
+      客服电话：10105335
+      违法和不良信息举报电话：4006018900
+      <br>
+      投诉举报邮箱：tousujubao@meituan.com
+      舞弊线索举报邮箱：wubijubao@maoyan.com
+    </p>
+    <p>
+        ©2016
+        猫眼电影 maoyan.com
+        <a href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&amp;keyword=%E4%BA%ACICP%E8%AF%81160733%E5%8F%B7&amp;pageNo=1" target="_blank">京ICP证160733号</a>
+        <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16022489号-1</a>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232" target="_blank">京公网安备 11010102003232号</a>
+        <a href="https://maoyan.com/about/licence" target="_blank">网络文化经营许可证</a>
+        <a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
+    </p>
+    <p>北京猫眼文化传媒有限公司</p>
+</div>
+
+   
+   
+
+</body></html>

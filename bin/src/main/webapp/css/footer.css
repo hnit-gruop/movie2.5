@@ -1,0 +1,22 @@
+.footer{
+    height: 100px;
+    background-color: #262426;
+    position: relative;
+}
+
+.footer .subfooter{
+    width: 600px;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -20px;
+    margin-left: -300px;
+    text-align: center;
+}
+.footer p{
+    margin: 10px;
+	color:#fff;
+    font-size: 15px;
+
+}

@@ -1,0 +1,89 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="head(index)">
+
+	<div class="header-inner">
+		<a href="#" class="logo" data-act="icon-click"></a>
+		<div class="city-container" data-val="{currentcityid:265 }">
+			<div class="city-selected">
+				<div class="city-name">
+					衡阳 <span class="caret"></span>
+				</div>
+			</div>
+			<div class="city-list" data-val="{ localcityid: 265 }">
+				<div class="city-list-header">
+					定位城市：<a class="js-geo-city">衡阳</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="nav">
+			<ul class="navbar">
+				<li><a id="a1" href="index">首页</a></li>
+				<li><a id="a2" href="movieList">电影</a></li>
+				<li><a id="a3" href="cinema">影院</a></li>
+				<li><a id="a4" href="rank?type=1">榜单</a></li>
+				<li><a href="#">演出</a></li>
+				<li><a href="#">热点</a></li>
+				<li><a href="#">商城</a></li>
+			</ul>
+		</div>
+		<script>
+		var index = [[${index}]];//js中取值
+		if(index==1){
+			$("#a1").attr("class","active");
+		}else if(index == 2){
+			$("#a2").attr("class","active");
+		}else if(index == 3){
+			$("#a3").attr("class","active");
+		}else if(index == 4){
+			$("#a4").attr("class","active");
+		}
+     </script>
+
+				<div class="user-info" th:if="${session.user!=null}">
+			<div class="user-avatar has-login">
+				<img th:src="@{/userHead/{filename} (filename=${session.user.headImg})}" > <span
+					class="caret"></span>
+				<ul class="user-menu">
+					<li class="text"><a href="https://maoyan.com/profile/orders">我的订单</a>
+					</li>
+					<li class="text login-name" title="OcB315171384"><a
+						href="javascript:void 0">基本信息</a></li>
+					<li class="text"><a href="logout" >退出登录</a></li>
+				</ul>
+			</div>
+		</div>
+		   
+			<div class="user-info" th:if="${session.user==null}">
+			<div class="user-avatar">
+				<img th:src="@{/userHead/user_not_login_head.png}" > <span
+					class="caret"></span>
+				<ul class="user-menu">
+					<li class="text"><a href="testlog">登陆</a>
+					</li>
+					<li class="text login-name" title="OcB315171384"><a
+						href="javascript:void 0">注册</a></li>
+				</ul>
+			</div>
+		</div>
+
+
+	<!-- 搜索 -->
+		<form action="/search" target="_blank"
+			class="search-form" data-actform="search-click">
+			<input name="kw" class="search" type="search" maxlength="32"
+				placeholder="找电影、影人" autocomplete="off"> <input
+				class="submit" type="submit" value="">
+		</form>
+	</div>
+</div>
+
+
+<footer th:fragment="footer1">
+	<p>All Rights Reserved</p>
+</footer>
+<footer th:fragment="footer2(start,now)">
+	<p th:text="|${start} - ${now} All Rights Reserved|"></p>
+</footer>
+
+</html>
