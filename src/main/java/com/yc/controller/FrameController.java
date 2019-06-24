@@ -240,7 +240,7 @@ public class FrameController {
         	misi.update(mi);
         }
         String fileName = file.getOriginalFilename();
-        String filePath = "D:/upload/";
+        String filePath = "D:\\upload\\movieImg\\cover\\";
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
