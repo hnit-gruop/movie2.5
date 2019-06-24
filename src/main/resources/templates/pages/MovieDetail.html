@@ -256,7 +256,6 @@
           					if(a>0){
           						$(e).find(".num").html(parseInt(a)-1);
           					}
-          					
           				}
           			});
           		}else{
@@ -285,7 +284,6 @@
 <ul>
     <li class="comment-container "  th:each="c:${commonts}" >
     
-    
       <div class="portrait-container">
         <div class="portrait">
           <img th:src="@{/userHead/{filename}  (filename=${c.user.headImg})}">
@@ -310,12 +308,14 @@
 			</ul>
           </div>
           
+          
           <div id = "hand" class="approve" onclick="agree(this)" th:if="${c.agree==false}">
          	 	<input class="cid" hidden="hidden" th:value="${c.commentsId}">
             <i  class="approve-icon"></i><span class="num" th:text="${c.agreeCnt}">0</span>
           </div>
           
-             <div id = "hand" class="approve active" onclick="agree(this)" th:if="${c.agree==true}">
+          
+           <div id = "hand" class="approve active" onclick="agree(this)" th:if="${c.agree==true}">
              	<input class="cid" hidden="hidden" th:value="${c.commentsId}">
             <i  class="approve-icon"></i><span class="num" th:text="${c.agreeCnt}"></span>
           </div>
