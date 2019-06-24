@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../webapp/static/css/style.css" th:href="@{/static/css/style.css}"/>
+	<script type="text/javascript" src="../../webapp/static/js/thymeleaf.js" th:src="@{/static/js/thymeleaf.js}"></script>
+</head>
+<script type="text/javascript">
+testFunction();
+</script>
+<body>
+<div class="showing">
+	<p th:text="${name}" >name</p>
+	<p th:text="'Hello！ ' + ${name} + '!'" >hello world</p>
+	<p th:text="|Hello！ ${name}!|" >hello world</p>
+</div>
+</body>
+</html>

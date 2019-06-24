@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>购票</title>
+
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/buyTickets.css">
+    <link rel="stylesheet" type="text/css" href="css/myBuyTicket.css">
+</head>
+<body>
+
+<div class="header">
+
+    <div class="header-top">
+        <div class="header-inner">
+            <a href="./HomePage.html"><img class="logo" src="img/logo.jpg"></a>
+            <div class="nav">
+                <ul>
+                    <li><a href="./HomePage.html">首页</a></li>
+                    <li><a href="./MovieList.html">电影</a></li>
+                    <li><a href="javascript:void(0)">影院</a></li>
+                    <li><a href="javascript:void(0)">榜单</a></li>
+                </ul>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar J-login">
+                    <img src="img/user_not_login_head.png">
+                    <span class="caret"></span>
+                    <ul class="user-menu">
+                        <li><a href="./Login.html">登录</a></li>
+                    </ul>
+                </div>
+            </div>
+            <form id="search-film-my" action="">
+                <input name="searchMovie" class="search" type="search" maxlength="32" placeholder="找影视剧"
+                       autocomplete="off">
+                <input class="submit" type="button" value="">
+            </form>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="banner2">
+        <div class="wrapper clearfix">
+            <div class="celeInfo-left">
+                <div class="avatar-shadow">
+                    <img class="avatar" src="" alt="">
+                </div>
+            </div>
+
+            <div class="celeInfo-right clearfix">
+                <div class="movie-brief-container">
+                    <h3 class="name"></h3>
+                    <div class="ename ellipsis"></div>
+                    <ul>
+                        <li class="ellipsis" id="type"></li>
+                        <li class="ellipsis" id="origin">
+
+                        </li>
+                        <li class="ellipsis" id="time"></li>
+                    </ul>
+                </div>
+                <div class="action-buyBtn">
+                    <div class="action clearfix" data-val="{movieid:42964}">
+                        <a class="wish " data-wish="false" data-score="" data-bid="b_gbxqtw6x">
+                            <div>
+                                <i class="icon wish-icon"></i>
+                                <span class="wish-msg" data-act="wish-click">想看</span>
+                            </div>
+                        </a>
+                        <a class="score-btn " data-bid="b_rxxpcgwd">
+                            <div>
+                                <i class="icon score-btn-icon"></i>
+                                <span class="score-btn-msg" data-act="comment-open-click">
+				                	评分
+				            		</span>
+                            </div>
+                        </a>
+                    </div>
+                    <a class="btn buy" href="./MovieDetail.html" >查看更多电影详情</a>
+                </div>
+
+                <div class="movie-stats-container">
+
+                    <div class="movie-index">
+                        <p class="movie-index-title">用户评分</p>
+                        <div class="movie-index-content score normal-score">
+			             		<span class="index-left info-num ">
+			                		<span class="stonefont" id="my-score"></span>
+			              		</span>
+                            <div class="index-right">
+                                <div class="star-wrapper">
+                                    <div class="star-on" style="width:93%;"></div>
+                                </div>
+                                <span class="score-num"><span class="stonefont" id="score-num-my"></span>人评分</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-index">
+                        <p class="movie-index-title">累计票房</p>
+                        <div class="movie-index-content box">
+                            <span class="stonefont" id="my-box-office"></span>
+                            <span class="unit">亿</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="main-inner">
+        <div class="tags-panel">
+            <ul class="tags-lines">
+                <li class="tags-line">
+                    <div class="tags-title">日期:</div>
+                    <ul class="tags" id="my-ul-time">
+                        <li id="my-time">
+                            <a href="javascript:void(0)">
+                                今天 11月19
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="tags-line tags-line-border" data-type="brand">
+                    <div class="tags-title">品牌:</div>
+                    <ul class="tags" id="my-ul-pinpai">
+                        <li id="my-pinpai">
+                            <a href="javascript:void(0)">全部</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <li class="tags-line tags-line-border" data-type="district">
+                    <div class="tags-title">行政区:</div>
+                    <ul class="tags" id="my-ul-xingzhengqu">
+                        <li id="my-xingzhengqu">
+                            <a href="javascript:void(0)">全部</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tags-line tags-line-border" data-type="hallType">
+                    <div class="tags-title">特殊厅:</div>
+                    <ul class="tags" id="my-ul-teshuting">
+                        <li id="my-teshuting">
+                            <a href="javascript:void(0)">全部</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="cinemas-list">
+
+            <h2 class="cinemas-list-header">影院列表</h2>
+
+            <div class="cinema-cell" id="my-cinema-cell">
+                <div id="my-cinema-info" class="my-cinema-infos">
+                    <div class="cinema-info">
+                        <a href="javascript:void(0)" class="cinema-name" id="my-cinema-name"></a>
+                        <p class="cinema-address" id="my-cinema-address"></p>
+                    </div>
+
+                    <div class="buy-btn">
+                        <a href="./SelectTime.html">选座购票</a>
+                    </div>
+
+                    <div class="price">
+                        <span class="rmb red">￥</span>
+                        <span class="price-num red"><span class="stonefont">38</span></span>
+                        <span>起</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/buyticket.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+</body>
+</html>

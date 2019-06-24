@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>搜索结果</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="css/maoyan-common.css"/>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" href="css/maoyan-query-index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/myBuyTicket.css">
+</head>
+<body>
+
+<div class="header">
+    <div th:replace="include::commonHead" ></div>
+</div>
+
+<div class="search-box">
+    <div class="search-form">
+        <input class="kw" type="text" name="kw" maxlength="32" placeholder="找影视剧" autocomplete="off">
+        <button class="MovieSearchSubmit" id="movieSearchSubmit"></button>
+    </div>
+</div>
+<div class="subnav">
+    <ul class="navbar">
+        <li>
+            <a data-act="subnav-click" data-val="{subnavClick:0}"
+               data-state-val="{subnavId:0}"
+               class="active" href="javascript:void(0);">影视剧（0）</a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="container" id="app" class="page-query/index" >
+    <div class="search-result-box">
+        <dl class="movie-list">
+            <dd>
+                <div class="movie-item">
+                    <a href="./MovieDetail.html" target="_blank" data-act="movie-click" data-val="{movieid:1254277}">
+                        <div class="movie-poster">
+                            <img data-src="https://p1.meituan.net/movie/b76f37b5e3484b6837f75ef7b5bf46452066459.jpg@160w_220h_1e_1c" />
+                        </div>
+                    </a>
+                </div>
+                <div class="channel-detail movie-item-title" title="一条狗的使命2">
+                    <a href="./MovieDetail.html" target="_blank">一条狗的使命2</a>
+                </div>
+                <div class="movie-item-subtitle">A Dog&#39;s Journey</div>
+                <div class="absolute-info">
+                    <div class="channel-detail channel-detail-orange"><i >9.3</i></div>
+                    <div class="movie-item-cat">剧情,喜剧,家庭</div>
+                    <div class="movie-item-pub">2019-05-17大陆上映</div>
+                </div>
+        </dl>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/MovieSearch.js"></script>
+</body>
+</html>

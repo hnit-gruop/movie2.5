@@ -1,0 +1,661 @@
+body{
+	background-color: #303030;
+}
+.cBody {
+    padding: 10px;
+}
+.cBody_padding{
+    padding: 10px;
+}
+.row{
+	height: 330px;
+}
+.m_t{
+	margin-top: 20px;
+}
+
+.custom_3-5{
+	width: 28%;
+	height: 330px;
+	margin-right: 2%;
+	float: left;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: 0px 0px 10px #2a2a2a;
+	-moz-box-shadow: 0px 0px 10px #2a2a2a;
+	-o-box-shadow: 0px 0px 10px #2a2a2a;
+	box-shadow: 0px 0px 10px #2a2a2a;
+}
+.custom_5{
+	width: 40%;
+	height: 330px;
+	margin-right: 2%;
+	float: left;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: 0px 0px 10px #2a2a2a;
+	-moz-box-shadow: 0px 0px 10px #2a2a2a;
+	-o-box-shadow: 0px 0px 10px #2a2a2a;
+	box-shadow: 0px 0px 10px #2a2a2a;
+}
+.custom_6{
+	width: 49%;
+	height: 330px;
+	margin-right: 2%;
+	float: left;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: 0px 0px 10px #2a2a2a;
+	-moz-box-shadow: 0px 0px 10px #2a2a2a;
+	-o-box-shadow: 0px 0px 10px #2a2a2a;
+	box-shadow: 0px 0px 10px #2a2a2a;
+}
+.custom_8-5{
+	width: 70%;
+	height: 330px;
+	margin-right: 2%;
+	float: left;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: 0px 0px 10px #2a2a2a;
+	-moz-box-shadow: 0px 0px 10px #2a2a2a;
+	-o-box-shadow: 0px 0px 10px #2a2a2a;
+	box-shadow: 0px 0px 10px #2a2a2a;
+}
+
+.totalAmount .money{
+	position: absolute;
+	top: 12px;
+	right: 15px;
+	color: #FFF;
+	font-size: 14px;
+}
+.totalAmount .money font{
+	font-size: 28px;
+	margin-right: 5px;
+}
+.totalAmount .type{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 14px;
+}
+.totalAmount .type span{
+	padding: 0 5px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	cursor: pointer;
+}
+.totalAmount .type span font.active{
+	display: block;
+	width: 20px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #fbb80b;
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	margin-left: -10px;
+}
+.totalAmount .title{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 200px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+.totalAmount .title i{
+	display: block;
+	float: left;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	border: 1px solid #fbb80b;
+	border-radius: 50%;
+	color: #fbb80b;
+	cursor: pointer;
+}
+.totalAmount .title font{
+	float: left;
+	height: 26px;
+	line-height: 26px;
+	font-size: 16px;
+	margin: 0 10px;
+}
+
+.weekActive .title{
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+
+.payRatio .title{
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+
+.orderMap .type{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 14px;
+}
+.orderMap .type span{
+	padding: 0 5px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	cursor: pointer;
+}
+.orderMap .type span font.active{
+	display: block;
+	width: 20px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #fbb80b;
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	margin-left: -10px;
+}
+.orderMap .title{
+	height: 26px;
+	line-height: 26px;
+	position: absolute;
+	top: 15px;
+	right: 5px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+
+.accountRatio .title{
+	height: 26px;
+	line-height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+.accountRatio .type{
+	width: 200px;
+	height: 52px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 14px;
+	overflow: hidden;
+}
+.accountRatio .type div{
+	float: left;
+	width: 100px;
+	overflow: hidden;
+}
+.accountRatio .type div span{
+	float: left;
+	width: 20px;
+	height: 20px;
+	border-radius: 3px;
+	margin-top: 3px;
+}
+.accountRatio .type div span.color1{
+	background: -webkit-linear-gradient(180deg, #5f98f7, #7c54e9); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #5f98f7, #7c54e9); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #5f98f7, #7c54e9); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #5f98f7, #7c54e9); /* 标准的语法 */
+}
+.accountRatio .type div span.color2{
+	background: -webkit-linear-gradient(180deg, #dee0fc, #dff2fc); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #dee0fc, #dff2fc); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #dee0fc, #dff2fc); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #dee0fc, #dff2fc); /* 标准的语法 */
+}
+.accountRatio .type div span.color3{
+	background: -webkit-linear-gradient(180deg, #fcc072, #fd624d); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #fcc072, #fd624d); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #fcc072, #fd624d); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #fcc072, #fd624d); /* 标准的语法 */
+}
+.accountRatio .type div span.color4{
+	background: -webkit-linear-gradient(180deg, #4e5d93, #3e93a4); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #4e5d93, #3e93a4); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #4e5d93, #3e93a4); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #4e5d93, #3e93a4); /* 标准的语法 */
+}
+.accountRatio .type div font{
+	float: left;
+	width: 70px;
+	height: 26px;
+	line-height: 26px;
+	margin-left: 5px;
+}
+#accountRatio{
+	padding-top: 120px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+#accountRatio .top{
+	overflow: hidden;
+}
+#accountRatio .top span{
+	float: left;
+	width: 20%;
+	height: 100px;
+	text-align: center;
+	color: #FFF;
+	position: relative;
+}
+#accountRatio .top span .num{
+	position: absolute;
+	top: 0;
+	right: 50%;
+	margin-right: -4px;
+	font-size: 12px;
+}
+#accountRatio .top span .now{
+	width: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -10px;
+	border-radius: 5px 5px 0 0;
+	background: -webkit-linear-gradient(180deg, #5e9bf7, #7f4de8); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #5e9bf7, #7f4de8); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #5e9bf7, #7f4de8); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #5e9bf7, #7f4de8); /* 标准的语法 */
+}
+#accountRatio .top span .total{
+	height: 100px;
+	width: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: 5px;
+	border-radius: 5px 5px 0 0;
+	background: -webkit-linear-gradient(180deg, #dddffa, #e0f4fc); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #dddffa, #e0f4fc); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #dddffa, #e0f4fc); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #dddffa, #e0f4fc); /* 标准的语法 */
+}
+#accountRatio .time{
+	overflow: hidden;
+}
+#accountRatio .time span{
+	float: left;
+	width: 20%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #FFF;
+}
+#accountRatio .bottom{
+	overflow: hidden;
+}
+#accountRatio .bottom span{
+	float: left;
+	width: 20%;
+	height: 50px;
+	text-align: center;
+	color: #FFF;
+	position: relative;
+}
+#accountRatio .bottom span .now{
+	width: 10px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -5px;
+	border-radius: 0 0 5px 5px;
+}
+#accountRatio .bottom span .just{
+	background: -webkit-linear-gradient(180deg, #fd5749, #fac774); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #fd5749, #fac774); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #fd5749, #fac774); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #fd5749, #fac774); /* 标准的语法 */
+}
+#accountRatio .bottom span .negative{
+	background: -webkit-linear-gradient(180deg, #4d5e94, #3f8ca2); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(180deg, #4d5e94, #3f8ca2); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(180deg, #4d5e94, #3f8ca2); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #4d5e94, #3f8ca2); /* 标准的语法 */
+}
+
+
+.dls_fjzx_sh_TOP5 .type{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 14px;
+}
+.dls_fjzx_sh_TOP5 .type span{
+	padding: 0 5px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	cursor: pointer;
+}
+.dls_fjzx_sh_TOP5 .type span font.active{
+	display: block;
+	width: 20px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #fbb80b;
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	margin-left: -10px;
+}
+.dls_fjzx_sh_TOP5 .title{
+	height: 26px;
+	line-height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+#dls_fjzx_sh_TOP5{
+	padding-top: 60px;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4{
+	width: 32%;
+	height: 270px;
+	margin-right: 2%;
+	float: left;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .t{
+	height: 26px;
+	line-height: 26px;
+	color: #FFF;
+	font-size: 14px;
+	padding-left: 15px;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con{
+	color: #FFF;
+	font-size: 14px;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con .box{
+	overflow: hidden;
+	position: relative;
+	padding: 6px 0;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con .box .left{
+	position: absolute;
+	top: 6px;
+	left: 0;
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 105px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con .box .left .now{
+	height: 10px;
+	border-radius: 0 5px 5px 0;
+	background: -webkit-linear-gradient(45deg, #6e49c3, #6e49c3 46%, #5683cf 54%, #5683cf); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(45deg, #6e49c3, #6e49c3 46%, #5683cf 54%, #5683cf); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(45deg, #6e49c3, #6e49c3 46%, #5683cf 54%, #5683cf); /* Firefox 3.6 - 15 */
+    background: linear-gradient(45deg, #6e49c3, #6e49c3 46%, #5683cf 54%, #5683cf); /* 标准的语法 */
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con .box .left .text{
+	height: 26px;
+	line-height: 26px;
+}
+#dls_fjzx_sh_TOP5 .smallCustom_4 .con .box .right{
+	float: right;
+	width: 100px;
+	height: 36px;
+	line-height: 36px;
+	text-align: right;
+}
+#dls_fjzx_sh_TOP5 .middColor .con .box .left .now{
+	background: -webkit-linear-gradient(45deg, #0e5fa6, #0e5fa6 46%, #289cbc 54%, #289cbc); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(45deg, #0e5fa6, #0e5fa6 46%, #289cbc 54%, #289cbc); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(45deg, #0e5fa6, #0e5fa6 46%, #289cbc 54%, #289cbc); /* Firefox 3.6 - 15 */
+    background: linear-gradient(45deg, #0e5fa6, #0e5fa6 46%, #289cbc 54%, #289cbc); /* 标准的语法 */
+}
+
+.merchantGraph .title{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+.merchantGraph .type{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+.merchantGraph .type i{
+	display: block;
+	float: left;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	border: 1px solid #fbb80b;
+	border-radius: 50%;
+	color: #fbb80b;
+	cursor: pointer;
+}
+.merchantGraph .type font{
+	float: left;
+	height: 26px;
+	line-height: 26px;
+	font-size: 16px;
+	margin: 0 10px;
+}
+
+.categorySingle .type{
+	height: 26px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 14px;
+}
+.categorySingle .type span{
+	padding: 0 5px;
+	height: 26px;
+	line-height: 26px;
+	position: relative;
+	cursor: pointer;
+}
+.categorySingle .type span font.active{
+	display: block;
+	width: 20px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #fbb80b;
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	margin-left: -10px;
+}
+.categorySingle .title{
+	height: 26px;
+	line-height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+.categorySingle .con{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding-top: 60px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+#categorySingle{
+	float: left;
+	width: 42%;
+	height: 100%;
+	margin-right: 2%;
+}
+.categorySingle .con .top{
+	float: left;
+	width: 56%;
+	height: 100%;
+}
+.categorySingle .con .top .smallCustom_5{
+	width: 48%;
+	height: 260px;
+	margin-right: 2%;
+	float: left;
+	color: #FFF;
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+	padding: 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: -5px 5px 6px #2a2a2a;
+	-moz-box-shadow: -5px 5px 6px #2a2a2a;
+	-o-box-shadow: -5px 5px 6px #2a2a2a;
+	box-shadow: -5px 5px 6px #2a2a2a;
+}
+.categorySingle .con .top table{
+	width: 100%;
+}
+.categorySingle .con .top table td, .categorySingle .con .top table th{
+	height: 36px;
+	text-align: center;
+}
+.categorySingle .con .top table td{
+	border-bottom: 1px dashed #676767;
+}
+.categorySingle .con .top table th{
+	border-bottom: 1px solid #676767;
+}
+.categorySingle .con .top table .tableTitle{
+	text-align: left;
+}
+.categorySingle .con .top table .tablePrice{
+	color: #fbb80b;
+}
+
+.businessData .title{
+	height: 26px;
+	line-height: 26px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+	color: #FFF;
+	font-size: 16px;
+}
+
+.fullScreenBut{
+	display: block;
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	font-size: 30px;
+	color: #FFF;
+	background: url(../images/fullScreenBut_BG.png) no-repeat;
+	cursor: pointer;
+	animation:fullScreenButAM 0.8s linear 1s infinite alternate;
+	/* Firefox: */
+	-moz-animation:fullScreenButAM 0.8s linear 1s infinite alternate;
+	/* Safari and Chrome: */
+	-webkit-animation:fullScreenButAM 0.8s linear 1s infinite alternate;
+	/* Opera: */
+	-o-animation:fullScreenButAM 0.8s linear 1s infinite alternate;
+	position: fixed;
+	top: 60px;
+	right: 10px;
+	z-index: 1000;
+}
+@keyframes fullScreenButAM
+{
+	0%   {font-size: 30px;}
+	50%  {font-size: 40px;}
+	100% {font-size: 30px;}
+}
+
+@-moz-keyframes fullScreenButAM /* Firefox */
+{
+	0%   {font-size: 30px;}
+	50%  {font-size: 40px;}
+	100% {font-size: 30px;}
+}
+
+@-webkit-keyframes fullScreenButAM /* Safari and Chrome */
+{
+	0%   {font-size: 30px;}
+	50%  {font-size: 40px;}
+	100% {font-size: 30px;}
+}
+
+@-o-keyframes fullScreenButAM /* Opera */
+{
+	0%   {font-size: 30px;}
+	50%  {font-size: 40px;}
+	100% {font-size: 30px;}
+}
+
+@media (min-width: 927px) and (max-width: 1107px) { 
+	.totalAmount .title{
+		top: 60px;
+		left: 15px;
+	}
+}
+@media (min-width: 627px) and (max-width: 927px) { 
+	.totalAmount .title{
+		top: 45px;
+		left: 15px;
+	}
+}

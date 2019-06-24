@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>订单详情</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="css/maoyan-common.css"/>
+    <link rel="stylesheet" href="css/maoyan_order_detail.css"/>
+
+    <link rel="stylesheet" href="css/maoyan-profile.css"/>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/myBuyTicket.css">
+
+</head>
+<body>
+
+
+<div class="header">
+     <div th:replace="include::commonHead" ></div>
+</div>
+
+<div class="container page-order/detail" id="app">
+
+    <div class="order-container" data-page-type="detail" data-order-id="3426246597" data-unique-status="3">
+
+        <div class="status-box finished">
+            <p class="title">已完成</p>
+
+            <p class="desc"></p>
+        </div>
+
+
+        <div class="order-note">
+            <span class="order-id">猫眼订单号:3426246597</span>
+            <span class="contact">（有订单问题可拨打猫眼客服电话<i>1010-5335</i>，工作时间: 9:00-24:00）</span>
+        </div>
+
+        <table class="order-table">
+            <thead>
+            <tr>
+                <th>影片</th>
+                <th>时间</th>
+                <th>影院</th>
+                <th>座位</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="movie-name">《李茶的姑妈》</td>
+                <td class="showtime">周日 9月30日 17:55</td>
+                <td class="cinema-name">SFC上影影城(成都龙湖IMAX店)</td>
+                <td>
+                    <span class="hall">11号绿洲厅</span>
+                    <div class="seats">
+                        <div>
+                            <span class=""><i></i></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="order-bottom">
+            <div class="clearfix">
+                <div class="cinema-info">
+                    <p class="name">SFC上影影城(成都龙湖IMAX店)</p>
+                    <p class="address">地址: 高新西区合作路89号龙湖时代天街16栋4F</p>
+                    <p class="phone">电话: 028-87858481</p>
+                </div>
+
+                <div class="price-box">
+                    <span>总价:</span>
+                    <span class="price">39.8</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="footer" style="margin-top: 89px">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/MyOrderDetail.js"></script>
+</body>
+</html>

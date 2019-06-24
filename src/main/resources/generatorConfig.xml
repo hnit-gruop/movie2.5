@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- 命令：  -Dmybatis.generator.overwrite=true 覆盖之前生成的文件
+	-Dmybatis.generator.overwrite=true mybatis-generator:generate
+	-->
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://139.159.212.210/movie?serverTimezone=UTC&amp;CharacterEncoding=UTF-8&amp;useSSL=false" 
+			userId="root" password="a">
+			 <property name="nullCatalogMeansCurrent" value="true"/>
+		</jdbcConnection>
+		
+		<!-- 实体类包名 -->
+		<javaModelGenerator targetPackage="com.yc.bean"
+			targetProject="src/main/java">
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- Dao类包名 -->
+		<sqlMapGenerator targetPackage="com.yc.dao"
+			targetProject="src/main/java">
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="MAPPER"
+			targetPackage="com.yc.dao" targetProject="src/main/java">
+		</javaClientGenerator>
+
+
+		<!-- % 表示所有表，更改时间类型 -->
+		<table tableName="%" >
+			<generatedKey column="id" sqlStatement="mysql" identity="true"/>
+			<columnOverride column="start_time" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="comments_time" javaType="java.sql.Timestamp"></columnOverride>
+		</table>
+	</context>
+</generatorConfiguration>

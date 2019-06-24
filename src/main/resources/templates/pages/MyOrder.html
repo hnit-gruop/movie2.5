@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+
+    <link rel="stylesheet" href="css/maoyan-common.css"/>
+    <link rel="stylesheet" href="css/maoyan-profile.css"/>
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/myBuyTicket.css">
+
+</head>
+<body>
+<div class="header">
+    <div th:replace="include::commonHead" ></div>
+</div>
+<div class="container page-profile/profile" id="app">
+    <div class="content">
+        <div class="main">
+            <div class="info-content clearfix">
+                <div class="user-profile-nav">
+                    <h1>个人中心</h1>
+                    <a href="./MyOrder.html" class="orders active">我的订单</a>
+                </div>
+
+                <div class="orders-container">
+                    <div class="profile-title">我的订单</div>
+
+                    <div class="order-box" data-orderid="3426246597">
+                        <div class="order-header">
+                            <span class="order-date">2018-09-24</span>
+                            <span class="order-id">猫眼订单号:3426246597</span>
+                        </div>
+
+                        <div class="order-body">
+                            <div class="poster">
+                                <img src="https://p1.meituan.net/movie/beed599e0bcffdd6cbb403f3bd957d6a907391.jpg@66w_91h_1e_1c">
+                            </div>
+
+                            <div class="order-content">
+                                <div class="movie-name">《李茶的姑妈》</div>
+                                <div class="cinema-name">SFC上影影城(成都龙湖IMAX店)</div>
+                                <div class="hall-ticket">
+                                    <span>11号绿洲厅</span>
+                                    <span>5排2座</span>
+                                </div>
+                                <div class="show-time">周日 9月30日 17:55</div>
+                            </div>
+
+                            <div class="order-price">￥39.8</div>
+
+                            <div class="order-status">
+                                已完成
+                            </div>
+
+                            <div class="actions">
+                                <div>
+                                    <a href="./MyOrderDetail.html" class="order-detail" data-act="orders-detail-click" data-bid="b_y190atas">查看详情</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/myorder.js"></script>
+</body>
+</html>

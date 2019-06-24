@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>电影列表</title>
+
+    <link rel="icon" type="image/x-icon" href="img/title.ico"/>
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main2.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/movieList.css">
+    <link rel="stylesheet" type="text/css" href="css/myMovieList.css">
+</head>
+<body>
+<div class="header">
+     <div th:replace="include::commonHead" ></div>
+</div>
+<div class="main">
+	
+    <div class="main-inner">
+        <div class="movies-channel">
+            <div class="tags-panel">
+                <ul class="tags-lines">
+                    <li class="tags-line" data-val="类型">
+                        <div class="tags-title">类型 :</div>
+
+                        <ul class="tags">
+                            <li class="active">
+                                <a data-act="tag-click" data-val="全部" href="javascript:void(0);">全部</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tags-line tags-line-border" data-val="区域">
+                        <div class="tags-title">区域 :</div>
+                        <ul class="tags">
+                            <li class="active">
+                                <a data-act="tag-click" data-val="全部" href="javascript:void(0);" >全部</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="tags-line tags-line-border" data-val="语言">
+                        <div class="tags-title">语言 :</div>
+                        <ul class="tags">
+                            <li class="active">
+                                <a data-act="tag-click" data-val="全部" href="javascript:void(0);" >全部</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+	
+        <div class="movies-panel">
+            <div class="movies-list">
+                <ul class="movie-list">
+                		<!-- 固定数字循环 -->
+                        <li th:each="i:${#numbers.sequence(0,5)}">
+                            <div class="movie-item">
+                                <a href="./MovieDetail.html" target="_blank" data-act="movie-click" data-val="{movieid:1208282}">
+                                    <div class="movie-poster">
+                                        <img src="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="channel-detail movie-item-title" th:title="${name}">
+                                <a href="./MovieDetail.html" th:text="${name+i}">${name}</a>
+                            </div>
+
+                            <div class="channel-detail channel-detail-orange"><i class="integer">${u.score}</i>
+                            </div>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="subfooter">
+        <p class="text-center">Copyright &copy; 2019.All rights reserved. </p>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/myMovieList.js"></script>
+</body>
+</html>
