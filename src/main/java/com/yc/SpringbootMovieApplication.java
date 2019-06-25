@@ -15,9 +15,6 @@ import com.yc.util.PortUtil;
 @EnableCaching
 public class SpringbootMovieApplication {
 	
-	static {
-		 PortUtil.checkPort(6379,"Redis 服务端",true);
-    }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootMovieApplication.class, args);

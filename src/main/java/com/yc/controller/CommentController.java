@@ -39,7 +39,6 @@ public class CommentController {
 		return "0";
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping("concelAgree")
 	public String concelAgree(CommentAgreeUser commentAgreeUser) {
