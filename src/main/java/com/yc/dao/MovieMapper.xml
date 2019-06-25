@@ -25,14 +25,17 @@
   		</collection>
   </resultMap>
   
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap" >
  SELECT a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
   	 FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
   	LEFT JOIN score c ON a.movie_id=c.movie_id   	
   	<if test="example.orderByClause != null">
       order by ${example.orderByClause}
     </if>
-    limit #{limit}
+    <if test="limit!=-1">
+     limit #{limit}
+    </if>
+   
   </select>
   
   
@@ -100,17 +103,39 @@
     status
   </sql>
   <select id="selectByExample" parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap">
-    select
+    SELECT 
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
-    from movie
+    a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
+  	 FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+  	LEFT JOIN score c ON a.movie_id=c.movie_id   
+    
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByName" parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap">
+    SELECT 
+    a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
+  	 FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+  	LEFT JOIN score c ON a.movie_id=c.movie_id   
+  	<if test="kw1!=null">
+  	where name like #{kw1}
+  	</if>
+    union
+     SELECT 
+    a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
+  	 FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+  	LEFT JOIN score c ON a.movie_id=c.movie_id   
+  	<if test="kw2!=null">
+  	where foreign_name like #{kw2}
+  	</if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

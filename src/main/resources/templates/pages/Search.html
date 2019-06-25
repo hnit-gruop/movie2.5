@@ -45,7 +45,7 @@
 	<div class="subnav">
 		<ul class="navbar">
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}" class="active" >影视剧（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}" class="active"  th:text="'电影('+${movie.size()}+')'">影视剧（0）</a>
     </li>
     <li>
       <a data-act="subnav-click" data-val="{subnavClick:1}" >影人（0）</a>
@@ -64,22 +64,22 @@
       <a href="/films/248172" target="_blank" data-act="movie-click" data-val="{movieid:248172}">
       <div class="movie-poster">
         <img class="poster-default" src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png">
-        <img src="https://p0.meituan.net/moviemachine/f7d2ad70eb79d6d9b8a197713db9b8c41711752.jpg@160w_220h_1e_1c">
+        <img th:src="'/movieImg/cover/'+${a.movieImage.image}" >
       </div>
       </a>
         
         
-      <div class="movie-ver"><i class="imax3d"></i></div>
     </div>
-    <div class="channel-detail movie-item-title" title="复仇者联盟4：终局之战">
-      <a href="/films/248172" target="_blank" data-act="movies-click" data-val="{movieId:248172}">复仇者联盟4：终局之战</a>
+    <div class="channel-detail movie-item-title" th:title="${a.name}"  >
+      <a href="/films/248172" target="_blank" data-act="movies-click" data-val="{movieId:248172}" th:text="${a.name}">复仇者联盟4：终局之战</a>
     </div>
-<div class="movie-item-subtitle">Avengers: Endgame</div>
+<div class="movie-item-subtitle" th:text="${a.foreignName}">Avengers: Endgame</div>
 <div class="absolute-info">
      <div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">0</i></div>
 
-  <div class="movie-item-cat">动作,冒险,奇幻</div>
-  <div class="movie-item-pub">2019-04-24大陆上映</div>
+  <div class="movie-item-cat" th:text="${movieType.get(userStat.count-1).toString().substring(1,movieType.get(userStat.count-1).toString().length()-1)}" >动作,冒险,奇幻</div>
+  <div class="movie-item-pub" th:if="${a.status=='showing'} " th:text="${#dates.format(a.releaseTime,'yyyy-MM-dd')}+'大陆上映'">2019-04-24大陆上映</div>
+  <div class="movie-item-pub" th:if="${a.status=='upcoming'} " th:text="${#dates.format(a.releaseTime,'yyyy-MM-dd')}+'大陆首播'">2019-04-24大陆上映</div>
 </div>
   
   </dd>

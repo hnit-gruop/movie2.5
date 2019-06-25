@@ -21,7 +21,7 @@ import com.yc.dao.UserMapper;
 public class RankController {
 	
 	List<String> bList=null;
-	List<List<String>> aList=new ArrayList<>();
+	List<List<String>> aList=null;
 	@Resource
 	private MovieBiz mb;
 	
@@ -33,6 +33,7 @@ public class RankController {
 	 */
 	@RequestMapping("rank")
 	public String rank(Model m,String type) {	
+		aList=new ArrayList<>();
 		List<Movie> a=null;		
 		m.addAttribute("index", 4);
 		if(type.equals("1")){
