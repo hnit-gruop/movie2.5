@@ -78,7 +78,6 @@ public class MovieServiceImpl implements MovieService{
 	public List<Movie> listUpComing() {
 		/*关联查询中设置电影封面优化sql性能*/
 		List<Movie> list = movieMapper.listUpComing();
-		setScore(list);
 		return list;
 	}
 
@@ -101,8 +100,8 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public void setCover(Movie movie) {
-//		String cover = movieImageService.getCover(movie.getMovieId());
-//		movie.setCoverImage(movie.getMovieImage().getImage());
+		String cover = movieImageService.getCover(movie.getMovieId());
+		movie.setCoverImage(cover);
 	}
 
 	@Override

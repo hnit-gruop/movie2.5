@@ -106,4 +106,12 @@ public class Comments {
     public void setScore(Integer score) {
         this.score = score;
     }
+
+	@Override
+	public String toString() {
+		return "Comments [commentsId=" + commentsId + ", userId=" + userId + ", comments=" + comments + ", movieId="
+				+ movieId + ", commentsTime=" + commentsTime + ", score=" + score + ", user=" + user + ", agreeCnt="
+				+ agreeCnt + ", tipTime=" + tipTime + ", agree=" + agree + "]";
+	}
+    
 }

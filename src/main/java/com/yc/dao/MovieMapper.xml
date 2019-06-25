@@ -6,9 +6,9 @@
 	<resultMap type="com.yc.bean.Movie" id="rm">
 		<id column="movie_id" property="movieId" />
 		<association property="movieImage"
-			javaType="com.yc.bean.MovieImage" autoMapping="true">
+			javaType="com.yc.bean.MovieImage" >
 			<id column="id" property="id" />
-			<result column="movie_id" property="movieId" />
+			<result column="image" property="image"/>
 		</association>
 	</resultMap>
 	

@@ -44,13 +44,15 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	
 	@Override
 	public List<Comments> getCommonts(int movieId) {
-		CommentsExample example = new CommentsExample();
-		example.createCriteria().andMovieIdEqualTo(movieId);
-		example.setOrderByClause("comments_id desc");
-		List<Comments> list = commentsMapper.selectByExample(example);
-		setUser(list);
-		setAgreeCnt(list);
-		return list;
+
+		List<Comments> listComments = commentsMapper.listComments();
+		System.out.println(listComments.get(0));
+		
+		
+//		setUser(list);
+		setAgreeCnt(listComments);
+		
+		return listComments;
 	}
 
 	@Override
@@ -66,7 +68,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		User user = userService.get(userId);
 		c.setTipTime(DateUtils.convertTimeToFormat(c.getCommentsTime().getTime()));
 		c.setUser(user);
-		
 	}
 
 	@Override
@@ -105,7 +106,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 			setIfAgree(session,c);
 		}
 	}
-
 	
 	@Override
 	public void setAgreeCnt(List<Comments> list) {
@@ -122,6 +122,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		CommentAgreeCntExample example = new CommentAgreeCntExample();
 		example.createCriteria().andCommentidEqualTo(c.getCommentsId());
 		List<CommentAgreeCnt> list = commentAgreeCntMapper.selectByExample(example);
+		
 		if(list.size()>0) {
 			int ac = list.get(0).getAgreeCnt();
 			c.setAgreeCnt(ac);
