@@ -25,8 +25,8 @@ public class RankController {
 	@Resource
 	private MovieBiz mb;
 	
-	@Autowired
-	UserMapper userMapper;
+	/*@Autowired
+	UserMapper userMapper;*/
 	
 	/**
 	 * 榜单
@@ -90,26 +90,5 @@ public class RankController {
 	}
 	
 	
-	@RequestMapping("search" )
-	public String search(Model m,String kw) {
-		List<Movie> a=null;				
-			 a=mb.findByMovieName(kw);			 
-			 for(int i=0;i<a.size();i++){
-				Integer id= a.get(i).getMovieId();				
-				List<MovieActor> aid=mb.getActorId(id);		
-				bList = new ArrayList<>();
-				List<Actor> li=new ArrayList<>();
-				for(int j=0;j<aid.size();j++){			
-					 li=mb.getActorName(aid.get(j).getActorId());
-					 bList.add(li.get(0).getAname());
-				}
-				aList.add(bList);				
-			 }
-		
-		m.addAttribute("index", 0);
-		m.addAttribute("kw", kw);
-		 m.addAttribute("movie",a);
-			m.addAttribute("actor",aList);
-		return "pages/Search";
-	}
+	
 }
