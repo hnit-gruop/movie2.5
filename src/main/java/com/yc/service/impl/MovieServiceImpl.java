@@ -68,23 +68,16 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public List<Movie> listShowing() {
-		MovieExample e = new MovieExample();
-		e.createCriteria().andStatusEqualTo(MovieService.showing_status);
-		PageHelper.startPage(1, 8);
-		List<Movie> list = movieMapper.selectByExample(e);
-		setCover(list);
-		setScore(list);
-		return list;
+		List<Movie> listShowing = movieMapper.listShowing();
+		//redis中查询分数
+		setScore(listShowing);
+		return listShowing;
 	}
 
 	@Override
 	public List<Movie> listUpComing() {
-		MovieExample e = new MovieExample();
-		e.createCriteria().andStatusEqualTo(MovieService.up_coming_status);
-		PageHelper.startPage(1, 8);
-		List<Movie> list = movieMapper.selectByExample(e);
-		//设置封面
-		setCover(list);
+		/*关联查询中设置电影封面优化sql性能*/
+		List<Movie> list = movieMapper.listUpComing();
 		setScore(list);
 		return list;
 	}
@@ -108,8 +101,8 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public void setCover(Movie movie) {
-		String cover = movieImageService.getCover(movie.getMovieId());
-		movie.setCoverImage(cover);
+//		String cover = movieImageService.getCover(movie.getMovieId());
+//		movie.setCoverImage(movie.getMovieImage().getImage());
 	}
 
 	@Override
@@ -124,8 +117,6 @@ public class MovieServiceImpl implements MovieService{
 		
 //		// 在数据库中取值 
 //		double score = scoreService.get(movie.getMovieId()); 
-
-		
 		//在redis中取值
 		double avgScore = redisServie.getAvgScore(movie.getMovieId());
 		movie.setScore(avgScore);

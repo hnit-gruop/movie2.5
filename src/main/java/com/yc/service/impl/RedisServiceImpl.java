@@ -49,7 +49,7 @@ public class RedisServiceImpl implements RedisService {
 			int c = Integer.parseInt(cnt);
 			return s/c;
 		}
-		return 0;
+		return 8.0;
 	}
 
 }

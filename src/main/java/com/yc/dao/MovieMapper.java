@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MovieMapper {
+	
+	 List<Movie> listShowing();
+	 List<Movie> listUpComing();
+	
     long countByExample(MovieExample example);
 
     int deleteByExample(MovieExample example);

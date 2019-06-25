@@ -39,12 +39,15 @@ public class MovieController {
 	public String index(Model m) {
 		List<Movie> listShowing = movieService.listShowing();
 		List<Movie> listUpComing = movieService.listUpComing();
+		
 		m.addAttribute("listShowing", listShowing);
+		
+		
 		m.addAttribute("listUpComing", listUpComing);
 		m.addAttribute("cnt1", movieService.showingCnt());
 		m.addAttribute("cnt2", movieService.upComingCnt());
 		m.addAttribute("index", 1);
-		Object object = redisTemplate.opsForHash().get("ms", "2");
+		
 		
 		
 		return "pages/HomePage";

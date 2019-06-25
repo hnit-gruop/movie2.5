@@ -26,7 +26,6 @@ public class Movie {
     private MovieImage movieImage;
     
     
-    
     public MovieImage getMovieImage() {
 		return movieImage;
 	}
@@ -141,5 +140,13 @@ public class Movie {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Movie [movieId=" + movieId + ", name=" + name + ", duration=" + duration + ", releaseTime="
+				+ releaseTime + ", foreignName=" + foreignName + ", region=" + region + ", language=" + language
+				+ ", description=" + description + ", status=" + status + ", movieImage=" + movieImage + ", coverImage="
+				+ coverImage + ", score=" + score + ", type=" + type + "]";
+	}
 
 }

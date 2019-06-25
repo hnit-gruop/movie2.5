@@ -52,7 +52,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		setAgreeCnt(list);
 		return list;
 	}
-	
 
 	@Override
 	public void setUser(List<Comments> list) {
