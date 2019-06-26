@@ -60,9 +60,7 @@ public class MovieController {
 	public String movieDetail(Model m, @RequestParam(required = true) int id,HttpSession session) {
 		Movie movie = movieService.get(id);
 		List<Comments> commonts = commentService.getCommonts(id);
-		
 		commentService.setIfAgree(session, commonts);
-		
 		
 		m.addAttribute("movie", movie);
 		m.addAttribute("commonts", commonts);

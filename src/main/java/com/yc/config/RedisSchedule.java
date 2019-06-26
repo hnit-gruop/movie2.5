@@ -12,7 +12,9 @@ public class RedisSchedule {
 	@Autowired
 	RedisService redisService;
 	
-	@Scheduled(fixedRate=60000,initialDelay=60000)
+	
+	//每半小时备份一次数据
+	@Scheduled(fixedRate=180000,initialDelay=60000)
 	public void flushToMysql() {
 		redisService.flushToMysql();
 	}

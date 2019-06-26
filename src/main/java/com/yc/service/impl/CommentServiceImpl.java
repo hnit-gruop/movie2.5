@@ -47,7 +47,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	@Override
 	public List<Comments> getCommonts(int movieId) {
 
-		List<Comments> listComments = commentsMapper.listComments();
+		List<Comments> listComments = commentsMapper.listComments(movieId);
 		setRedisData(listComments);
 		return listComments;
 	}
