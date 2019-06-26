@@ -13,10 +13,16 @@ import com.yc.bean.Movie;
 import com.yc.bean.MovieActor;
 import com.yc.bean.MovieActorExample;
 import com.yc.bean.MovieExample;
+import com.yc.bean.MovieType;
+import com.yc.bean.MovieTypeExample;
 import com.yc.bean.ScoreExample;
+import com.yc.bean.Type;
+import com.yc.bean.TypeExample;
 import com.yc.dao.ActorMapper;
 import com.yc.dao.MovieActorMapper;
 import com.yc.dao.MovieMapper;
+import com.yc.dao.MovieTypeMapper;
+import com.yc.dao.TypeMapper;
 
 @Service
 public class MovieBiz {
@@ -27,7 +33,13 @@ public class MovieBiz {
 	private  MovieActorMapper mam;
 	
 	@Resource
+	private  MovieTypeMapper mtm;
+	
+	@Resource
 	private  ActorMapper am;
+	
+	@Resource
+	private  TypeMapper tm;
 	
 	public List<Movie> findByMovieScore(){
 		MovieExample example=new MovieExample();
@@ -65,9 +77,23 @@ public class MovieBiz {
 	}
 
 	public List<Movie> findByMovieName(String kw) {
+		 kw="%"+kw+"%";
 		MovieExample example=new MovieExample();
-		example.createCriteria().andNameLike("%"+kw+"%");
-		List<Movie> list=mm.selectAll(18,example);
+		List<Movie> list=mm.selectByName(kw, kw, example);
+		return list;
+	}
+
+	public List<MovieType> getTypeId(Integer id) {
+		MovieTypeExample example = new MovieTypeExample();
+		example.createCriteria().andMovieIdEqualTo(id);
+		List<MovieType> list=mtm.selectByExample(example);
+		return list;
+	}
+
+	public List<Type> getTypeName(Integer id) {
+		TypeExample example=new TypeExample();
+		example.createCriteria().andTypeIdEqualTo(id);
+		List<Type> list=tm.selectByExample(example);
 		return list;
 	}
 }

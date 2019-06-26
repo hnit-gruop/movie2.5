@@ -22,12 +22,15 @@ import com.yc.bean.User;
 import com.yc.dao.CommentAgreeCntMapper;
 import com.yc.dao.CommentAgreeUserMapper;
 import com.yc.dao.CommentsMapper;
+import com.yc.service.RedisService;
 import com.yc.service.UserService;
 import com.yc.util.DateUtils;
 
-
 @Service
 public class CommentServiceImpl implements com.yc.service.CommentService{
+	
+	@Autowired
+	RedisService redisService;
 	
 	@Autowired
 	CommentsMapper commentsMapper;
@@ -41,18 +44,13 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	@Autowired
 	CommentAgreeCntMapper commentAgreeCntMapper;
 	
-	
 	@Override
 	public List<Comments> getCommonts(int movieId) {
-		CommentsExample example = new CommentsExample();
-		example.createCriteria().andMovieIdEqualTo(movieId);
-		example.setOrderByClause("comments_id desc");
-		List<Comments> list = commentsMapper.selectByExample(example);
-		setUser(list);
-		setAgreeCnt(list);
-		return list;
+
+		List<Comments> listComments = commentsMapper.listComments(movieId);
+		setRedisData(listComments);
+		return listComments;
 	}
-	
 
 	@Override
 	public void setUser(List<Comments> list) {
@@ -67,7 +65,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		User user = userService.get(userId);
 		c.setTipTime(DateUtils.convertTimeToFormat(c.getCommentsTime().getTime()));
 		c.setUser(user);
-		
 	}
 
 	@Override
@@ -91,12 +88,9 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 			return;
 		User user = (User) u;
 		
-		CommentAgreeUserExample example = new CommentAgreeUserExample();
-		example.createCriteria().andUserIdEqualTo(user.getUserId()).andCommentsIdEqualTo(c.getCommentsId());
-		List<CommentAgreeUser> list = commentAgreeUserMapper.selectByExample(example);
-		if(list.size()>0) {
-			if(list.get(0).getIfagree()>0)
-			c.setAgree(true);
+		if(user!=null) {
+			boolean ifAgree = redisService.ifAgree(user.getUserId(), c.getCommentsId());
+			c.setAgree(ifAgree);
 		}
 	}
 
@@ -106,7 +100,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 			setIfAgree(session,c);
 		}
 	}
-
 	
 	@Override
 	public void setAgreeCnt(List<Comments> list) {
@@ -123,6 +116,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		CommentAgreeCntExample example = new CommentAgreeCntExample();
 		example.createCriteria().andCommentidEqualTo(c.getCommentsId());
 		List<CommentAgreeCnt> list = commentAgreeCntMapper.selectByExample(example);
+		
 		if(list.size()>0) {
 			int ac = list.get(0).getAgreeCnt();
 			c.setAgreeCnt(ac);
@@ -135,12 +129,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	 */
 	@Override
 	public int agree(CommentAgreeUser commentAgreeUser) {
-		updateCommentCnt(commentAgreeUser.getCommentsId(),1);
-		
-		commentAgreeUser.setIfagree(1);
-		CommentAgreeUserExample example = new CommentAgreeUserExample();
-		example.createCriteria().andCommentsIdEqualTo(commentAgreeUser.getCommentsId()).andUserIdEqualTo(commentAgreeUser.getUserId());
-		return commentAgreeUserMapper.updateByExampleSelective(commentAgreeUser, example);
+		return redisService.addCommentsCnt(commentAgreeUser);
 	}
 
 	/**
@@ -148,11 +137,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	 */
 	@Override
 	public int concelAgree(CommentAgreeUser commentAgreeUser) {
-		updateCommentCnt(commentAgreeUser.getCommentsId(),-1);
-		commentAgreeUser.setIfagree(0);
-		CommentAgreeUserExample example = new CommentAgreeUserExample();
-		example.createCriteria().andCommentsIdEqualTo(commentAgreeUser.getCommentsId()).andUserIdEqualTo(commentAgreeUser.getUserId());
-		return commentAgreeUserMapper.updateByExampleSelective(commentAgreeUser, example);
+		return redisService.deCommentsCnt(commentAgreeUser);
 	}
 
 
@@ -166,8 +151,55 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	 */
 	@Override
 	public void updateCommentCnt(int commentsId, int i) {
-		Comments comments = get(commentsId);
-		comments.setAgreeCnt(comments.getAgreeCnt()+i);
-		commentsMapper.updateByPrimaryKeySelective(comments);
+		CommentAgreeCnt record = new CommentAgreeCnt();
+		record.setAgreeCnt(i);
+		record.setCommentid(commentsId);
+		CommentAgreeCntExample example = new CommentAgreeCntExample();
+		example.createCriteria().andCommentidEqualTo(commentsId);
+		commentAgreeCntMapper.updateByExampleSelective(record, example);
+	}
+
+	@Override
+	public void setRedisData(List<Comments> list) {
+		for (Comments c : list) {
+			setRedisData(c);
+		}
+	}
+
+	@Override
+	public void setRedisData(Comments c) {
+		Integer userId = c.getUserId();
+		Integer commentsId = c.getCommentsId();
+		
+		int commentAgreeCnt = redisService.getCommentAgreeCnt(commentsId);
+		c.setAgreeCnt(commentAgreeCnt);
+	
+	}
+
+	@Override
+	public List<CommentAgreeUser> getCommentsUserList() {
+		return commentAgreeUserMapper.selectByExample(null);
+	}
+
+	@Override
+	public List<CommentAgreeCnt> getCommentsAgreeCnt() {
+		return commentAgreeCntMapper.selectByExample(null);
+	}
+
+	@Override
+	public void updateCommentAgreeUser(int cid, int uid, int agree) {
+		CommentAgreeUser commentAgreeUser = new CommentAgreeUser();
+		commentAgreeUser.setCommentsId(cid);
+		commentAgreeUser.setUserId(uid);
+		commentAgreeUser.setIfagree(agree);
+		CommentAgreeUserExample example = new CommentAgreeUserExample();
+		example.createCriteria().andCommentsIdEqualTo(cid).andUserIdEqualTo(uid);
+		int update = commentAgreeUserMapper.updateByExampleSelective(commentAgreeUser, example);
+		//如果没有更新成功，可能是用户没来点过赞，表中没这条数据
+		if(update==0) {
+			commentAgreeUserMapper.insertSelective(commentAgreeUser);
+			
+		}
+		
 	}
 }

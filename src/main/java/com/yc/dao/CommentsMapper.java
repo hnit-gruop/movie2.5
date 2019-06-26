@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CommentsMapper {
+	
+	  List<Comments> listComments(int movieId);
+	
     long countByExample(CommentsExample example);
 
     int deleteByExample(CommentsExample example);

@@ -22,7 +22,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 @Component
 public class MyStartupRunner implements CommandLineRunner {
  
-    
 	@Autowired
 	RedisService redisServie;
     /**

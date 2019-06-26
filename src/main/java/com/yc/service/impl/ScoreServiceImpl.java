@@ -55,5 +55,12 @@ public class ScoreServiceImpl implements ScoreService{
 		List<Score> list = scoreMapper.selectByExample(null);
 		return list;
 	}
+
+	@Override
+	public int updateScore(Score score) {
+		ScoreExample example = new ScoreExample();
+		example.createCriteria().andMovieIdEqualTo(score.getMovieId());
+		return scoreMapper.updateByExampleSelective(score, example);
+	}
 	
 }

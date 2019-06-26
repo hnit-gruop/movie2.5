@@ -5,10 +5,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.yc.bean.CommentAgreeCnt;
 import com.yc.bean.CommentAgreeUser;
 import com.yc.bean.Comments;
 
 public interface CommentService {
+	
+	List<CommentAgreeUser> getCommentsUserList();
+	
+	List<CommentAgreeCnt> getCommentsAgreeCnt();
 	
 	List<Comments>getCommonts(int movieId);
 	
@@ -41,6 +46,11 @@ public interface CommentService {
     void updateCommentCnt(int commentsId,int i);
     
     
+    void setRedisData(List<Comments> list);
+    
+    void setRedisData(Comments c);
+
+	void updateCommentAgreeUser(int cid, int uid, int agree);
     
 	//进入页面
 	

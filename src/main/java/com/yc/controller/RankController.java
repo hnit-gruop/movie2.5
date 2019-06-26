@@ -21,18 +21,20 @@ import com.yc.dao.UserMapper;
 public class RankController {
 	
 	List<String> bList=null;
-	List<List<String>> aList=new ArrayList<>();
+	List<List<String>> aList=null;
 	@Resource
 	private MovieBiz mb;
 	
-	@Autowired
-	UserMapper userMapper;
+	/*@Autowired
+	UserMapper userMapper;*/
+	
 	
 	/**
 	 * 榜单
 	 */
 	@RequestMapping("rank")
 	public String rank(Model m,String type) {	
+		aList=new ArrayList<>();
 		List<Movie> a=null;		
 		m.addAttribute("index", 4);
 		if(type.equals("1")){
@@ -90,26 +92,5 @@ public class RankController {
 	}
 	
 	
-	@RequestMapping("search" )
-	public String search(Model m,String kw) {
-		List<Movie> a=null;				
-			 a=mb.findByMovieName(kw);			 
-			 for(int i=0;i<a.size();i++){
-				Integer id= a.get(i).getMovieId();				
-				List<MovieActor> aid=mb.getActorId(id);		
-				bList = new ArrayList<>();
-				List<Actor> li=new ArrayList<>();
-				for(int j=0;j<aid.size();j++){			
-					 li=mb.getActorName(aid.get(j).getActorId());
-					 bList.add(li.get(0).getAname());
-				}
-				aList.add(bList);				
-			 }
-		
-		m.addAttribute("index", 0);
-		m.addAttribute("kw", kw);
-		 m.addAttribute("movie",a);
-			m.addAttribute("actor",aList);
-		return "pages/Search";
-	}
+	
 }

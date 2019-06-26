@@ -12,4 +12,6 @@ public interface ScoreService {
 	List<Score> getAll();
 	
 	void setScore(Score score);
+	
+	int updateScore(Score score);
 }

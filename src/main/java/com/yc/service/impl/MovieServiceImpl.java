@@ -66,26 +66,19 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	RedisService redisServie;
 	
+	
 	@Override
 	public List<Movie> listShowing() {
-		MovieExample e = new MovieExample();
-		e.createCriteria().andStatusEqualTo(MovieService.showing_status);
-		PageHelper.startPage(1, 8);
-		List<Movie> list = movieMapper.selectByExample(e);
-		setCover(list);
-		setScore(list);
-		return list;
+		List<Movie> listShowing = movieMapper.listShowing();
+		//redis中查询分数
+		setScore(listShowing);
+		return listShowing;
 	}
 
 	@Override
 	public List<Movie> listUpComing() {
-		MovieExample e = new MovieExample();
-		e.createCriteria().andStatusEqualTo(MovieService.up_coming_status);
-		PageHelper.startPage(1, 8);
-		List<Movie> list = movieMapper.selectByExample(e);
-		//设置封面
-		setCover(list);
-		setScore(list);
+		/*关联查询中设置电影封面优化sql性能*/
+		List<Movie> list = movieMapper.listUpComing();
 		return list;
 	}
 
@@ -124,8 +117,6 @@ public class MovieServiceImpl implements MovieService{
 		
 //		// 在数据库中取值 
 //		double score = scoreService.get(movie.getMovieId()); 
-
-		
 		//在redis中取值
 		double avgScore = redisServie.getAvgScore(movie.getMovieId());
 		movie.setScore(avgScore);
@@ -185,7 +176,6 @@ public class MovieServiceImpl implements MovieService{
 		return list;
 	}
 
-	
 	
 	public Map<String, Object> findMovieDetailsByMovieId(int movieId) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Map<String,Object> map = new HashMap<>();
@@ -255,5 +245,30 @@ public class MovieServiceImpl implements MovieService{
 		return movieMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public void setTypeName(List<Movie> list) {
+		
+	}
 
+	@Override
+	public void setTypeName(Movie movie) {
+		List<Movie> list = movieMapper.getTypeNameList(movie.getMovieId());
+		List<Type> listType = new ArrayList<>();
+		for (Movie m : list) {
+			listType.add(m.getTempType());
+		}
+		movie.setListType(listType);
+	}
+
+	@Override
+	public void setBigImage(Movie movie) {
+		String bigImage = movieImageService.getBig(movie.getMovieId());
+		movie.setBigImage(bigImage);
+	}
+
+	@Override
+	public void setSmallImage(Movie movie) {
+		List<MovieImage> list = movieImageService.getSmall(movie.getMovieId());
+		movie.setSmallImage(list);
+	}
 }

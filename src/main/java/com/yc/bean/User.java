@@ -50,4 +50,10 @@ public class User {
     public void setHeadImg(String headImg) {
         this.headImg = headImg == null ? null : headImg.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", headImg=" + headImg + "]";
+	}
 }

@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MovieMapper {
+	
+	 List<Movie> listShowing();
+	 List<Movie> listUpComing();
+	
     long countByExample(MovieExample example);
 
     int deleteByExample(MovieExample example);
@@ -29,4 +33,8 @@ public interface MovieMapper {
     int updateByPrimaryKey(Movie record);
     
     List<Movie> selectAll(@Param("limit") int limit, @Param("example")MovieExample example);
+    
+    List<Movie> selectByName(@Param("kw1") String kw1,@Param("kw2") String kw2, @Param("example")MovieExample example);
+    
+	List<Movie> getTypeNameList(int movieId);
 }

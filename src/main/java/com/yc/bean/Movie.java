@@ -26,7 +26,6 @@ public class Movie {
     private MovieImage movieImage;
     
     
-    
     public MovieImage getMovieImage() {
 		return movieImage;
 	}
@@ -39,14 +38,54 @@ public class Movie {
      * 非数据库字段
      */
     private String coverImage;
+    private String bigImage;
+    private List<MovieImage> smallImage;
     private Double score;
     
     
     
-    private List<MovieType> type;
+    public String getBigImage() {
+		return bigImage;
+	}
+
+	public void setBigImage(String bigImage) {
+		this.bigImage = bigImage;
+	}
+
+	public List<MovieImage> getSmallImage() {
+		return smallImage;
+	}
+
+	public void setSmallImage(List<MovieImage> smallImage) {
+		this.smallImage = smallImage;
+	}
+
+	private List<MovieType> type;
+    
+    //用于关联查询
+    private Type tempType;
+    private List<Type> listType;
+    
     
 
-    public List<MovieType> getType() {
+    public Type getTempType() {
+		return tempType;
+	}
+
+	public void setTempType(Type tempType) {
+		this.tempType = tempType;
+	}
+
+	public List<Type> getListType() {
+		return listType;
+	}
+
+	public void setListType(List<Type> listType) {
+		this.listType = listType;
+	}
+
+
+	public List<MovieType> getType() {
 		return type;
 	}
 
@@ -141,5 +180,13 @@ public class Movie {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Movie [movieId=" + movieId + ", name=" + name + ", duration=" + duration + ", releaseTime="
+				+ releaseTime + ", foreignName=" + foreignName + ", region=" + region + ", language=" + language
+				+ ", description=" + description + ", status=" + status + ", movieImage=" + movieImage + ", coverImage="
+				+ coverImage + ", score=" + score + ", type=" + type + "]";
+	}
 
 }
