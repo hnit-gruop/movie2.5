@@ -214,7 +214,6 @@ public class FrameController {
 		}else {
 			re = new Result(0, "修改失败");
 		}
-		
 		return re;
 	}
 	
@@ -233,8 +232,6 @@ public class FrameController {
         mi.setType(MovieImageService.COVER_TYPE);
         String s = misi.getCover(mi.getMovieId());
         if(s == null) {
-        	System.err.println(mi.getMovieId());
-        	System.err.println(mi.getImage());
         	misi.add(mi);
         }else {
         	misi.update(mi);
