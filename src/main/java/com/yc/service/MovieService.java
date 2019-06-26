@@ -79,7 +79,7 @@ public interface MovieService {
 	 
 	 int getMovieId(Movie movie);
 	 
-	 int deleteMovie(int id);
+	 int deleteMovie(int id,String number);
 	 
 	 void setTypeName(List<Movie> list);
 	 

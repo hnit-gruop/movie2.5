@@ -161,6 +161,7 @@ public class MovieServiceImpl implements MovieService{
 				createCriteria.andReleaseTimeEqualTo(sTime);
 			}
 			lm = movieMapper.selectByExample(me);
+			
 			for (Movie movie : lm) {
 				List<MovieType> findMovieTypeByMovieID = movieTypeService.findMovieTypeByMovieID(movie.getMovieId());
 				movie.setType(findMovieTypeByMovieID);
@@ -241,8 +242,17 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	public int deleteMovie(int id) {
-		return movieMapper.deleteByPrimaryKey(id);
+	public int deleteMovie(int id,String number) {
+		
+		Movie m = new Movie();
+		if(number.equals("1")) {
+			m.setStatus(typical_status);
+		}else {
+			m.setStatus(showing_status);
+		}
+		
+		m.setMovieId(id);
+		return movieMapper.updateByPrimaryKeySelective(m);
 	}
 
 	@Override

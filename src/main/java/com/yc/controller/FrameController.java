@@ -137,6 +137,7 @@ public class FrameController {
 			for(MovieType mt:m.getType()) {
 				type+=tsi.findTypeByTypeID(mt.getTypeId()).getName()+"   ";
 			}
+			System.err.println(m1);
 			m1.put("type", type);
 			list.add(m1);
 		}
@@ -265,21 +266,16 @@ public class FrameController {
 		return re;
 	}
  	
-
- 	
  	@RequestMapping("deleteMovie")
  	@ResponseBody
- 	public Result delete(@RequestParam(name="movieId") String MovieId) {
+ 	public Result delete(@RequestParam(name="movieId") String MovieId,@RequestParam(name="number") String number) {
  		int id = Integer.parseInt(MovieId);
- 		int result = msi.deleteMovie(id);
- 		mtsi.delete(id);
- 		misi.delete(id);
- 		masi.delete(id);
+ 		int result = msi.deleteMovie(id,number);
  		Result re;
 		if(result > 0) {
-			re = new Result(1, "修改成功");
+			re = new Result(1, "操作成功");
 		}else {
-			re = new Result(0, "修改失败");
+			re = new Result(0, "操作失败");
 		}
 		return re;
  	}
