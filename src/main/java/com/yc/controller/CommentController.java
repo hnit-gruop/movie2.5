@@ -21,7 +21,6 @@ public class CommentController {
 	@RequestMapping("addComment")
 	public String addComment(Comments comments) {
 		int addComment = commentService.addComment(comments);
-		String convertTimeToFormat = DateUtils.convertTimeToFormat(comments.getCommentsTime().getTime());
 		if(addComment>0) {
 			return "1";
 		}else {

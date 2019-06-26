@@ -47,7 +47,6 @@ public class SearchController {
 				}
 				aList.add(bList);				
 			 }
-			
 			 System.out.println(a);
 		System.out.println(aList);
 		m.addAttribute("index", 0);

@@ -268,6 +268,8 @@ public class FrameController {
 		return re;
 	}
  	
+
+ 	
  	@RequestMapping("deleteMovie")
  	@ResponseBody
  	public Result delete(@RequestParam(name="movieId") String MovieId) {
