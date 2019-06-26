@@ -69,11 +69,12 @@
 
 
 	<!-- 搜索 -->
-		<form action="/search" target="_blank"
+		<form action="/search?" target="_blank"
 			class="search-form" data-actform="search-click">
 			<input name="kw" class="search" type="search" maxlength="32"
-				placeholder="找电影、影人" autocomplete="off"> <input
-				class="submit" type="submit" value="">
+				placeholder="找电影、影人" autocomplete="off"> 
+				<input name="type" value="1" type="hidden" > 
+				<input class="submit" type="submit" value="">
 		</form>
 	</div>
 </div>

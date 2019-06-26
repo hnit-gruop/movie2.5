@@ -41,6 +41,7 @@ public class MovieBiz {
 	@Resource
 	private  TypeMapper tm;
 	
+	
 	public List<Movie> findByMovieScore(){
 		MovieExample example=new MovieExample();
 		example.setOrderByClause("score desc");
@@ -94,6 +95,27 @@ public class MovieBiz {
 		TypeExample example=new TypeExample();
 		example.createCriteria().andTypeIdEqualTo(id);
 		List<Type> list=tm.selectByExample(example);
+		return list;
+	}
+
+	public List<Actor> findByActorName(String kw) {
+			kw="%"+kw+"%";
+			ActorExample example=new ActorExample();
+			List<Actor> list=am.selectByName(kw, kw, example);
+			return list;
+	}
+
+	public List<MovieActor> getMovieId(Integer id) {
+		MovieActorExample example=new MovieActorExample();
+		example.createCriteria().andActorIdEqualTo(id);
+		List<MovieActor> list=mam.selectByExample(example);
+		return list;
+	}
+
+	public List<Movie> getMovieName(Integer movieId) {
+		MovieExample example=new MovieExample();
+		example.createCriteria().andMovieIdEqualTo(movieId);
+		List<Movie> list=mm.selectByExample(example);
 		return list;
 	}
 }

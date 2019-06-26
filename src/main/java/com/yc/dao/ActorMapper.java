@@ -27,4 +27,6 @@ public interface ActorMapper {
     int updateByPrimaryKeySelective(Actor record);
 
     int updateByPrimaryKey(Actor record);
+
+	List<Actor> selectByName(@Param("kw1") String kw1,@Param("kw2") String kw2,@Param("example") ActorExample example);
 }

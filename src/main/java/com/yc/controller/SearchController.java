@@ -23,6 +23,8 @@ import com.yc.dao.UserMapper;
 public class SearchController {
 	List<String> bList=null;
 	List<List<String>> aList=null;
+	List<String> cList=null;
+	List<List<String>> dList=null;
 	@Resource
 	private MovieBiz mb;
 	
@@ -31,11 +33,14 @@ public class SearchController {
 		
 	
 	@RequestMapping("search" )
-	public String search(Model m,String kw) {
+	public String search(Model m,String kw,String type) {
 		aList=new ArrayList<>();
-		List<Movie> a=null;				
+		dList=new ArrayList<>();
+		List<Movie> a=null;	
+		List<Actor> b=null;
 			 a=mb.findByMovieName(kw);		
-			 System.out.println(a.size());
+			 b=mb.findByActorName(kw);
+			 System.out.println(b.size());
 			 for(int i=0;i<a.size();i++){
 				Integer id= a.get(i).getMovieId();				
 				List<MovieType> aid=mb.getTypeId(id);		
@@ -47,12 +52,34 @@ public class SearchController {
 				}
 				aList.add(bList);				
 			 }
+			 for(int i=0;i<b.size();i++){
+					Integer id= b.get(i).getActorId();				
+					List<MovieActor> aid=mb.getMovieId(id);		
+					cList = new ArrayList<>();
+					List<Movie> li=new ArrayList<>();
+					for(int j=0;j<aid.size();j++){
+						if(j<3){
+							
+						
+						 li=mb.getMovieName(aid.get(j).getMovieId());
+						 
+						 cList.add("《"+li.get(0).getName()+"》");
+						}else{
+							break;
+						}
+					}
+					System.out.println(cList);
+					dList.add(cList);				
+				 }
 			 System.out.println(a);
-		System.out.println(aList);
+		System.out.println(dList);
+		m.addAttribute("actormovie", dList);
+		m.addAttribute("type", type);
 		m.addAttribute("index", 0);
 		m.addAttribute("kw", kw);
 		 m.addAttribute("movie",a);
 			m.addAttribute("movieType",aList);
+			m.addAttribute("actor",b);
 		return "pages/Search";
 	}
 }

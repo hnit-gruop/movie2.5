@@ -31,6 +31,36 @@
     }
   </style>
 <meta name="lx:autopv" content="off"><meta name="lx:appnm" content="movie"><meta name="lx:category" content="movie"></head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){  
+	function UrlSearch() 
+	{
+		
+	   var name,value; 
+	   var str=location.href; //取得整个地址栏
+	   var num=str.indexOf("?") 
+	   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+	   var arr=str.split("&"); //各个参数放到数组里
+	   for(var i=0;i < arr.length;i++){ 
+	    num=arr[i].indexOf("="); 
+	    if(num>0){ 
+	     name=arr[i].substring(0,num);
+	     value=arr[i].substr(num+1);
+	     this[name]=value;
+	     } 
+	    } 
+	} 
+	var Request=new UrlSearch(); //实例化	
+
+	$("#s1").find("#"+Request.type).attr("class","active");
+	
+	$("#box").find("#box"+Request.type).attr("style","display:block");
+	
+});  
+
+</script>
 <body>
 	<div th:insert="include::head(index=${index})"></div>
 	<div style="height:81px;width: 100%"></div>
@@ -38,17 +68,18 @@
 		<form data-state-val="{kw:''}" class="search-form"
 			data-actform="query-search-click">
 			<input class="kw" type="text" name="kw" maxlength="32" th:value="${kw}"
-				placeholder="找电影、影人" autocomplete="off"/>			
+				placeholder="找电影、影人" autocomplete="off"/>
+				<input name="type"  th:value="${type}" type="hidden" > 			
 			<button class="submit" type="submit"></button>
 		</form>
 	</div>
 	<div class="subnav">
-		<ul class="navbar">
+		<ul class="navbar" id="s1">
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}" class="active"  th:text="'电影('+${movie.size()}+')'">影视剧（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}"  th:text="'电影('+${movie.size()}+')'" th:href="'search?type=1&kw='+${kw}"  id="1">电影（0）</a>
     </li>
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:1}" >影人（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:1}"  th:text="'影人('+${actor.size()}+')'" th:href="'search?type=2&kw='+${kw}" id="2">影人（0）</a>
     </li>
     <!-- <li>
       <a data-act="subnav-click" data-val="{subnavClick:2}" href="/query?kw=&amp;type=2">影院（0）</a>
@@ -56,9 +87,9 @@
   </ul>
 	</div>
 	<div class="container" id="app">
-		<div class="search-result-box">
+		<div class="search-result-box" id="box">
 		
-		<dl class="movie-list" >
+		<dl class="movie-list"  id="box1" style="display: none;">
 		<dd th:each="a,userStat:${movie}">
     <div class="movie-item">
       <a href="/films/248172" target="_blank" data-act="movie-click" data-val="{movieid:248172}">
@@ -86,55 +117,25 @@
 		
 		</dl>
 		
-		<ul class="celebrity-list" style="display: none;">
-		<li>
+		<ul class="celebrity-list" id="box2" style="display: none;">
+		<li th:each="a,userStat:${actor}">
           <div class="item-poster">
             <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">
               <div class="poster">
                 <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/d54416f946b06e80a7c2120c48d4b43966966.jpg@160w_220h_1e_1c" alt="林峯">
+                <img th:src="'/actorImg/cover/'+${a.pic}" th:alt="${a.aname}" style="width: 160px;height: 220px">
               </div>
             </a>
           </div>
-          <div class="item-title"><a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">林峯</a></div>
-          <div class="item-subtitle">Raymond Lam</div>
+          <div class="item-title">
+          <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}" th:text="${a.aname}">林峯</a></div>
+          <div class="item-subtitle" th:text="${a.secondName}">Raymond Lam</div>
           <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《反贪风暴4》 《忠烈杨家将》 《六福喜事》</div>
+            <!-- <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div> -->
+            <div class="item-detail item-detail-two-line line-clamp" th:text="'代表作：'+${actormovie.get(userStat.count-1).toString().substring(1,actormovie.get(userStat.count-1).toString().length()-1)}">代表作：《反贪风暴4》 《忠烈杨家将》 《六福喜事》</div>
           </div>
         </li>
-        <li>
-          <div class="item-poster">
-            <a href="/films/celebrity/3545" target="_blank" data-act="celebrity-click" data-val="{celebrityId:3545}">
-              <div class="poster">
-                <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/ad0e0432766f439a01cc0ca81b58c5f947040.jpg@160w_220h_1e_1c" alt="杨千嬅">
-              </div>
-            </a>
-          </div>
-          <div class="item-title"><a href="/films/celebrity/3545" target="_blank" data-act="celebrity-click" data-val="{celebrityId:3545}">杨千嬅</a></div>
-          <div class="item-subtitle">Miriam Yeung</div>
-          <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《可爱的你》 《志明与春娇》 《春娇与志明》</div>
-          </div>
-        </li>
-        <li>
-          <div class="item-poster">
-            <a href="/films/celebrity/17514" target="_blank" data-act="celebrity-click" data-val="{celebrityId:17514}">
-              <div class="poster">
-                <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/3ae5dea6fec196fc205a36e63fd579d580592.jpg@160w_220h_1e_1c" alt="陈奕迅">
-              </div>
-            </a>
-          </div>
-          <div class="item-title"><a href="/films/celebrity/17514" target="_blank" data-act="celebrity-click" data-val="{celebrityId:17514}">陈奕迅</a></div>
-          <div class="item-subtitle">Eason Chan</div>
-          <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《兄弟》 《摆渡人》 《每当变幻时》</div>
-          </div>
-        </li>
+        
 		</ul>
 		
     <div class="empty-list" style="display: none;">

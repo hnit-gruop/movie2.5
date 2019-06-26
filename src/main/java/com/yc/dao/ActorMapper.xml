@@ -16,6 +16,27 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
   </resultMap>
+  
+  <select id="selectByName"
+		parameterType="com.yc.bean.ActorExample" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM actor 
+		<if test="kw1!=null">
+			where aname like #{kw1}
+		</if>
+		union
+		SELECT
+		*
+		from actor
+		<if test="kw2!=null">
+			where second_name like #{kw2}
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>
+	</select>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
