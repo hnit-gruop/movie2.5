@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yc.dao.MovieMapper">
 
+	
+	<!-- 关联所有分类 -->
+	<resultMap type="com.yc.bean.Movie" id="rm2">
+		<id column="movie_id" property="movieId" />
+		<association property="tempType" javaType="com.yc.bean.Type" autoMapping="true">
+			<id column="type_id" property="typeId"/>
+		</association>
+	</resultMap>
+	
+	<select id="getTypeNameList" resultMap="rm2">
+	SELECT c.type_id,c.`name` from movie a LEFT JOIN movie_type b  on a.movie_id = b.movie_id  LEFT JOIN type c ON b.type_id = c.type_id WHERE a.movie_id = #{movieId}
+	</select>
+
+
 	<!--关联电影封面 -->
-	<resultMap type="com.yc.bean.Movie" id="rm">
+	<resultMap type="com.yc.bean.Movie" id="rm" >
 		<id column="movie_id" property="movieId" />
 		<association property="movieImage"
 			javaType="com.yc.bean.MovieImage" >
@@ -27,7 +41,8 @@
 		and b.type = 'cover_type'
 		LIMIT 0,8
 	</select>
-
+	
+	
 
 	<resultMap id="BaseResultMap" type="com.yc.bean.Movie">
 		<id column="movie_id" jdbcType="INTEGER" property="movieId" />

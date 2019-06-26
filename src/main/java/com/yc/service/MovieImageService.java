@@ -13,7 +13,7 @@ public interface MovieImageService {
 	
 	String getCover(int movieId);
 	String getBig(int movieId);
-	String getSmall(int movieId);
+	List<MovieImage> getSmall(int movieId);
 	
 	int add(MovieImage mi);
 	int delete(MovieImage mi);

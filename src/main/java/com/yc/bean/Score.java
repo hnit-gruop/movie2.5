@@ -11,6 +11,16 @@ public class Score {
     
     //评分
     private Double score;
+    
+    private int width;
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
 	public Double getScore() {
 		return score;

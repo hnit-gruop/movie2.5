@@ -12,6 +12,7 @@ import com.yc.bean.MovieImage;
 import com.yc.bean.MovieImageExample;
 import com.yc.dao.MovieImageMapper;
 import com.yc.service.MovieImageService;
+import com.yc.service.MovieService;
 
 @Service
 public class MovieImageServiceImpl implements MovieImageService{
@@ -35,14 +36,22 @@ public class MovieImageServiceImpl implements MovieImageService{
 
 	@Override
 	public String getBig(int movieId) {
-		// TODO Auto-generated method stub
+		
+		MovieImageExample example = new MovieImageExample();
+		example.createCriteria().andMovieIdEqualTo(movieId).andTypeEqualTo(MovieImageService.BIG_IMG_TYPE);
+		List<MovieImage> list = movieImageMapper.selectByExample(example);
+		
+		if(list.size()>0)
+			return list.get(0).getImage();
 		return null;
 	}
 
 	@Override
-	public String getSmall(int movieId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MovieImage> getSmall(int movieId) {
+		MovieImageExample example = new MovieImageExample();
+		example.createCriteria().andMovieIdEqualTo(movieId).andTypeEqualTo(MovieImageService.SMALL_IMG_TYPE);
+		List<MovieImage> list = movieImageMapper.selectByExample(example);
+		return list;
 	}
 
 	@Override

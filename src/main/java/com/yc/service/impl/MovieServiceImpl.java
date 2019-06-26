@@ -66,6 +66,7 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	RedisService redisServie;
 	
+	
 	@Override
 	public List<Movie> listShowing() {
 		List<Movie> listShowing = movieMapper.listShowing();
@@ -176,7 +177,6 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	
-	
 	public Map<String, Object> findMovieDetailsByMovieId(int movieId) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		Map<String,Object> map = new HashMap<>();
 		Movie movie = movieMapper.selectByPrimaryKey(movieId);
@@ -245,5 +245,30 @@ public class MovieServiceImpl implements MovieService{
 		return movieMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public void setTypeName(List<Movie> list) {
+		
+	}
 
+	@Override
+	public void setTypeName(Movie movie) {
+		List<Movie> list = movieMapper.getTypeNameList(movie.getMovieId());
+		List<Type> listType = new ArrayList<>();
+		for (Movie m : list) {
+			listType.add(m.getTempType());
+		}
+		movie.setListType(listType);
+	}
+
+	@Override
+	public void setBigImage(Movie movie) {
+		String bigImage = movieImageService.getBig(movie.getMovieId());
+		movie.setBigImage(bigImage);
+	}
+
+	@Override
+	public void setSmallImage(Movie movie) {
+		List<MovieImage> list = movieImageService.getSmall(movie.getMovieId());
+		movie.setSmallImage(list);
+	}
 }

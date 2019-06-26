@@ -114,6 +114,8 @@ $(function(){
         </p>
 <p class="releasetime" th:text="'上映时间：'+${#dates.format(a.releaseTime,'yyyy-MM-dd')}">上映时间：</p>    </div>
     <div class="movie-item-number score-num">
+    
+    
 <!--     数字格式化 <span th:text="${#numbers.formatDecimal(money, 0, 2)}"></span> -->
 <!-- th:text="${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}>${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 1)}?${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}-1:${#numbers.formatDecimal(a.score.sumScore/a.score.sumPeople, 0, 0)}" -->
  <p class="score"><i class="integer">9.</i>

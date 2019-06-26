@@ -28,6 +28,7 @@ public class RankController {
 	/*@Autowired
 	UserMapper userMapper;*/
 	
+	
 	/**
 	 * 榜单
 	 */

@@ -171,4 +171,26 @@ public class RedisServiceImpl implements RedisService {
 	
 	}
 
+	@Override
+	public Score getScore(int movieId) {
+		
+		Score score = new Score();
+		Object object = redisTemplate.opsForHash().get("ms", ""+movieId);
+		String string = object.toString();
+		String[] split = string.split(":");
+		if(split.length>1) {
+			String sum = split[0];
+			String cnt = split[1];
+			double s = Double.parseDouble(sum);
+			int c = Integer.parseInt(cnt);
+			score.setScore(s/c);
+			score.setSumPeople(c);
+			score.setSumScore(s);
+			int width = (int) (score.getScore()*10);
+			score.setWidth(width);
+		}
+		
+		return score;
+	}
+
 }

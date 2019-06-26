@@ -38,14 +38,54 @@ public class Movie {
      * 非数据库字段
      */
     private String coverImage;
+    private String bigImage;
+    private List<MovieImage> smallImage;
     private Double score;
     
     
     
-    private List<MovieType> type;
+    public String getBigImage() {
+		return bigImage;
+	}
+
+	public void setBigImage(String bigImage) {
+		this.bigImage = bigImage;
+	}
+
+	public List<MovieImage> getSmallImage() {
+		return smallImage;
+	}
+
+	public void setSmallImage(List<MovieImage> smallImage) {
+		this.smallImage = smallImage;
+	}
+
+	private List<MovieType> type;
+    
+    //用于关联查询
+    private Type tempType;
+    private List<Type> listType;
+    
     
 
-    public List<MovieType> getType() {
+    public Type getTempType() {
+		return tempType;
+	}
+
+	public void setTempType(Type tempType) {
+		this.tempType = tempType;
+	}
+
+	public List<Type> getListType() {
+		return listType;
+	}
+
+	public void setListType(List<Type> listType) {
+		this.listType = listType;
+	}
+
+
+	public List<MovieType> getType() {
 		return type;
 	}
 

@@ -80,4 +80,12 @@ public interface MovieService {
 	 int getMovieId(Movie movie);
 	 
 	 int deleteMovie(int id);
+	 
+	 void setTypeName(List<Movie> list);
+	 
+	 void setTypeName(Movie movie);
+
+	void setBigImage(Movie movie);
+
+	void setSmallImage(Movie movie);
 }

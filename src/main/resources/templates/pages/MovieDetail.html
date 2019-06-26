@@ -41,7 +41,11 @@
       <div class="ename ellipsis" th:text="${movie.foreignName}">My Best Summer</div>
       <ul>
       	<li class="ellipsis"></li>
-        <li class="ellipsis">爱情,青春</li>
+        <li class="ellipsis">
+        	<span th:each="t,status:${movie.listType}">
+        		<font th:text="${status.index==0?t.name:','+t.name}"></font>
+        	</span>
+        </li>
         <li class="ellipsis">
         <span th:text="${movie.region}"></span>
           / <span th:text=${movie.duration}></span>分钟
@@ -76,13 +80,13 @@
           <p class="movie-index-title">用户评分</p>
           <div class="movie-index-content score normal-score">
               <span class="index-left info-num ">
-                <span class="stonefont">8.5</span>
+                <span class="stonefont" th:text="${score.score}">8.5</span>
               </span>
               <div class="index-right">
                 <div class="star-wrapper">
-                  <div class="star-on" style="width:85%;"></div>
+                  <div class="star-on" th:style="@{width:{rate}% (rate=${score.width})}"></div>
                 </div>
-                 <span class="score-num"><span class="stonefont">10万</span>人评分</span>
+                 <span class="score-num"><span class="stonefont" th:text="${score.sumPeople*100}"></span>人评分</span>
               </div>
           </div>
         </div>
@@ -92,7 +96,7 @@
         <div class="movie-index">
           <p class="movie-index-title">累计票房</p>
           <div class="movie-index-content box">
-              <span class="stonefont">2.14</span><span class="unit">亿</span>
+              <span class="stonefont" th:text=${score.sumPeople*score.sumScore*100}></span><span class="unit">万</span>
           </div>
         </div>
     </div>
@@ -228,11 +232,12 @@
     </div>
     <div class="mod-content">
                     <div class="album clearfix" data-act="movie-img-click">
-                    <div class="img1"><img class="default-img" alt="" src="img/mainpic.jpg"></div>
-                    <div class="img2"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img3"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img4"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img5"><img class="default-img" alt="" src="img/pic1.jpg"></div>
+                    <div class="img1"><img class="default-img" alt="" th:src="@{/movieImg/big/{filename} (filename=${movie.bigImage})}"></div>
+                    <div class="img2" th:each="s:${movie.smallImage}"><img class="default-img" alt=""  th:src="@{/movieImg/small/{filename} (filename=${s.image})}"></div>
+                    
+<!--                     <div class="img3"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
+<!--                     <div class="img4"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
+<!--                     <div class="img5"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
               </div>
     </div>
   </div>

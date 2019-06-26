@@ -3,8 +3,11 @@ package com.yc.service;
 
 import com.yc.bean.CommentAgreeUser;
 import com.yc.bean.Comments;
+import com.yc.bean.Score;
 
 public interface RedisService {
+	
+	Score getScore(int movieId);
 	
 	int addCommentsCnt(CommentAgreeUser c);
 	

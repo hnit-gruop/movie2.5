@@ -35,4 +35,6 @@ public interface MovieMapper {
     List<Movie> selectAll(@Param("limit") int limit, @Param("example")MovieExample example);
     
     List<Movie> selectByName(@Param("kw1") String kw1,@Param("kw2") String kw2, @Param("example")MovieExample example);
+    
+	List<Movie> getTypeNameList(int movieId);
 }
