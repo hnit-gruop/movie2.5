@@ -58,6 +58,19 @@ $(function(){
 	
 	$("#box").find("#box"+Request.type).attr("style","display:block");
 	
+	if($("#detail"+Request.type).is(":visible")==false){
+		$("#box"+Request.type).after("<div class='empty-list' >"
+
+	      +"<h3>很抱歉，没找到相关的内容</h3>"
+	      +"<dl>"
+	       +" <dt>小喵建议您：</dt>"
+	        +"<dd>1. 请检查输入的关键词是否有误</dd>"
+	        +"<dd>2. 请缩短关键词</dd>"
+	     +" </dl>"
+	    +"</div>");  
+		
+	}
+	
 });  
 
 </script>
@@ -91,7 +104,7 @@ $(function(){
 		
 		<dl class="movie-list"  id="box1" style="display: none;">
 		<dd th:each="a,userStat:${movie}">
-    <div class="movie-item">
+    <div class="movie-item" id="detail1">
       <a href="/films/248172" target="_blank" data-act="movie-click" data-val="{movieid:248172}">
       <div class="movie-poster">
         <img class="poster-default" src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png">
@@ -119,7 +132,7 @@ $(function(){
 		
 		<ul class="celebrity-list" id="box2" style="display: none;">
 		<li th:each="a,userStat:${actor}">
-          <div class="item-poster">
+          <div class="item-poster" id="detail2">
             <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">
               <div class="poster">
                 <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
@@ -138,15 +151,7 @@ $(function(){
         
 		</ul>
 		
-    <div class="empty-list" style="display: none;">
-
-      <h3>很抱歉，没找到相关的影视剧</h3>
-      <dl>
-        <dt>小喵建议您：</dt>
-        <dd>1. 请检查输入的关键词是否有误</dd>
-        <dd>2. 请缩短关键词</dd>
-      </dl>
-    </div>
+    
     
     <div class="pager">
       
