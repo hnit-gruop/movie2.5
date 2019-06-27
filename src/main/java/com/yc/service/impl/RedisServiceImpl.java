@@ -52,8 +52,6 @@ public class RedisServiceImpl implements RedisService {
 		for (CommentAgreeUser u : commentsUserList) {
 			redisTemplate.opsForHash().put("comment_agree_user", u.getCommentsId()+":"+u.getUserId(), u.getIfagree());
 		}
-		
-		
 	}
 	
 	/**
@@ -62,14 +60,17 @@ public class RedisServiceImpl implements RedisService {
 	@Override
 	public double getAvgScore(int id) {
 		Object object = redisTemplate.opsForHash().get("ms", ""+id);
-		String string = object.toString();
-		String[] split = string.split(":");
-		if(split.length>1) {
-			String sum = split[0];
-			String cnt = split[1];
-			double s = Double.parseDouble(sum);
-			int c = Integer.parseInt(cnt);
-			return s/c;
+		
+		if(object!=null) {
+			String string = object.toString();
+			String[] split = string.split(":");
+			if(split.length>1) {
+				String sum = split[0];
+				String cnt = split[1];
+				double s = Double.parseDouble(sum);
+				int c = Integer.parseInt(cnt);
+				return s/c;
+			}
 		}
 		return 8.0;
 	}
@@ -168,12 +169,10 @@ public class RedisServiceImpl implements RedisService {
 				commentService.updateCommentAgreeUser(cid, uid,agree);
 			}
 		 }
-	
 	}
 
 	@Override
 	public Score getScore(int movieId) {
-		
 		Score score = new Score();
 		Object object = redisTemplate.opsForHash().get("ms", ""+movieId);
 		String string = object.toString();
@@ -189,8 +188,32 @@ public class RedisServiceImpl implements RedisService {
 			int width = (int) (score.getScore()*10);
 			score.setWidth(width);
 		}
-		
 		return score;
+	}
+	
+	
+	/**
+	 * 更新电影评分
+	 */
+	@Override
+	public int updateScore(int movieId, int userScore) {
+		Score score= getScore(movieId);
+		Double sumScore = score.getSumScore();
+		Integer sumPeople = score.getSumPeople();
+		
+		try {
+			if(sumScore==null||sumPeople==null) {
+				redisTemplate.opsForHash().put("ms", movieId+"", userScore+":"+1);
+			}else {
+				sumScore+=userScore;
+				sumPeople+=1;
+				redisTemplate.opsForHash().put("ms", movieId+"", sumScore+":"+sumPeople);
+			}
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

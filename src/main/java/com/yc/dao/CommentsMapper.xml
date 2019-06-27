@@ -4,6 +4,7 @@
 
 	<resultMap type="com.yc.bean.Comments" id="rm" autoMapping="true">
 		<id column="comments_id" property="commentsId"/>
+		<result property="commentsTime" column="comments_time"/>
 		<association property="user" javaType="com.yc.bean.User">
 			<id column="user_id" property="userId"/>
 			<result column="username" property="username"/>

@@ -9,6 +9,8 @@ public interface RedisService {
 	
 	Score getScore(int movieId);
 	
+	int updateScore(int movieId,int score);
+	
 	int addCommentsCnt(CommentAgreeUser c);
 	
 	int deCommentsCnt(CommentAgreeUser c);

@@ -26,8 +26,6 @@ public class MovieController {
 	@Autowired
 	CommentService commentService;
 
-
-
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 
@@ -50,9 +48,6 @@ public class MovieController {
 		m.addAttribute("cnt1", movieService.showingCnt());
 		m.addAttribute("cnt2", movieService.upComingCnt());
 		m.addAttribute("index", 1);
-		
-		
-		
 		return "pages/HomePage";
 	}
 	
@@ -61,7 +56,11 @@ public class MovieController {
 	 */
 	@RequestMapping("movieDetail")
 	public String movieDetail(Model m, @RequestParam(required = true) int id,HttpSession session) {
+		
+		
 		Movie movie = movieService.get(id);
+		
+		movieService.setActor(movie);
 		movieService.setTypeName(movie);
 		movieService.setBigImage(movie);
 		movieService.setSmallImage(movie);

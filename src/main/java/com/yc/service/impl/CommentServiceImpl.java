@@ -46,7 +46,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	
 	@Override
 	public List<Comments> getCommonts(int movieId) {
-
 		List<Comments> listComments = commentsMapper.listComments(movieId);
 		setRedisData(listComments);
 		return listComments;
@@ -163,6 +162,7 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	public void setRedisData(List<Comments> list) {
 		for (Comments c : list) {
 			setRedisData(c);
+			c.setTipTime(DateUtils.convertTimeToFormat(c.getCommentsTime().getTime()));
 		}
 	}
 

@@ -3,8 +3,8 @@ package com.yc.bean;
 import java.util.Date;
 import java.util.List;
 
-
 public class Movie {
+	
     private Integer movieId;
 
     private String name;
@@ -25,7 +25,6 @@ public class Movie {
     
     private MovieImage movieImage;
     
-    
     public MovieImage getMovieImage() {
 		return movieImage;
 	}
@@ -33,18 +32,36 @@ public class Movie {
 	public void setMovieImage(MovieImage movieImage) {
 		this.movieImage = movieImage;
 	}
-
+	
+	
 	/**
      * 非数据库字段
      */
     private String coverImage;
     private String bigImage;
     private List<MovieImage> smallImage;
+    private List<Actor> listActor;
+    private Actor director;
     private Double score;
     
     
-    
-    public String getBigImage() {
+    public Actor getDirector() {
+		return director;
+	}
+
+	public void setDirector(Actor director) {
+		this.director = director;
+	}
+
+	public List<Actor> getListActor() {
+		return listActor;
+	}
+
+	public void setListActor(List<Actor> listActor) {
+		this.listActor = listActor;
+	}
+
+	public String getBigImage() {
 		return bigImage;
 	}
 

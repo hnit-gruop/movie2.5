@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.bean.CommentAgreeUser;
 import com.yc.bean.Comments;
 import com.yc.service.CommentService;
+import com.yc.service.RedisService;
 import com.yc.util.DateUtils;
 
 @Controller
@@ -17,10 +18,14 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
+	@Autowired
+	RedisService redisService;
+	
 	@ResponseBody
 	@RequestMapping("addComment")
 	public String addComment(Comments comments) {
 		int addComment = commentService.addComment(comments);
+		redisService.updateScore(comments.getMovieId(), comments.getScore());
 		if(addComment>0) {
 			return "1";
 		}else {

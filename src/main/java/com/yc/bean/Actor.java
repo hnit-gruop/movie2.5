@@ -132,4 +132,13 @@ public class Actor {
     public void setPic(String pic) {
         this.pic = pic == null ? null : pic.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Actor [actorId=" + actorId + ", aname=" + aname + ", height=" + height + ", secondName=" + secondName
+				+ ", position=" + position + ", country=" + country + ", sex=" + sex + ", birthday=" + birthday
+				+ ", nation=" + nation + ", birthplace=" + birthplace + ", constellation=" + constellation
+				+ ", description=" + description + ", pic=" + pic + "]";
+	}
+    
 }

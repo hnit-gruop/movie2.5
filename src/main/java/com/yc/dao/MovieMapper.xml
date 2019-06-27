@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yc.dao.MovieMapper">
 
+<mapper namespace="com.yc.dao.MovieMapper">
+		<resultMap type="com.yc.bean.Movie" id="rm3">
+		<id column="movie_id" property="movieId" />
+		<collection property="listActor" ofType="com.yc.bean.Actor">
+			<id property="actorId" column="actor_id"/>
+			<result property="aname" column="aname"/>
+			<result property="pic" column="pic"/>
+			<result property="position" column="position"/>
+		</collection>
+	</resultMap>
+
+	<select id="listActor" resultMap="rm3">
+		SELECT * FROM movie a LEFT JOIN movie_actor b ON a.movie_id = b.movie_id LEFT JOIN actor c ON b.actor_id = c.actor_id  WHERE a.movie_id = #{movie_id} 
+	</select>
 	
 	<!-- 关联所有分类 -->
 	<resultMap type="com.yc.bean.Movie" id="rm2">
 		<id column="movie_id" property="movieId" />
-		<association property="tempType" javaType="com.yc.bean.Type" autoMapping="true">
-			<id column="type_id" property="typeId"/>
-		</association>
+		<collection property="listType" ofType="com.yc.bean.Type">
+			<id property="typeId" column="type_id"/>
+			<result property="name" column="name"/>
+		</collection>
 	</resultMap>
 	
-	<select id="getTypeNameList" resultMap="rm2">
-	SELECT c.type_id,c.`name` from movie a LEFT JOIN movie_type b  on a.movie_id = b.movie_id  LEFT JOIN type c ON b.type_id = c.type_id WHERE a.movie_id = #{movieId}
+	<select id="getTypeList" resultMap="rm2">
+	SELECT a.movie_id,b.type_id,b.movie_id,c.type_id,c.`name`  from movie a LEFT JOIN movie_type b  on a.movie_id = b.movie_id  LEFT JOIN type c ON b.type_id = c.type_id WHERE a.movie_id = #{movieId}
 	</select>
-
 
 	<!--关联电影封面 -->
 	<resultMap type="com.yc.bean.Movie" id="rm" >

@@ -3,6 +3,7 @@
 
 	<div class="header-inner">
 		<a href="#" class="logo" data-act="icon-click"></a>
+		
 		<div class="city-container" data-val="{currentcityid:265 }">
 			<div class="city-selected">
 				<div class="city-name">
@@ -28,7 +29,8 @@
 			</ul>
 		</div>
 		<script>
-		var index = [[${index}]];//js中取值
+		var index = 1;
+		index = [[${index==null?1:index}]];//js中取值
 		if(index==1){
 			$("#a1").attr("class","active");
 		}else if(index == 2){

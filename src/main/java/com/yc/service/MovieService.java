@@ -88,4 +88,8 @@ public interface MovieService {
 	void setBigImage(Movie movie);
 
 	void setSmallImage(Movie movie);
+
+
+	void setActor(Movie movie);
+	
 }
