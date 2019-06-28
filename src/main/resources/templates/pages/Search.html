@@ -55,6 +55,9 @@ $(function(){
 	var Request=new UrlSearch(); //实例化	
 
 	$("#s1").find("#"+Request.type).attr("class","active");
+
+		$(".list-pager").find(".page_"+Request.pageNum).parent().attr("class","active");
+	
 	
 	$("#box").find("#box"+Request.type).attr("style","display:block");
 	
@@ -82,17 +85,18 @@ $(function(){
 			data-actform="query-search-click">
 			<input class="kw" type="text" name="kw" maxlength="32" th:value="${kw}"
 				placeholder="找电影、影人" autocomplete="off"/>
-				<input name="type"  th:value="${type}" type="hidden" > 			
+				<input name="type"  th:value="${type}" type="hidden" > 	
+				<input name="pageNum"  th:value="1" type="hidden" > 				
 			<button class="submit" type="submit"></button>
 		</form>
 	</div>
 	<div class="subnav">
 		<ul class="navbar" id="s1">
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}"  th:text="'电影('+${movie.size()}+')'" th:href="'search?type=1&kw='+${kw}"  id="1">电影（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}"  th:text="'电影('+${movie.getTotal()}+')'" th:href="'search?type=1&pageNum=1&kw='+${kw}"  id="1">电影（0）</a>
     </li>
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:1}"  th:text="'影人('+${actor.size()}+')'" th:href="'search?type=2&kw='+${kw}" id="2">影人（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:1}"  th:text="'影人('+${actor.getTotal()}+')'" th:href="'search?type=2&pageNum=1&kw='+${kw}" id="2">影人（0）</a>
     </li>
     <!-- <li>
       <a data-act="subnav-click" data-val="{subnavClick:2}" href="/query?kw=&amp;type=2">影院（0）</a>
@@ -103,7 +107,7 @@ $(function(){
 		<div class="search-result-box" id="box">
 		
 		<dl class="movie-list"  id="box1" style="display: none;">
-		<dd th:each="a,userStat:${movie}">
+		<dd th:each="a,userStat:${movie.getList()}">
     <div class="movie-item" id="detail1">
       <a href="/films/248172" target="_blank" data-act="movie-click" data-val="{movieid:248172}">
       <div class="movie-poster">
@@ -131,7 +135,7 @@ $(function(){
 		</dl>
 		
 		<ul class="celebrity-list" id="box2" style="display: none;">
-		<li th:each="a,userStat:${actor}">
+		<li th:each="a,userStat:${actor.getList()}">
           <div class="item-poster" id="detail2">
             <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">
               <div class="poster">
@@ -155,45 +159,40 @@ $(function(){
     
     <div class="pager">
       
-  
-  <ul class="list-pager">
-
-
-
-  
-      <li class="active">
-    <a class="page_1" href="javascript:void(0);" style="cursor: default">1</a>
-
+  <div th:if="${type} eq 1" >
+  <ul class="list-pager" th:if="${movie.getPages()}  gt 1">
+<li>  <a th:class="page_l" th:if="${movie.getPageNum()-1} ge 1" 
+      th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${movie.getPageNum()-1}"
+  >上一页</a>
 </li>
-  <li>
-    <a class="page_2" href="?kw=a&amp;offset=20">2</a>
-
-</li>
-  <li>
-    <a class="page_3" href="?kw=a&amp;offset=40">3</a>
-
-</li>
-  <li>
-    <a class="page_4" href="?kw=a&amp;offset=60">4</a>
-
-</li>
-  <li>
-    <a class="page_5" href="?kw=a&amp;offset=80">5</a>
-
+<li th:each="i:${#numbers.sequence(1,movie.getPages())}">
+<a th:class="'page_'+${i}" th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${i}"
+		th:text="${i}"></a>
 </li>
 
-    <li class="sep">...</li>
-      <li>
-    <a class="page_18" href="?kw=a&amp;offset=340">18</a>
-
-</li>
-
-  
-
-<li>  <a class="page_2" href="?kw=a&amp;offset=20">下一页</a>
+<li>  <a class="page_n" th:if="${movie.getPageNum()+1} le ${movie.getPages()}" 
+		th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${movie.getPageNum()+1}">下一页</a>
 </li>
 </ul>
+</div>
 
+<div th:if="${type} eq 2" >
+  <ul class="list-pager" th:if="${actor.getPages()}  gt 1">
+<li>  <a th:class="page_l" th:if="${actor.getPageNum()-1} ge 1" 
+      th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${actor.getPageNum()-1}"
+  >上一页</a>
+</li>
+<li th:each="i:${#numbers.sequence(1,actor.getPages())}">
+<a th:class="'page_'+${i}" th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${i}"
+		th:text="${i}"></a>
+</li>
+
+<li>  <a class="page_n" th:if="${actor.getPageNum()+1} le ${actor.getPages()}" 
+		th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${actor.getPageNum()+1}">下一页</a>
+</li>
+</li>
+</ul>
+</div>
 
     </div>
     

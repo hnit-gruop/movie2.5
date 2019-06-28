@@ -110,7 +110,6 @@
 		</if>
 	</select>
 
-
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"
@@ -185,37 +184,12 @@
 
 
 
-	<!-- 自动生成的代码不要改。。 -->
-	<select id="selectByExample"
-		parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap">
-		SELECT
-		<if test="distinct">
-			distinct
-		</if>
-
-		<!-- a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score -->
-		<!-- FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id -->
-		<!-- LEFT JOIN score c ON a.movie_id=c.movie_id -->
-
-		<include refid="Base_Column_List" />
-		from movie
-
-
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
-		<if test="orderByClause != null">
-			order by ${orderByClause}
-		</if>
-	</select>
-
-
-
 	<select id="selectByName"
 		parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap1">
 		SELECT
 		a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
-		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id 
+		and type='cover_type'
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="kw1!=null">
 			where name like #{kw1}
@@ -223,7 +197,8 @@
 		union
 		SELECT
 		a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
-		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id 
+		and type='cover_type'
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="kw2!=null">
 			where foreign_name like #{kw2}
@@ -232,6 +207,7 @@
 			order by ${example.orderByClause}
 		</if>
 	</select>
+
 
 
 

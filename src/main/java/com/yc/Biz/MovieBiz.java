@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yc.bean.Actor;
 import com.yc.bean.ActorExample;
 import com.yc.bean.Movie;
@@ -23,6 +25,7 @@ import com.yc.dao.MovieActorMapper;
 import com.yc.dao.MovieMapper;
 import com.yc.dao.MovieTypeMapper;
 import com.yc.dao.TypeMapper;
+import com.yc.util.PageHelper1;
 
 @Service
 public class MovieBiz {
@@ -77,10 +80,13 @@ public class MovieBiz {
 		return list;
 	}
 
-	public List<Movie> findByMovieName(String kw) {
+	public PageInfo<Movie> findByMovieName(String kw ,Integer pageNum) {
+		//PageHelper.offsetPage(offset, 2);
+		PageHelper.startPage(pageNum, 2);
 		 kw="%"+kw+"%";
 		MovieExample example=new MovieExample();
-		List<Movie> list=mm.selectByName(kw, kw, example);
+		List<Movie> a=mm.selectByName(kw, kw, example);
+		PageInfo<Movie> list = new PageInfo<>(a);
 		return list;
 	}
 
@@ -98,10 +104,13 @@ public class MovieBiz {
 		return list;
 	}
 
-	public List<Actor> findByActorName(String kw) {
+	public PageInfo<Actor> findByActorName(String kw,Integer pageNum) {
+		//PageHelper.startPage(offset, 2);
+		PageHelper.startPage(pageNum, 2);
 			kw="%"+kw+"%";
 			ActorExample example=new ActorExample();
-			List<Actor> list=am.selectByName(kw, kw, example);
+			List<Actor> a=am.selectByName(kw, kw, example);
+			PageInfo<Actor> list = new PageInfo<>(a);
 			return list;
 	}
 

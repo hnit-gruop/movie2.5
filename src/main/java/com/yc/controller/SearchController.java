@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.pagehelper.PageInfo;
 import com.yc.Biz.MovieBiz;
 import com.yc.bean.Actor;
 import com.yc.bean.Movie;
@@ -33,16 +34,18 @@ public class SearchController {
 		
 	
 	@RequestMapping("search" )
-	public String search(Model m,String kw,String type) {
+	public String search(Model m,String kw,String type,String pageNum) {
+
 		aList=new ArrayList<>();
 		dList=new ArrayList<>();
-		List<Movie> a=null;	
-		List<Actor> b=null;
-			 a=mb.findByMovieName(kw);		
-			 b=mb.findByActorName(kw);
-			 System.out.println(b.size());
-			 for(int i=0;i<a.size();i++){
-				Integer id= a.get(i).getMovieId();				
+		PageInfo<Movie> a=null;	
+		PageInfo<Actor> b=null;
+			 a=mb.findByMovieName(kw,Integer.parseInt(pageNum));		
+			 b=mb.findByActorName(kw,Integer.parseInt(pageNum));
+			 System.out.println(a.getPageSize());
+			 System.out.println("---------------------------------"+a);
+			 for(int i=0;i<a.getSize();i++){		
+				 Integer id=a.getList().get(i).getMovieId();
 				List<MovieType> aid=mb.getTypeId(id);		
 				bList = new ArrayList<>();
 				List<Type> li=new ArrayList<>();
@@ -52,8 +55,9 @@ public class SearchController {
 				}
 				aList.add(bList);				
 			 }
-			 for(int i=0;i<b.size();i++){
-					Integer id= b.get(i).getActorId();				
+			 
+			 for(int i=0;i<b.getSize();i++){
+					Integer id= b.getList().get(i).getActorId();
 					List<MovieActor> aid=mb.getMovieId(id);		
 					cList = new ArrayList<>();
 					List<Movie> li=new ArrayList<>();
@@ -68,11 +72,8 @@ public class SearchController {
 							break;
 						}
 					}
-					System.out.println(cList);
 					dList.add(cList);				
 				 }
-			 System.out.println(a);
-		System.out.println(dList);
 		m.addAttribute("actormovie", dList);
 		m.addAttribute("type", type);
 		m.addAttribute("index", 0);

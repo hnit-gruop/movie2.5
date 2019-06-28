@@ -205,5 +205,4 @@ public class Movie {
 				+ ", description=" + description + ", status=" + status + ", movieImage=" + movieImage + ", coverImage="
 				+ coverImage + ", score=" + score + ", type=" + type + "]";
 	}
-
 }
