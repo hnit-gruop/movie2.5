@@ -32,6 +32,7 @@ import com.yc.bean.MovieImage;
 import com.yc.bean.MovieType;
 import com.yc.bean.Type;
 import com.yc.service.MovieImageService;
+import com.yc.service.impl.ActorServiceImpl;
 import com.yc.service.impl.MovieActorServiceImpl;
 import com.yc.service.impl.MovieImageServiceImpl;
 import com.yc.service.impl.MovieServiceImpl;
@@ -53,6 +54,8 @@ public class FrameController {
 	MovieImageServiceImpl misi;
 	@Resource
 	MovieActorServiceImpl masi;
+	@Resource
+	ActorServiceImpl asi;
 	
 	/**
 	 * 打开后台页面
@@ -279,4 +282,78 @@ public class FrameController {
 		}
 		return re;
  	}
+ 	
+ 	/**
+ 	 * 查询演员
+ 	 */
+ 	@RequestMapping("getAllActorByPage")
+ 	@ResponseBody
+ 	public List<Actor> getAllActorByPage(@RequestParam(name="flag",defaultValue="0")String flag,@RequestParam(name="name",defaultValue="")String name,ModelAndView model,@RequestParam(defaultValue="1") int current) {
+ 		Map<String, Object> map = asi.findActor(Integer.parseInt(flag),name, current);
+ 		List<Actor> list = (List<Actor>) map.get("list");
+ 		return list;
+ 	}
+ 	
+ 	@RequestMapping("getAllActor")
+ 	public ModelAndView getAllActor(@RequestParam(name="flag",defaultValue="0")String flag,@RequestParam(name="name",defaultValue="")String name,ModelAndView model,@RequestParam(defaultValue="1") int current) {
+ 		Map<String, Object> map = asi.findActor(Integer.parseInt(flag),name, current);
+ 		List<Actor> list = (List<Actor>) map.get("list");
+ 		long total = (long) map.get("total");
+ 		if(total % 5 == 0) {
+			total /= 5;
+		}else {
+			total = (total / 5) + 1;
+		}
+ 		model.addObject("ActorList",list);
+ 		model.addObject("total",total);
+ 		model.setViewName("manage/allActor");
+ 		return model;
+ 	}
+ 	
+ 	@RequestMapping("getActorDetail")
+ 	@ResponseBody
+ 	public Actor getActorDetail(@RequestParam(name="aid")String id) {
+ 		return asi.findById(Integer.parseInt(id));
+ 	}
+ 	
+ 	@RequestMapping("alterActor")
+ 	@ResponseBody
+ 	public Result alertActor(Actor actor) {
+ 		int result = asi.update(actor);
+ 		Result re;
+ 		if(result >= 0) {
+ 			re = new Result(result, "修改成功!");
+ 		}else {
+ 			re = new Result(result, "修改失败!");
+ 		}
+ 		return re;
+ 	}
+ 	
+ 	
+ 	@PostMapping("ImgActorUpload")
+    @ResponseBody
+    public String Actorupload(@RequestParam("file") MultipartFile file,@RequestParam(name="movieId") String MovieId) {
+        if (file.isEmpty()) {
+            return "上传失败，请选择文件";
+        }
+        MovieImage mi = new MovieImage();
+        mi.setImage(file.getOriginalFilename());
+        mi.setMovieId(Integer.parseInt(MovieId));
+        mi.setType(MovieImageService.COVER_TYPE);
+        String s = misi.getCover(mi.getMovieId());
+        if(s == null) {
+        	misi.add(mi);
+        }else {
+        	misi.update(mi);
+        }
+        String fileName = file.getOriginalFilename();
+        String filePath = "D:\\upload\\ActorImg";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (IOException e) {
+        }
+        return "上传失败！";
+    }
 }

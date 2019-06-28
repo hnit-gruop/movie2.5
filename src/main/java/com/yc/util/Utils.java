@@ -1,6 +1,7 @@
 package com.yc.util;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 
 public class Utils {
@@ -13,5 +14,4 @@ public class Utils {
 	            map.put(field.getName(), value);
 	        }
 	    }
-	
 }
