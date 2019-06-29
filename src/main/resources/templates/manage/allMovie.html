@@ -72,6 +72,22 @@
 				return false;
 			}
 			
+			function upload2(){
+				$("#BigImage").ajaxSubmit(function(message) {  
+			  
+			    }); 
+				
+				return false;
+			}
+			function upload3(){
+				$("#SmallImage").ajaxSubmit(function(message) {  
+			  
+			    }); 
+				
+				return false;
+			}
+			
+			
 			function cleanForm(){
 				$("input").removeAttr("checked");
 				$("#img-change").attr("src","");
@@ -102,6 +118,8 @@
 						 $("#img-change").attr("src","movieImg/cover/"+data.imageList[0].image);
 					}
 					$("#moid").val(data.movieId);
+					$("#moid2").val(data.movieId);
+					$("#moid3").val(data.movieId);
 					$("#mname").val(data.name);
 					$("#director").val(data.direlist);
 					$("#actor").val(data.actorList);
@@ -148,6 +166,12 @@
 				},function(data){
 					if($("#file").val() != null && $("#file").val() != ""){
 						upload();
+					}
+					if($("#file2").val() != null && $("#file2").val() != ""){
+						upload2();
+					}
+					if($("#file3").val() != null && $("#file3").val() != ""){
+						upload3();
 					}
 					alert(data.message);
 					$('#win').window('close');
@@ -235,6 +259,72 @@
 			        var imgURL = URL.createObjectURL(file);
 			        //用attr将img的src属性改成获得的url
 			        $("#img-change").attr("src",imgURL);
+			    }
+			};
+			
+		</script>
+		
+		<div id="addBig">
+		电影大图:
+		<form id="BigImage" action="ImgUploadBig" method="post" enctype="multipart/form-data" onsubmit="return upload2();">
+			<input type="file" id="file2" name="file2" style="display:none;" onchange="filechange2(event)" >
+			<input type="text" id="moid3" name="movieId" hidden="hidden">
+			<img src="" width="200px" height="200px" id="img-change2"><br>
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change2").click(function () {
+			    $("#file2").click();
+			})
+			
+			var filechange2=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change2").attr("src",imgURL);
+			    }
+			};
+			
+		</script>
+		
+		<div id="addSmall">
+		电影小图:
+		<form id="SmallImage" action="ImgUploadSmall" method="post" enctype="multipart/form-data" onsubmit="return upload3();">
+			<input type="file" id="file3" name="file3" style="display:none;" onchange="filechange3(event)">
+			<input type="text" id="moid2" name="movieId" hidden="hidden">
+			<img src="" width="200px" height="200px" id="img-change3"><br>
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change3").click(function () {
+			    $("#file3").click();
+			})
+			
+			var filechange3=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change3").attr("src",imgURL);
 			    }
 			};
 			
