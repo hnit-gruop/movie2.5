@@ -9,7 +9,19 @@ public class Score {
 
     private Integer sumPeople;
     
-    //评分
+    public Score() {
+    	
+    }
+    
+    public Score(Integer movieId, Double sumScore, Integer sumPeople, Double score, int width) {
+		this.movieId = movieId;
+		this.sumScore = sumScore;
+		this.sumPeople = sumPeople;
+		this.score = score;
+		this.width = width;
+	}
+
+	//评分
     private Double score;
     
     private int width;

@@ -175,8 +175,10 @@ public class RedisServiceImpl implements RedisService {
 
 	@Override
 	public Score getScore(int movieId) {
-		Score score = new Score();
+		Score score = new Score(movieId, 80.0,10, 8.0, 80);
 		Object object = redisTemplate.opsForHash().get("ms", ""+movieId);
+		if(object==null)
+			return score;
 		String string = object.toString();
 		String[] split = string.split(":");
 		if(split.length>1) {

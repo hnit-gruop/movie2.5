@@ -25,7 +25,11 @@ import com.yc.bean.MovieExample.Criteria;
 import com.yc.bean.MovieImage;
 import com.yc.bean.MovieType;
 import com.yc.bean.Type;
+import com.yc.bean.User;
+import com.yc.bean.Wants;
+import com.yc.bean.WantsExample;
 import com.yc.dao.MovieMapper;
+import com.yc.dao.WantsMapper;
 import com.yc.service.ActorService;
 import com.yc.service.MovieActorService;
 import com.yc.service.MovieImageService;
@@ -38,7 +42,10 @@ import com.yc.util.Utils;
 
 @Service
 public class MovieServiceImpl implements MovieService {
-
+	
+	@Autowired
+	WantsMapper wantsMapper;
+	
 	@Autowired
 	MovieMapper movieMapper;
 
@@ -223,6 +230,7 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public int add(Movie movie) {
+		movie.setStatus(MovieService.showing_status);
 		int insert = movieMapper.insert(movie);
 		return insert;
 	}
@@ -290,7 +298,57 @@ public class MovieServiceImpl implements MovieService {
 					iterator.remove();
 				}
 			}
-			movie.setListActor(listActor.get(0).getListActor());
+			if(listActor2.size()>4) {
+				listActor2 = listActor2.subList(0, 4);
+			}
+			movie.setListActor(listActor2);
 		}
+	}
+
+	@Override
+	public int addWants(Integer userId, int movieId) {
+		return 0;
+	}
+
+	@Override
+	public Wants getWant(User user, int id) {
+		if(user==null)
+			return null;
+		WantsExample example = new WantsExample();
+		example.createCriteria().andUserIdEqualTo(user.getUserId()).andWantEqualTo(id);
+		List<Wants> list = wantsMapper.selectByExample(example);
+		if(list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public int updateWants(Integer userId, int movieId, int flag) {
+		Wants record = new Wants();
+		record.setUserId(userId);
+		record.setWant(movieId);
+		if(flag == 1) {
+			int insertSelective = wantsMapper.insertSelective(record);
+			if(insertSelective>0) {
+				return 1;
+			}
+			return 0;
+		}else {
+			WantsExample example = new WantsExample();
+			example.createCriteria().andUserIdEqualTo(userId).andWantEqualTo(movieId);
+			int deleteByExample = wantsMapper.deleteByExample(example);
+		    if(deleteByExample>0)
+		    	return 2;
+		    return 0;
+		}
+	}
+
+	@Override
+	public int getWantCnt(int movieId) {
+		WantsExample example = new WantsExample();
+		example.createCriteria().andWantEqualTo(movieId);
+		long countByExample = wantsMapper.countByExample(example);
+		return (int) countByExample;
 	}
 }

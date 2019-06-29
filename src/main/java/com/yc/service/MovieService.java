@@ -9,6 +9,8 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.yc.bean.Movie;
 import com.yc.bean.MovieType;
+import com.yc.bean.User;
+import com.yc.bean.Wants;
 
 public interface MovieService {
 	PageInfo<Movie> findAllMoive(int pageNum,String sname,Date sTime);
@@ -91,5 +93,13 @@ public interface MovieService {
 
 
 	void setActor(Movie movie);
+
+	int addWants(Integer userId, int movieId);
+
+	Wants getWant(User user, int id);
+
+	int updateWants(Integer userId, int movieId, int flag);
+	
+	int getWantCnt(int movieId);
 	
 }

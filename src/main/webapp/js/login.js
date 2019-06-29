@@ -67,6 +67,8 @@ layui.use('layer', function () {
            $.post("doLogin",{username:login,password:pwd},function(data){
         	   if(data==1){
         		   window.location.href="index"; 
+        	   }else if(data==2){
+        		   
         	   }else{
         		   alert("登陆失败，用户名或密码错误");
         		   window.location.href="login"; 

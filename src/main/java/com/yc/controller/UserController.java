@@ -1,5 +1,6 @@
 package com.yc.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.bean.User;
 import com.yc.service.UserService;
@@ -26,14 +28,16 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping("doLogin")
-	public String login(String username,String password,HttpSession session) {
+	public String login(String username,String password,HttpSession session,HttpServletRequest request) {
 		User user = userService.login(username, password);
 		if(user==null) {
 			 user = userService.loginByEamil(username, password);
 		}
 		session.setAttribute("user", user);
-		if(user!=null)
+		
+		if(user!=null) {
 			return "1";
+		}
 		return "0";
 	}
 	
@@ -41,6 +45,8 @@ public class UserController {
     public String log() {
         return "pages/Login";
     }
+    
+  
 	
     @RequestMapping("/reg")
     public String reg() {

@@ -82,22 +82,18 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	 * 用户是否赞过这条评论
 	 */
 	@Override
-	public void setIfAgree(HttpSession session, Comments c) {
-		Object u = session.getAttribute("user");
-		if(u==null)
+	public void setIfAgree(User user, Comments c) {
+		if(user==null)
 			return;
-		User user = (User) u;
 		
-		if(user!=null) {
 			boolean ifAgree = redisService.ifAgree(user.getUserId(), c.getCommentsId());
 			c.setAgree(ifAgree);
-		}
 	}
 
 	@Override
-	public void setIfAgree(HttpSession session, List<Comments> list) {
+	public void setIfAgree(User user, List<Comments> list) {
 		for (Comments c : list) {
-			setIfAgree(session,c);
+			setIfAgree(user,c);
 		}
 	}
 	
@@ -206,4 +202,5 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		}
 		
 	}
+
 }

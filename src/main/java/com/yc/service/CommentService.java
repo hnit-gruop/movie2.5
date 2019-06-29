@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import com.yc.bean.CommentAgreeCnt;
 import com.yc.bean.CommentAgreeUser;
 import com.yc.bean.Comments;
+import com.yc.bean.User;
 
 public interface CommentService {
 	
@@ -32,12 +33,11 @@ public interface CommentService {
 	
 	/**
 	 * 判断是否赞过
-	 * @param session
-	 * @param c
+	 * @param user
+	 * @param commonts
 	 */
-    void setIfAgree(HttpSession session,Comments c);
+    void setIfAgree(User user,List<Comments> commonts);
 	
-    void setIfAgree(HttpSession session,List<Comments> list);
     
     void setAgreeCnt(List<Comments> list);
     
@@ -51,6 +51,8 @@ public interface CommentService {
     void setRedisData(Comments c);
 
 	void updateCommentAgreeUser(int cid, int uid, int agree);
+
+	void setIfAgree(User user, Comments c);
     
 	//进入页面
 	
