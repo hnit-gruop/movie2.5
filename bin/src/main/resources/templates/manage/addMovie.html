@@ -13,6 +13,10 @@
 			top:20px;
 			z-index:100;
 		}
+		
+		#typeList{
+			width: 300px;
+		}
 		</style>
 		<link rel="stylesheet" type="text/css" href="../../css/base.css">
 		<link rel="stylesheet" type="text/css" href="../../fonts/iconfont.css">
@@ -55,9 +59,24 @@
 			
 			function add(){
 				var typeList = [];
-				var date = new Date($("#releaseTime").val());
-				var movieId = $("#moid").val();
 				var name = $("#mname").val();
+				if(name == null || name == ""){
+					alert("电影名称不能为空");
+					return;
+				}
+				if($("#releaseTime").val() == null || $("#releaseTime").val() == ""){
+					alert("上映时间不能为空");
+					return;
+				}
+				var date;
+				try{
+					date = new Date($("#releaseTime").val());
+				}catch(err){
+					alert("日期格式为:年-月-日");
+				}
+				
+				
+				var movieId = $("#moid").val();
 				var actor = $("#actor").val();
 				var dire = $("#dire").val();
 				var releaseTime = date;
@@ -69,6 +88,7 @@
 				$('input[name="typeId"]:checked').each(function(i){
 					typeList[i] =$(this).val();
 				});
+				
 				$.post("toAddMovie",{
 					typeList:typeList,
 					movieId:movieId,

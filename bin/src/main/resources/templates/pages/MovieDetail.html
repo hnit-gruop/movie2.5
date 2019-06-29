@@ -2,243 +2,223 @@
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if IE 9]><html class="ie9"><![endif]-->
 <!--[if gt IE 9]><!-->
-<html xmlns:th="http://www.thymeleaf.org"><!--<![endif]--><head>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title th:text="${movie.name}"></title>
-  <meta charset="utf-8">
+<title th:text="${movie.name}"></title>
+<meta charset="utf-8">
 
-  <meta name="HandheldFriendly" content="true">
-  <meta name="format-detection" content="email=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="HandheldFriendly" content="true">
+<meta name="format-detection" content="email=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="css/star.css">
+<link rel="stylesheet" type="text/css" href="css/star.css">
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/movie-detail.css">
-  <script type="text/javascript" src="js/jquery.min.js"></script>
- 
-<meta name="lx:autopv" content="off"><meta name="lx:appnm" content="movie"><meta name="lx:category" content="movie"></head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<meta name="lx:autopv" content="off">
+<meta name="lx:appnm" content="movie">
+<meta name="lx:category" content="movie">
+</head>
 <body>
-<!-- 头部选项 -->
-<div th:replace="include::head(index=${index})" ></div>
+	<!-- 头部选项 -->
+	<div th:replace="include::head(index=${index})"></div>
 
-<div class="header-placeholder"></div>
+	<div class="header-placeholder"></div>
 
-  <div class="banner">
-    <div class="wrapper clearfix">
-      <div class="celeInfo-left">
-        <div class="avatar-shadow">
-          <img class="avatar" th:src="@{/movieImg/cover/{filename} (filename=${movie.coverImage})}"  >
-            <div class="movie-ver"></div>
-        </div>
-      </div>
-      
-      
-      
-      <div class="celeInfo-right clearfix">
-            <div class="movie-brief-container">
-      <h3 class="name" th:text="${movie.name}">最好的我们</h3>
-      <div class="ename ellipsis" th:text="${movie.foreignName}">My Best Summer</div>
-      <ul>
-      	<li class="ellipsis"></li>
-        <li class="ellipsis">爱情,青春</li>
-        <li class="ellipsis">
-        <span th:text="${movie.region}"></span>
-          / <span th:text=${movie.duration}></span>分钟
-        </li>
-        <li class="ellipsis"><span th:text="${#dates.format(movie.releaseTime, 'yyyy-MM-dd')}"></span>
-        上映</li>
-      </ul>
-    </div>
-    <div class="action-buyBtn">
-      <div class="action clearfix" data-val="{movieid:1242431}">
-        <a class="wish " data-wish="false" data-score="" data-bid="b_gbxqtw6x">
-          <div>
-            <i class="icon wish-icon"></i>
-              <span class="wish-msg" data-act="wish-click">想看</span>
-          </div>
-        </a>
-        <a class="score-btn " data-bid="b_rxxpcgwd">
-          <div>
-            <i class="icon score-btn-icon"></i>
-            <span class="score-btn-msg" data-act="comment-open-click">
-                评分
-            </span>
-          </div>
-        </a>
-      </div>
-        <a class="btn buy" href="https://maoyan.com/cinemas?movieId=1242431" target="_blank">特惠购票</a>
-    </div>
-
-    <div class="movie-stats-container">
-
-        <div class="movie-index">
-          <p class="movie-index-title">用户评分</p>
-          <div class="movie-index-content score normal-score">
-              <span class="index-left info-num ">
-                <span class="stonefont">8.5</span>
-              </span>
-              <div class="index-right">
-                <div class="star-wrapper">
-                  <div class="star-on" style="width:85%;"></div>
-                </div>
-                 <span class="score-num"><span class="stonefont">10万</span>人评分</span>
-              </div>
-          </div>
-        </div>
-
-        
-
-        <div class="movie-index">
-          <p class="movie-index-title">累计票房</p>
-          <div class="movie-index-content box">
-              <span class="stonefont">2.14</span><span class="unit">亿</span>
-          </div>
-        </div>
-    </div>
-
-      </div>
-    </div>
-</div>
-
-
-    <div class="container" id="app">
-<div class="main-content-container clearfix">
-  <div class="main-content">
-    <div class="tab-container">
-      <div class="tab-title-container clearfix">
-        <div class="tab-title active" data-act="tab-desc-click">介绍</div>
-        <div class="tab-title " data-act="tab-celebrity-click">演职人员</div>
-        <div class="tab-title tab-disabled" data-act="tab-award-click">奖项</div>
-        <div class="tab-title " data-act="tab-img-click">图集</div>
-      </div>
-      <div class="tab-content-container">
-        <div class="tab-desc tab-content active" data-val="{tabtype:'desc'}">
-
-  <div class="module">
-    <div class="mod-title">
-      <h3>剧情简介</h3>
-    </div>
-    <div class="mod-content">
-                    <span class="dra" th:text="${movie.description}">每个人的心里大概都藏着一个念念不忘的人。一个偶然被提及的名字，让女摄
-影师耿耿（何蓝逗 饰）内心掀起万千波澜，触动了回忆的开关，那个撩人心动的少年余淮（陈飞宇 
-饰）再度闯进她的思绪。那是记忆里最好的时光，“学渣”耿耿和“学霸”余淮成了同桌，还结识了简单（王初伊 饰）、贝塔（周楚濋 饰）、徐延亮（陈帅 
-饰）。校园里充盈着专属少男少女们的懵懂、青涩、怦然心动和勇敢，耿耿余淮也拥有了他们的约定。高考后，当耿耿满怀期待憧憬约定兑现之时，余淮却忽然消失
-不见了。七年后两人重逢，余淮当年未说出口的那句话、他不辞而别的秘密，耿耿能否得到解答？这段耿耿于怀的过往，让两人再度面临情感的抉择……</span>
-
-    </div>
-  </div>
-
-
-  <div class="module">
-    <div class="mod-title">
-      <h3>演职人员</h3>
-        <a class="more" href="#celebrity" data-act="all-actor-click">全部</a>
-    </div>
-    <div class="mod-content">
-                      <div class="celebrity-container clearfix">
-
-                    <div class="celebrity-group">
-  <div class="celebrity-type">
-    导演
-  </div>
-  <ul class="celebrity-list clearfix">
-      <li class="celebrity " data-act="celebrity-click" data-val="{celebrityid:979879}">
-  <a href="https://maoyan.com/films/celebrity/979879" target="_blank" class="portrait">
-    <img class="default-img" alt="" src="img/director.jpg">
-  </a>
-  <div class="info">
-    <a href="https://maoyan.com/films/celebrity/979879" target="_blank" class="name">
-      章笛沙
-    </a>
-  </div>
-</li>
-
-  </ul>
-</div>
-
-
-                    <div class="celebrity-group">
-  <div class="celebrity-type">
-    演员
-  </div>
-  <ul class="celebrity-list clearfix">
-      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:20065}">
-  <a href="https://maoyan.com/films/celebrity/20065" target="_blank" class="portrait">
-    <img class="default-img" alt="" src="img/actor1.jpg">
-  </a>
-  <div class="info">
-    <a href="https://maoyan.com/films/celebrity/20065" target="_blank" class="name">
-      陈飞宇
-    </a>
-      <br><span class="role">饰：余淮</span>
-  </div>
-</li>
-
-      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:2842070}">
-  <a href="https://maoyan.com/films/celebrity/2842070" target="_blank" class="portrait">
-    <img class="default-img" alt="" src="img/e20b2e365572f984048f396720970788134357.jpg">
-  </a>
-  <div class="info">
-    <a href="https://maoyan.com/films/celebrity/2842070" target="_blank" class="name">
-      何蓝逗
-    </a>
-      <br><span class="role">饰：耿耿</span>
-  </div>
-</li>
-
-      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:29264}">
-  <a href="https://maoyan.com/films/celebrity/29264" target="_blank" class="portrait">
-    <img class="default-img" alt="" src="img/89aed3b51b10fa5fc0240fd88fbc2af233906.jpg">
-  </a>
-  <div class="info">
-    <a href="https://maoyan.com/films/celebrity/29264" target="_blank" class="name">
-      惠英红
-    </a>
-      <br><span class="role">饰：余淮妈妈</span>
-  </div>
-</li>
-
-      <li class="celebrity actor" data-act="celebrity-click" data-val="{celebrityid:264554}">
-  <a href="https://maoyan.com/films/celebrity/264554" target="_blank" class="portrait">
-    <img class="default-img" alt="" src="img/653ce807d0ebe75eff200c4cff7decf730695.jpg">
-  </a>
-  <div class="info">
-    <a href="https://maoyan.com/films/celebrity/264554" target="_blank" class="name">
-      陶慧敏
-    </a>
-      <br><span class="role">饰：耿耿妈妈</span>
-  </div>
-</li>
-
-  </ul>
-</div>
-
-                </div>
-
-    </div>
-  </div>
+	<div class="banner">
+		<div class="wrapper clearfix">
+			<div class="celeInfo-left">
+				<div class="avatar-shadow">
+					<img class="avatar"
+						th:src="@{/movieImg/cover/{filename} (filename=${movie.coverImage})}">
+					<div class="movie-ver"></div>
+				</div>
+			</div>
 
 
 
-  <div class="module">
-    <div class="mod-title">
-      <h3>图集</h3>
-        <a class="more" href="#img" data-act="all-photo-click">全部</a>
-    </div>
-    <div class="mod-content">
-                    <div class="album clearfix" data-act="movie-img-click">
-                    <div class="img1"><img class="default-img" alt="" src="img/mainpic.jpg"></div>
-                    <div class="img2"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img3"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img4"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-                    <div class="img5"><img class="default-img" alt="" src="img/pic1.jpg"></div>
-              </div>
-    </div>
-  </div>
-  
-            <!-- 点赞按钮 -->
-          <script type="text/javascript">
+			<div class="celeInfo-right clearfix">
+				<div class="movie-brief-container">
+					<h3 class="name" th:text="${movie.name}">最好的我们</h3>
+					<div class="ename ellipsis" th:text="${movie.foreignName}">My
+						Best Summer</div>
+					<ul>
+						<li class="ellipsis"></li>
+						<li class="ellipsis"><span
+							th:each="t,status:${movie.listType}"> <font
+								th:text="${status.index==0?t.name:','+t.name}"></font>
+						</span></li>
+						<li class="ellipsis"><span th:text="${movie.region}"></span>
+							/ <span th:text=${movie.duration}></span>分钟</li>
+						<li class="ellipsis"><span
+							th:text="${#dates.format(movie.releaseTime, 'yyyy-MM-dd')}"></span>
+							上映</li>
+					</ul>
+				</div>
+				<div class="action-buyBtn">
+					<div class="action clearfix" data-val="{movieid:1242431}">
+						<a class="wish " data-wish="false" data-score=""
+							data-bid="b_gbxqtw6x">
+							<div>
+								<i class="icon wish-icon"></i> <span class="wish-msg"
+									data-act="wish-click">想看</span>
+							</div>
+						</a> <a class="score-btn " onclick="writeComment()">
+							<div>
+								<i class="icon score-btn-icon"></i> <span class="score-btn-msg"
+									data-act="comment-open-click"> 评分 </span>
+							</div>
+						</a>
+					</div>
+					<a class="btn buy"
+						href="https://maoyan.com/cinemas?movieId=1242431" target="_blank">特惠购票</a>
+				</div>
+
+				<div class="movie-stats-container">
+
+					<div class="movie-index">
+						<p class="movie-index-title">用户评分</p>
+						<div class="movie-index-content score normal-score">
+							<span class="index-left info-num "> <span
+								class="stonefont" th:text="${score.score}">8.5</span>
+							</span>
+							<div class="index-right">
+								<div class="star-wrapper">
+									<div class="star-on"
+										th:style="@{width:{rate}% (rate=${score.width})}"></div>
+								</div>
+								<span class="score-num"><span class="stonefont"
+									th:text="${score.sumPeople*100}"></span>人评分</span>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="movie-index">
+						<p class="movie-index-title">累计票房</p>
+						<div class="movie-index-content box">
+							<span class="stonefont"
+								th:text=${score.sumPeople*score.sumScore*100}></span><span
+								class="unit">万</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container" id="app">
+		<div class="main-content-container clearfix">
+			<div class="main-content">
+				<div class="tab-container">
+					<div class="tab-title-container clearfix">
+						<div class="tab-title active" data-act="tab-desc-click">介绍</div>
+						<div class="tab-title " data-act="tab-celebrity-click">演职人员</div>
+						<div class="tab-title tab-disabled" data-act="tab-award-click">奖项</div>
+						<div class="tab-title " data-act="tab-img-click">图集</div>
+					</div>
+					<div class="tab-content-container">
+						<div class="tab-desc tab-content active"
+							data-val="{tabtype:'desc'}">
+
+							<div class="module">
+								<div class="mod-title">
+									<h3>剧情简介</h3>
+								</div>
+								<div class="mod-content">
+									<span class="dra" th:text="${movie.description}">每个人的心里大概都藏着一个念念不忘的人。一个偶然被提及的名字，让女摄
+										影师耿耿（何蓝逗 饰）内心掀起万千波澜，触动了回忆的开关，那个撩人心动的少年余淮（陈飞宇
+										饰）再度闯进她的思绪。那是记忆里最好的时光，“学渣”耿耿和“学霸”余淮成了同桌，还结识了简单（王初伊 饰）、贝塔（周楚濋
+										饰）、徐延亮（陈帅
+										饰）。校园里充盈着专属少男少女们的懵懂、青涩、怦然心动和勇敢，耿耿余淮也拥有了他们的约定。高考后，当耿耿满怀期待憧憬约定兑现之时，余淮却忽然消失
+										不见了。七年后两人重逢，余淮当年未说出口的那句话、他不辞而别的秘密，耿耿能否得到解答？这段耿耿于怀的过往，让两人再度面临情感的抉择……</span>
+
+								</div>
+							</div>
+
+							<div class="module">
+								<div class="mod-title">
+									<h3>演职人员</h3>
+									<a class="more" href="#celebrity" data-act="all-actor-click">全部</a>
+								</div>
+								<div class="mod-content">
+									<div class="celebrity-container clearfix">
+										<div class="celebrity-group">
+											<div class="celebrity-type">导演</div>
+											<ul class="celebrity-list clearfix">
+												<li class="celebrity " data-act="celebrity-click"
+													data-val="{celebrityid:979879}"><a href="#"
+													target="_blank" class="portrait"> <img
+														class="default-img" alt=""
+														th:src="@{/actorImg/{filename} (filename=${movie.director==null?'':movie.director.pic})}">
+												</a>
+													<div class="info">
+														<a href="https://maoyan.com/films/celebrity/979879"
+															target="_blank" class="name"
+															th:text="${movie.director==null?'':movie.director.aname}">
+														</a>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="celebrity-group">
+											<div class="celebrity-type">演员</div>
+											<ul class="celebrity-list clearfix">
+
+												<li class="celebrity actor" th:each="a:${movie.listActor}">
+													<a href="#" target="_blank" class="portrait"> <img
+														class="default-img" alt=""
+														th:src="@{/actorImg/{filename} (filename=${a.pic})}">
+												</a>
+													<div class="info">
+														<a href="https://maoyan.com/films/celebrity/20065"
+															target="_blank" class="name" th:text="${a.aname}"> </a> <br>
+														<span class="role"> </span>
+													</div>
+												</li>
+
+											</ul>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+
+
+
+							<div class="module">
+								<div class="mod-title">
+									<h3>图集</h3>
+									<a class="more" href="#img" data-act="all-photo-click">全部</a>
+								</div>
+								<div class="mod-content">
+									<div class="album clearfix" data-act="movie-img-click">
+										<div class="img1">
+											<img class="default-img" alt=""
+												th:src="@{/movieImg/big/{filename} (filename=${movie.bigImage})}">
+										</div>
+										<div class="img2" th:each="s:${movie.smallImage}">
+											<img class="default-img" alt=""
+												th:src="@{/movieImg/small/{filename} (filename=${s.image})}">
+										</div>
+
+										<!--                     <div class="img3"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
+										<!--                     <div class="img4"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
+										<!--                     <div class="img5"><img class="default-img" alt="" src="img/pic1.jpg"></div> -->
+									</div>
+								</div>
+							</div>
+
+							<!-- 点赞按钮 -->
+							<script type="text/javascript">
           	function agree(e){
           		//如果已经赞过
           		var userId =  [[${session.user==null?null:session.user.userId}]];
@@ -256,7 +236,6 @@
           					if(a>0){
           						$(e).find(".num").html(parseInt(a)-1);
           					}
-          					
           				}
           			});
           		}else{
@@ -275,312 +254,359 @@
           	}
           </script>
 
-  <div class="module">
-    <div class="mod-title">
-      <h3>热门短评</h3>
-    </div>
-    <div class="mod-content">
-                  <div class="comment-list-container" data-hot="10">
+							<div class="module">
+								<div class="mod-title">
+									<h3>热门短评</h3>
+								</div>
+								<div class="mod-content">
+									<div class="comment-list-container" data-hot="10">
 
-<ul>
-    <li class="comment-container "  th:each="c:${commonts}" >
-    
-    
-      <div class="portrait-container">
-        <div class="portrait">
-          <img th:src="@{/userHead/{filename}  (filename=${c.user.headImg})}">
-        </div>
-        <i class="level-4-icon"></i>
-      </div>
-      
-      
-      <div class="main">
-        <div class="main-header clearfix">
-          <div class="user">
-            <span class="name" th:text="${c.user.username}">用户名</span>
-              <span class="tag">购</span>
-          </div>
-          <div class="time" title="2019-06-14 05:47:57">
-            <span th:text="${c.tipTime}" ></span>
-			<!--评论星星数量-->
-            <ul class="score-star clearfix" data-score="10">
-					<li th:each="i:${#numbers.sequence(1,c.score/2)}">
-						<i class="half-star left active"></i><i class="half-star right active"></i>    </li>
-					<li>
-			</ul>
-          </div>
-          
-          <div id = "hand" class="approve" onclick="agree(this)" th:if="${c.agree==false}">
-         	 	<input class="cid" hidden="hidden" th:value="${c.commentsId}">
-            <i  class="approve-icon"></i><span class="num" th:text="${c.agreeCnt}">0</span>
-          </div>
-          
-             <div id = "hand" class="approve active" onclick="agree(this)" th:if="${c.agree==true}">
-             	<input class="cid" hidden="hidden" th:value="${c.commentsId}">
-            <i  class="approve-icon"></i><span class="num" th:text="${c.agreeCnt}"></span>
-          </div>
-          
-        </div>
-		
-        <div class="comment-content"><span th:text="${c.comments}"></span></div>
-      </div>
-    </li>
-</ul>
-            </div>
-              <a class="comment-entry" onclick="writeComment()">写短评</a>
-                <div  th:if="${commonts.size()==0}">
-  	暂无评论，快来抢沙发吧！
-  </div>
-   		 </div>
-  </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <script>
+										<ul>
+											<li class="comment-container " th:each="c:${commonts}">
+
+												<div class="portrait-container">
+													<div class="portrait">
+														<img
+															th:src="@{/userHead/{filename}  (filename=${c.user.headImg})}">
+													</div>
+													<i class="level-4-icon"></i>
+												</div>
+
+
+												<div class="main">
+													<div class="main-header clearfix">
+														<div class="user">
+															<span class="name" th:text="${c.user.username}">用户名</span>
+															<span class="tag">购</span>
+														</div>
+														<div class="time" title="2019-06-14 05:47:57">
+															<span th:text="${c.tipTime}"></span>
+															<!--评论星星数量-->
+															<ul class="score-star clearfix" data-score="10">
+																<li th:each="i:${#numbers.sequence(1,c.score/2)}">
+																	<i class="half-star left active"></i><i
+																	class="half-star right active"></i>
+																</li>
+																<li>
+															</ul>
+														</div>
+
+
+														<div id="hand" class="approve" onclick="agree(this)"
+															th:if="${c.agree==false}">
+															<input class="cid" hidden="hidden"
+																th:value="${c.commentsId}"> <i
+																class="approve-icon"></i><span class="num"
+																th:text="${c.agreeCnt}">0</span>
+														</div>
+
+
+														<div id="hand" class="approve active"
+															onclick="agree(this)" th:if="${c.agree==true}">
+															<input class="cid" hidden="hidden"
+																th:value="${c.commentsId}"> <i
+																class="approve-icon"></i><span class="num"
+																th:text="${c.agreeCnt}"></span>
+														</div>
+
+													</div>
+
+													<div class="comment-content">
+														<span th:text="${c.comments}"></span>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<a class="comment-entry" onclick="writeComment()">写短评</a>
+									<div th:if="${commonts.size()==0}">暂无评论，快来抢沙发吧！</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<script>
   	function writeComment(){
   		$("#comment-form-container").show();
   	}
   </script>
-  
-  
-  <div class="related">
-  <div class="module">
-    <div class="mod-title">
-      <h3>相关资讯</h3>
-    </div>
-    <div class="mod-content">
-              <dl class="news-list">
-  <dd class="news-item" data-act="new-click" data-val="{newsid:64667}">
-    <div class="news-img">
-      <a href="https://maoyan.com/films/news/64667" target="_blank">
-        <img class="news-img-default" src="img/loading_2.png">
-        <img class="news-img-detail" src="img/news_img.jpg">
-      </a>
-    </div>
-    <div class="news-main">
-      <div class="news-title">
-        <a href="https://maoyan.com/films/news/64667" target="_blank">电影《最好的我们》正片江边大排档片段，青春宣言看哭成年耿耿</a>
-      </div>
-      <div class="news-info">
-        <span class="news-source">猫眼电影</span><!--
-        --><span><i class="news-icon news-icon-views"></i>9533</span><!--
-        --><span><i class="news-icon news-icon-comments"></i>0</span>
-      </div>
-    </div>
-  </dd>
-  <dd class="news-item" data-act="new-click" data-val="{newsid:64644}">
-    <div class="news-img">
-      <a href="https://maoyan.com/films/news/64644" target="_blank">
-        <img class="news-img-default" src="img/loading_2.png">
-        <img class="news-img-detail" src="img/39c4c9d84c5ea11ca96cb4ff21c74d65649834.png">
-      </a>
-    </div>
-    <div class="news-main">
-      <div class="news-title">
-        <a href="https://maoyan.com/films/news/64644" target="_blank">电影《最好的我们》首曝超甜告白彩蛋，网友：想表白看ta就对了</a>
-      </div>
-      <div class="news-info">
-        <span class="news-source">猫眼电影</span><!--
-        --><span><i class="news-icon news-icon-views"></i>5215</span><!--
-        --><span><i class="news-icon news-icon-comments"></i>0</span>
-      </div>
-    </div>
-  </dd>
-  <dd class="news-item" data-act="new-click" data-val="{newsid:64358}">
-    <div class="news-img">
-      <a href="https://maoyan.com/films/news/64358" target="_blank">
-        <img class="news-img-default" src="img/loading_2.png">
-        <img class="news-img-detail" src="img/8bd8dc61a351bfc003b59eba769d42941176442.png">
-      </a>
-    </div>
-    <div class="news-main">
-      <div class="news-title">
-        <a href="https://maoyan.com/films/news/64358" target="_blank">电影《最好的我们》发布成都特辑，“这真是一部好哭的电影！”</a>
-      </div>
-      <div class="news-info">
-        <span class="news-source">猫眼电影</span><!--
-        --><span><i class="news-icon news-icon-views"></i>11613</span><!--
-        --><span><i class="news-icon news-icon-comments"></i>2</span>
-      </div>
-    </div>
-  </dd>
-</dl>
-
-    </div>
-  </div>
-  
-  <div class="module">
-    <div class="mod-title">
-      <h3>相关电影</h3>
-    </div>
-    <div class="mod-content">
-              <div class="related-movies">
-<dl class="movie-list">
-  <dd>
-    <div class="movie-item">
-      <a href="#" target="_blank"  >
-      <div class="movie-poster">
-        <img src="img/relative_movie.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="歌唱动荡的青春">
-      <a href="#" target="_blank"  >歌唱动荡的青春</a>
-    </div>
-<div class="channel-detail channel-detail-orange">暂无评分</div>
-  </dd><dd>
-    <div class="movie-item">
-      <a href="https://maoyan.com/films/1228776" target="_blank" data-act="movie-click" data-val="{movieid:1228776}">
-      <div class="movie-poster">
-        <img class="poster-default" src="img/loading_2.png">
-        <img src="img/409aca94fa1695a6bdb5206735189c11495127.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="下一任：前任">
-      <a href="https://maoyan.com/films/1228776" target="_blank" data-act="movies-click" data-val="{movieId:1228776}">下一任：前任</a>
-    </div>
-<div class="channel-detail channel-detail-orange"><i class="integer">4.</i><i class="fraction">5</i></div>
-  
-  </dd><dd>
-    <div class="movie-item">
-      <a href="https://maoyan.com/films/345444" target="_blank" data-act="movie-click" data-val="{movieid:345444}">
-      <div class="movie-poster">
-        <img class="poster-default" src="img/loading_2.png">
-        <img src="img/dbc4e79f6adc883384b7eee5ba4ccd26264183.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="侣行攻略之确认你是我的人">
-      <a href="https://maoyan.com/films/345444" target="_blank" data-act="movies-click" data-val="{movieId:345444}">侣行攻略之确认你是我的人</a>
-    </div>
-<div class="channel-detail channel-detail-orange">暂无评分</div>
-  
-  </dd><dd>
-    <div class="movie-item">
-      <a href="https://maoyan.com/films/1174000" target="_blank" data-act="movie-click" data-val="{movieid:1174000}">
-      <div class="movie-poster">
-        <img class="poster-default" src="img/loading_2.png">
-        <img src="img/3a643ce42bb59060a0cbde37c7b7b864374457.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="日常幻想指南">
-      <a href="https://maoyan.com/films/1174000" target="_blank" data-act="movies-click" data-val="{movieId:1174000}">日常幻想指南</a>
-    </div>
-<div class="channel-detail channel-detail-orange">暂无评分</div>
-  
-  </dd><dd>
-    <div class="movie-item">
-      <a href="https://maoyan.com/films/1207260" target="_blank" data-act="movie-click" data-val="{movieid:1207260}">
-      <div class="movie-poster">
-        <img class="poster-default" src="img/loading_2.png">
-        <img src="img/6ce734e582eb6ad7158e558edf765c263029211.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="如影随心">
-      <a href="https://maoyan.com/films/1207260" target="_blank" data-act="movies-click" data-val="{movieId:1207260}">如影随心</a>
-    </div>
-<div class="channel-detail channel-detail-orange"><i class="integer">7.</i><i class="fraction">7</i></div>
-  
-  </dd><dd>
-    <div class="movie-item">
-      <a href="https://maoyan.com/films/1216383" target="_blank" data-act="movie-click" data-val="{movieid:1216383}">
-      <div class="movie-poster">
-        <img class="poster-default" src="img/loading_2.png">
-        <img src="img/94b9bfc5ffeea6d6e362395992f547762041095.jpg">
-      </div>
-      </a>
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="比悲伤更悲伤的故事">
-      <a href="https://maoyan.com/films/1216383" target="_blank" data-act="movies-click" data-val="{movieId:1216383}">比悲伤更悲伤的故事</a>
-    </div>
-   <div class="channel-detail channel-detail-orange"><i class="integer">8.</i><i class="fraction">0</i></div>
-  
-</dd></dl>
-</div>
-    </div>
-  </div>
-  </div>
-</div>
-    </div>
-
-<div class="footer" style="visibility: visible;">
-    <p class="friendly-links">
-        关于猫眼 :
-        <a href="http://ir.maoyan.com/s/index.php#pageScroll0" target="_blank">关于我们</a>
-        <span></span>
-        <a href="http://ir.maoyan.com/s/index.php#pageScroll1" target="_blank">管理团队</a>
-        <span></span>
-        <a href="http://ir.maoyan.com/s/index.php#pageScroll2" target="_blank">投资者关系</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        友情链接 :
-        <a href="http://www.meituan.com/" data-query="utm_source=wwwmaoyan" target="_blank">美团网</a>
-        <span></span>
-        <a href="http://www.gewara.com/" data-query="utm_source=wwwmaoyan">格瓦拉</a>
-        <span></span>
-        <a href="http://i.meituan.com/client" data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a>
-        <span></span>
-        <a href="https://www.huanxi.com/" data-query="utm_source=maoyan_pc" target="_blank">欢喜首映</a>
-    </p>
-    <p class="friendly-links">
-      商务合作邮箱：v@maoyan.com
-      客服电话：10105335
-      违法和不良信息举报电话：4006018900
-      <br>
-      投诉举报邮箱：tousujubao@meituan.com
-      舞弊线索举报邮箱：wubijubao@maoyan.com
-    </p>
-    <p>
-        ©2016
-        猫眼电影 maoyan.com
-        <a href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&amp;keyword=%E4%BA%ACICP%E8%AF%81160733%E5%8F%B7&amp;pageNo=1" target="_blank">京ICP证160733号</a>
-        <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16022489号-1</a>
-        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232" target="_blank">京公网安备 11010102003232号</a>
-        <a href="https://maoyan.com/about/licence" target="_blank">网络文化经营许可证</a>
-        <a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
-    </p>
-    <p>北京猫眼文化传媒有限公司</p>
-</div>
 
 
- <script type="text/javascript">
+			<div class="related">
+				<div class="module">
+					<div class="mod-title">
+						<h3>相关资讯</h3>
+					</div>
+					<div class="mod-content">
+						<dl class="news-list">
+							<dd class="news-item" data-act="new-click"
+								data-val="{newsid:64667}">
+								<div class="news-img">
+									<a href="https://maoyan.com/films/news/64667" target="_blank">
+										<img class="news-img-default" src="img/loading_2.png"> <img
+										class="news-img-detail" src="img/news_img.jpg">
+									</a>
+								</div>
+								<div class="news-main">
+									<div class="news-title">
+										<a href="https://maoyan.com/films/news/64667" target="_blank">电影《最好的我们》正片江边大排档片段，青春宣言看哭成年耿耿</a>
+									</div>
+									<div class="news-info">
+										<span class="news-source">猫眼电影</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-views"></i>9533</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-comments"></i>0</span>
+									</div>
+								</div>
+							</dd>
+							<dd class="news-item" data-act="new-click"
+								data-val="{newsid:64644}">
+								<div class="news-img">
+									<a href="https://maoyan.com/films/news/64644" target="_blank">
+										<img class="news-img-default" src="img/loading_2.png"> <img
+										class="news-img-detail"
+										src="img/39c4c9d84c5ea11ca96cb4ff21c74d65649834.png">
+									</a>
+								</div>
+								<div class="news-main">
+									<div class="news-title">
+										<a href="https://maoyan.com/films/news/64644" target="_blank">电影《最好的我们》首曝超甜告白彩蛋，网友：想表白看ta就对了</a>
+									</div>
+									<div class="news-info">
+										<span class="news-source">猫眼电影</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-views"></i>5215</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-comments"></i>0</span>
+									</div>
+								</div>
+							</dd>
+							<dd class="news-item" data-act="new-click"
+								data-val="{newsid:64358}">
+								<div class="news-img">
+									<a href="https://maoyan.com/films/news/64358" target="_blank">
+										<img class="news-img-default" src="img/loading_2.png"> <img
+										class="news-img-detail"
+										src="img/8bd8dc61a351bfc003b59eba769d42941176442.png">
+									</a>
+								</div>
+								<div class="news-main">
+									<div class="news-title">
+										<a href="https://maoyan.com/films/news/64358" target="_blank">电影《最好的我们》发布成都特辑，“这真是一部好哭的电影！”</a>
+									</div>
+									<div class="news-info">
+										<span class="news-source">猫眼电影</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-views"></i>11613</span>
+										<!--
+        -->
+										<span><i class="news-icon news-icon-comments"></i>2</span>
+									</div>
+								</div>
+							</dd>
+						</dl>
+
+					</div>
+				</div>
+
+				<div class="module">
+					<div class="mod-title">
+						<h3>相关电影</h3>
+					</div>
+					<div class="mod-content">
+						<div class="related-movies">
+							<dl class="movie-list">
+								<dd>
+									<div class="movie-item">
+										<a href="#" target="_blank">
+											<div class="movie-poster">
+												<img src="img/relative_movie.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title" title="歌唱动荡的青春">
+										<a href="#" target="_blank">歌唱动荡的青春</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">暂无评分</div>
+								</dd>
+								<dd>
+									<div class="movie-item">
+										<a href="https://maoyan.com/films/1228776" target="_blank"
+											data-act="movie-click" data-val="{movieid:1228776}">
+											<div class="movie-poster">
+												<img class="poster-default" src="img/loading_2.png"> <img
+													src="img/409aca94fa1695a6bdb5206735189c11495127.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title" title="下一任：前任">
+										<a href="https://maoyan.com/films/1228776" target="_blank"
+											data-act="movies-click" data-val="{movieId:1228776}">下一任：前任</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">
+										<i class="integer">4.</i><i class="fraction">5</i>
+									</div>
+
+								</dd>
+								<dd>
+									<div class="movie-item">
+										<a href="https://maoyan.com/films/345444" target="_blank"
+											data-act="movie-click" data-val="{movieid:345444}">
+											<div class="movie-poster">
+												<img class="poster-default" src="img/loading_2.png"> <img
+													src="img/dbc4e79f6adc883384b7eee5ba4ccd26264183.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title"
+										title="侣行攻略之确认你是我的人">
+										<a href="https://maoyan.com/films/345444" target="_blank"
+											data-act="movies-click" data-val="{movieId:345444}">侣行攻略之确认你是我的人</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">暂无评分</div>
+
+								</dd>
+								<dd>
+									<div class="movie-item">
+										<a href="https://maoyan.com/films/1174000" target="_blank"
+											data-act="movie-click" data-val="{movieid:1174000}">
+											<div class="movie-poster">
+												<img class="poster-default" src="img/loading_2.png"> <img
+													src="img/3a643ce42bb59060a0cbde37c7b7b864374457.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title" title="日常幻想指南">
+										<a href="https://maoyan.com/films/1174000" target="_blank"
+											data-act="movies-click" data-val="{movieId:1174000}">日常幻想指南</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">暂无评分</div>
+
+								</dd>
+								<dd>
+									<div class="movie-item">
+										<a href="https://maoyan.com/films/1207260" target="_blank"
+											data-act="movie-click" data-val="{movieid:1207260}">
+											<div class="movie-poster">
+												<img class="poster-default" src="img/loading_2.png"> <img
+													src="img/6ce734e582eb6ad7158e558edf765c263029211.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title" title="如影随心">
+										<a href="https://maoyan.com/films/1207260" target="_blank"
+											data-act="movies-click" data-val="{movieId:1207260}">如影随心</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">
+										<i class="integer">7.</i><i class="fraction">7</i>
+									</div>
+
+								</dd>
+								<dd>
+									<div class="movie-item">
+										<a href="https://maoyan.com/films/1216383" target="_blank"
+											data-act="movie-click" data-val="{movieid:1216383}">
+											<div class="movie-poster">
+												<img class="poster-default" src="img/loading_2.png"> <img
+													src="img/94b9bfc5ffeea6d6e362395992f547762041095.jpg">
+											</div>
+										</a>
+										<div class="movie-ver"></div>
+									</div>
+									<div class="channel-detail movie-item-title" title="比悲伤更悲伤的故事">
+										<a href="https://maoyan.com/films/1216383" target="_blank"
+											data-act="movies-click" data-val="{movieId:1216383}">比悲伤更悲伤的故事</a>
+									</div>
+									<div class="channel-detail channel-detail-orange">
+										<i class="integer">8.</i><i class="fraction">0</i>
+									</div>
+
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer" style="visibility: visible;">
+		<p class="friendly-links">
+			关于猫眼 : <a href="http://ir.maoyan.com/s/index.php#pageScroll0"
+				target="_blank">关于我们</a> <span></span> <a
+				href="http://ir.maoyan.com/s/index.php#pageScroll1" target="_blank">管理团队</a>
+			<span></span> <a href="http://ir.maoyan.com/s/index.php#pageScroll2"
+				target="_blank">投资者关系</a> &nbsp;&nbsp;&nbsp;&nbsp; 友情链接 : <a
+				href="http://www.meituan.com/" data-query="utm_source=wwwmaoyan"
+				target="_blank">美团网</a> <span></span> <a
+				href="http://www.gewara.com/" data-query="utm_source=wwwmaoyan">格瓦拉</a>
+			<span></span> <a href="http://i.meituan.com/client"
+				data-query="utm_source=wwwmaoyan" target="_blank">美团下载</a> <span></span>
+			<a href="https://www.huanxi.com/" data-query="utm_source=maoyan_pc"
+				target="_blank">欢喜首映</a>
+		</p>
+		<p class="friendly-links">
+			商务合作邮箱：v@maoyan.com 客服电话：10105335 违法和不良信息举报电话：4006018900 <br>
+			投诉举报邮箱：tousujubao@meituan.com 舞弊线索举报邮箱：wubijubao@maoyan.com
+		</p>
+		<p>
+			©2016 猫眼电影 maoyan.com <a
+				href="https://tsm.miit.gov.cn/pages/EnterpriseSearchList_Portal.aspx?type=0&amp;keyword=%E4%BA%ACICP%E8%AF%81160733%E5%8F%B7&amp;pageNo=1"
+				target="_blank">京ICP证160733号</a> <a
+				href="http://www.miibeian.gov.cn/" target="_blank">京ICP备16022489号-1</a>
+			<a
+				href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003232"
+				target="_blank">京公网安备 11010102003232号</a> <a
+				href="https://maoyan.com/about/licence" target="_blank">网络文化经营许可证</a>
+			<a href="http://www.meituan.com/about/rules" target="_blank">电子公告服务规则</a>
+		</p>
+		<p>北京猫眼文化传媒有限公司</p>
+	</div>
+
+
+	<script type="text/javascript">
 	$(function(){
 		$("#comment-form-container").hide();
 	});
  </script>
 
 
-  <div id="comment-form-container" class="jBox-wrapper jBox-Modal jBox-Default" style="position: fixed; display: none; opacity: 1; z-index: 10000; left: 50%; top: 50%; margin-left: -285px; margin-top: -235px;"><div class="jBox-container"><div class="jBox-content" style="width: 550px; height: 450px;">
-  <form id="comment-form">
-    <div class="score-msg-container">
-        <div class="score-message"></div>
-        <div class="no-score">
-          请点击星星评分
-        </div>
-    </div>
-    <div class="score-star-contaienr" >
-       <div>
-        <ul class="rating" id="rating1" style="margin-left:180px">
-    <li class="rating-item" onclick="s1()" title="很不好"></li>
-    <li class="rating-item" onclick="s2()" title="不好"></li>
-    <li class="rating-item" onclick="s3()" title="一般"></li>
-    <li class="rating-item" onclick="s4()" title="好"></li>
-    <li class="rating-item" onclick="s5()" title="很好"></li>   
-  </ul>
-  <input id ="score" value="8" hidden="hidden">
-  <script type="text/javascript" src="js/jquery.rating.js"></script>
-  <script type="text/javascript">
+	<div id="comment-form-container"
+		class="jBox-wrapper jBox-Modal jBox-Default"
+		style="position: fixed; display: none; opacity: 1; z-index: 10000; left: 50%; top: 50%; margin-left: -285px; margin-top: -235px;">
+		<div class="jBox-container">
+			<div class="jBox-content" style="width: 550px; height: 450px;">
+				<form id="comment-form">
+					<div class="score-msg-container">
+						<div class="score-message"></div>
+						<div class="no-score">请点击星星评分</div>
+					</div>
+					<div class="score-star-contaienr">
+						<div>
+							<ul class="rating" id="rating1" style="margin-left: 180px">
+								<li class="rating-item" onclick="s1()" title="很不好"></li>
+								<li class="rating-item" onclick="s2()" title="不好"></li>
+								<li class="rating-item" onclick="s3()" title="一般"></li>
+								<li class="rating-item" onclick="s4()" title="好"></li>
+								<li class="rating-item" onclick="s5()" title="很好"></li>
+							</ul>
+							<input id="score" value="8" hidden="hidden">
+							<script type="text/javascript" src="js/jquery.rating.js"></script>
+							<script type="text/javascript">
     $("#rating1").rating(4);
     function s1(){$("#score").val(2)};
     function s2(){$("#score").val(4)};
@@ -589,15 +615,16 @@
     function s5(){$("#score").val(10)};
   </script>
 
-    </div>
-    <div class="content-container">
-      <textarea  placeholder="快来说说你的看法吧" name="content" id="content" cols="30" rows="10"></textarea>
-      <span class="word-count-info"></span>
-    </div>
-    <input type="hidden" name="score" value="0">
-    <button  class="btn" type="button" onclick="mysubmit()" value="提交">提交</button>
-  </form>
-  <script type="text/javascript">
+						</div>
+						<div class="content-container">
+							<textarea placeholder="快来说说你的看法吧" name="content" id="content"
+								cols="30" rows="10"></textarea>
+							<span class="word-count-info"></span>
+						</div>
+						<input type="hidden" name="score" value="0">
+						<button class="btn" type="button" onclick="mysubmit()" value="提交">提交</button>
+				</form>
+				<script type="text/javascript">
   	function cls(){
   		$("#comment-form-container").hide();
   	}
@@ -618,7 +645,10 @@
   		cls();
   	}
   </script>
-  <div class = "close" onclick="cls()">x</div>
-</div></div></div>
+				<div class="close" onclick="cls()">x</div>
+			</div>
+		</div>
+	</div>
 
-</body></html>
+</body>
+</html>

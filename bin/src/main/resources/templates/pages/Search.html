@@ -31,6 +31,52 @@
     }
   </style>
 <meta name="lx:autopv" content="off"><meta name="lx:appnm" content="movie"><meta name="lx:category" content="movie"></head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){  
+	function UrlSearch() 
+	{
+		
+	   var name,value; 
+	   var str=location.href; //取得整个地址栏
+	   var num=str.indexOf("?") 
+	   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+	   var arr=str.split("&"); //各个参数放到数组里
+	   for(var i=0;i < arr.length;i++){ 
+	    num=arr[i].indexOf("="); 
+	    if(num>0){ 
+	     name=arr[i].substring(0,num);
+	     value=arr[i].substr(num+1);
+	     this[name]=value;
+	     } 
+	    } 
+	} 
+	var Request=new UrlSearch(); //实例化	
+
+	$("#s1").find("#"+Request.type).attr("class","active");
+
+		$(".list-pager").find(".page_"+Request.pageNum).parent().attr("class","active");
+	
+	
+	$("#box").find("#box"+Request.type).attr("style","display:block");
+	
+	if($("#detail"+Request.type).is(":visible")==false){
+		$("#box"+Request.type).after("<div class='empty-list' >"
+
+	      +"<h3>很抱歉，没找到相关的内容</h3>"
+	      +"<dl>"
+	       +" <dt>小喵建议您：</dt>"
+	        +"<dd>1. 请检查输入的关键词是否有误</dd>"
+	        +"<dd>2. 请缩短关键词</dd>"
+	     +" </dl>"
+	    +"</div>");  
+		
+	}
+	
+});  
+
+</script>
 <body>
 	<div th:insert="include::head(index=${index})"></div>
 	<div style="height:81px;width: 100%"></div>
@@ -38,17 +84,19 @@
 		<form data-state-val="{kw:''}" class="search-form"
 			data-actform="query-search-click">
 			<input class="kw" type="text" name="kw" maxlength="32" th:value="${kw}"
-				placeholder="找电影、影人" autocomplete="off"/>			
+				placeholder="找电影、影人" autocomplete="off"/>
+				<input name="type"  th:value="${type}" type="hidden" > 	
+				<input name="pageNum"  th:value="1" type="hidden" > 				
 			<button class="submit" type="submit"></button>
 		</form>
 	</div>
 	<div class="subnav">
-		<ul class="navbar">
+		<ul class="navbar" id="s1">
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}" class="active" >影视剧（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:0}" data-state-val="{subnavId:0}"  th:text="'电影('+${movie.getTotal()}+')'" th:href="'search?type=1&pageNum=1&kw='+${kw}"  id="1">电影（0）</a>
     </li>
     <li>
-      <a data-act="subnav-click" data-val="{subnavClick:1}" >影人（0）</a>
+      <a data-act="subnav-click" data-val="{subnavClick:1}"  th:text="'影人('+${actor.getTotal()}+')'" th:href="'search?type=2&pageNum=1&kw='+${kw}" id="2">影人（0）</a>
     </li>
     <!-- <li>
       <a data-act="subnav-click" data-val="{subnavClick:2}" href="/query?kw=&amp;type=2">影院（0）</a>
@@ -56,138 +104,95 @@
   </ul>
 	</div>
 	<div class="container" id="app">
-		<div class="search-result-box">
+		<div class="search-result-box" id="box">
 		
-		<dl class="movie-list" >
-		<dd th:each="a,userStat:${movie}">
-    <div class="movie-item">
+		<dl class="movie-list"  id="box1" style="display: none;">
+		<dd th:each="a,userStat:${movie.getList()}">
+    <div class="movie-item" id="detail1">
       <a href="/films/248172" target="_blank" data-act="movie-click" data-val="{movieid:248172}">
       <div class="movie-poster">
         <img class="poster-default" src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png">
-        <img src="https://p0.meituan.net/moviemachine/f7d2ad70eb79d6d9b8a197713db9b8c41711752.jpg@160w_220h_1e_1c">
+        <img th:src="'/movieImg/cover/'+${a.movieImage.image}" >
       </div>
       </a>
         
         
-      <div class="movie-ver"><i class="imax3d"></i></div>
     </div>
-    <div class="channel-detail movie-item-title" title="复仇者联盟4：终局之战">
-      <a href="/films/248172" target="_blank" data-act="movies-click" data-val="{movieId:248172}">复仇者联盟4：终局之战</a>
+    <div class="channel-detail movie-item-title" th:title="${a.name}"  >
+      <a href="/films/248172" target="_blank" data-act="movies-click" data-val="{movieId:248172}" th:text="${a.name}">复仇者联盟4：终局之战</a>
     </div>
-<div class="movie-item-subtitle">Avengers: Endgame</div>
+<div class="movie-item-subtitle" th:text="${a.foreignName}">Avengers: Endgame</div>
 <div class="absolute-info">
      <div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">0</i></div>
 
-  <div class="movie-item-cat">动作,冒险,奇幻</div>
-  <div class="movie-item-pub">2019-04-24大陆上映</div>
+  <div class="movie-item-cat" th:text="${movieType.get(userStat.count-1).toString().substring(1,movieType.get(userStat.count-1).toString().length()-1)}" >动作,冒险,奇幻</div>
+  <div class="movie-item-pub" th:if="${a.status=='showing'} " th:text="${#dates.format(a.releaseTime,'yyyy-MM-dd')}+'大陆上映'">2019-04-24大陆上映</div>
+  <div class="movie-item-pub" th:if="${a.status=='upcoming'} " th:text="${#dates.format(a.releaseTime,'yyyy-MM-dd')}+'大陆首播'">2019-04-24大陆上映</div>
 </div>
   
   </dd>
 		
 		</dl>
 		
-		<ul class="celebrity-list" style="display: none;">
-		<li>
-          <div class="item-poster">
+		<ul class="celebrity-list" id="box2" style="display: none;">
+		<li th:each="a,userStat:${actor.getList()}">
+          <div class="item-poster" id="detail2">
             <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">
               <div class="poster">
                 <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/d54416f946b06e80a7c2120c48d4b43966966.jpg@160w_220h_1e_1c" alt="林峯">
+                <img th:src="'/actorImg/cover/'+${a.pic}" th:alt="${a.aname}" style="width: 160px;height: 220px">
               </div>
             </a>
           </div>
-          <div class="item-title"><a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}">林峯</a></div>
-          <div class="item-subtitle">Raymond Lam</div>
+          <div class="item-title">
+          <a href="/films/celebrity/28633" target="_blank" data-act="celebrity-click" data-val="{celebrityId:28633}" th:text="${a.aname}">林峯</a></div>
+          <div class="item-subtitle" th:text="${a.secondName}">Raymond Lam</div>
           <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《反贪风暴4》 《忠烈杨家将》 《六福喜事》</div>
+            <!-- <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div> -->
+            <div class="item-detail item-detail-two-line line-clamp" th:text="'代表作：'+${actormovie.get(userStat.count-1).toString().substring(1,actormovie.get(userStat.count-1).toString().length()-1)}">代表作：《反贪风暴4》 《忠烈杨家将》 《六福喜事》</div>
           </div>
         </li>
-        <li>
-          <div class="item-poster">
-            <a href="/films/celebrity/3545" target="_blank" data-act="celebrity-click" data-val="{celebrityId:3545}">
-              <div class="poster">
-                <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/ad0e0432766f439a01cc0ca81b58c5f947040.jpg@160w_220h_1e_1c" alt="杨千嬅">
-              </div>
-            </a>
-          </div>
-          <div class="item-title"><a href="/films/celebrity/3545" target="_blank" data-act="celebrity-click" data-val="{celebrityId:3545}">杨千嬅</a></div>
-          <div class="item-subtitle">Miriam Yeung</div>
-          <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《可爱的你》 《志明与春娇》 《春娇与志明》</div>
-          </div>
-        </li>
-        <li>
-          <div class="item-poster">
-            <a href="/films/celebrity/17514" target="_blank" data-act="celebrity-click" data-val="{celebrityId:17514}">
-              <div class="poster">
-                <img src="//s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:5788b470/image/loading_2.e3d934bf.png" class="poster-default">
-                <img src="https://p1.meituan.net/movie/3ae5dea6fec196fc205a36e63fd579d580592.jpg@160w_220h_1e_1c" alt="陈奕迅">
-              </div>
-            </a>
-          </div>
-          <div class="item-title"><a href="/films/celebrity/17514" target="_blank" data-act="celebrity-click" data-val="{celebrityId:17514}">陈奕迅</a></div>
-          <div class="item-subtitle">Eason Chan</div>
-          <div class="absolute-info">
-            <div class="item-detail item-detail-orange"><b><span class="stonefont"></span></b>人关注</div>
-            <div class="item-detail item-detail-two-line line-clamp">代表作：《兄弟》 《摆渡人》 《每当变幻时》</div>
-          </div>
-        </li>
+        
 		</ul>
 		
-    <div class="empty-list" style="display: none;">
-
-      <h3>很抱歉，没找到相关的影视剧</h3>
-      <dl>
-        <dt>小喵建议您：</dt>
-        <dd>1. 请检查输入的关键词是否有误</dd>
-        <dd>2. 请缩短关键词</dd>
-      </dl>
-    </div>
+    
     
     <div class="pager">
       
-  
-  <ul class="list-pager">
-
-
-
-  
-      <li class="active">
-    <a class="page_1" href="javascript:void(0);" style="cursor: default">1</a>
-
+  <div th:if="${type} eq 1" >
+  <ul class="list-pager" th:if="${movie.getPages()}  gt 1">
+<li>  <a th:class="page_l" th:if="${movie.getPageNum()-1} ge 1" 
+      th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${movie.getPageNum()-1}"
+  >上一页</a>
 </li>
-  <li>
-    <a class="page_2" href="?kw=a&amp;offset=20">2</a>
-
-</li>
-  <li>
-    <a class="page_3" href="?kw=a&amp;offset=40">3</a>
-
-</li>
-  <li>
-    <a class="page_4" href="?kw=a&amp;offset=60">4</a>
-
-</li>
-  <li>
-    <a class="page_5" href="?kw=a&amp;offset=80">5</a>
-
+<li th:each="i:${#numbers.sequence(1,movie.getPages())}">
+<a th:class="'page_'+${i}" th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${i}"
+		th:text="${i}"></a>
 </li>
 
-    <li class="sep">...</li>
-      <li>
-    <a class="page_18" href="?kw=a&amp;offset=340">18</a>
-
-</li>
-
-  
-
-<li>  <a class="page_2" href="?kw=a&amp;offset=20">下一页</a>
+<li>  <a class="page_n" th:if="${movie.getPageNum()+1} le ${movie.getPages()}" 
+		th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${movie.getPageNum()+1}">下一页</a>
 </li>
 </ul>
+</div>
 
+<div th:if="${type} eq 2" >
+  <ul class="list-pager" th:if="${actor.getPages()}  gt 1">
+<li>  <a th:class="page_l" th:if="${actor.getPageNum()-1} ge 1" 
+      th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${actor.getPageNum()-1}"
+  >上一页</a>
+</li>
+<li th:each="i:${#numbers.sequence(1,actor.getPages())}">
+<a th:class="'page_'+${i}" th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${i}"
+		th:text="${i}"></a>
+</li>
+
+<li>  <a class="page_n" th:if="${actor.getPageNum()+1} le ${actor.getPages()}" 
+		th:href="'?kw='+${kw}+'&type='+${type}+'&pageNum='+${actor.getPageNum()+1}">下一页</a>
+</li>
+</li>
+</ul>
+</div>
 
     </div>
     

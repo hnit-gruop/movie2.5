@@ -101,6 +101,7 @@
 	<select id="selectAll" resultMap="BaseResultMap1">
 		SELECT a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
 		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+		and type='cover_type' 
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="example.orderByClause != null">
 			order by ${example.orderByClause}
@@ -182,6 +183,24 @@
 		status
 	</sql>
 
+<select id="selectByExample"
+		parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap">
+		SELECT
+		<if test="distinct">
+			distinct
+		</if>
+
+		<include refid="Base_Column_List" />
+		from movie
+
+
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
 
 
 	<select id="selectByName"

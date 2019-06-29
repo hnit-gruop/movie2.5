@@ -329,7 +329,7 @@
 												<img class="poster-default" src="img/loading_2.e3d934bf.png">
 												
 												<!-- 拼接图片路径 -->
-												<img th:src="@{/movieImg/cover/{filename} (filename=${m.coverImage})}"
+												<img th:src="@{/movieImg/cover/{filename} (filename=${m.movieImage.image})}"
 												src = "/movieImg/cover/default.jpg">
 												
 												<div class="movie-overlay movie-overlay-bg">
@@ -350,9 +350,7 @@
 									</div>
 
 								</dd>
-
 							</dl>
-
 						</div>
 					</div>
 
@@ -371,7 +369,7 @@
 									<div class="movie-item">
 										<a th:href="@{movieDetail?id={id}(id=${m.movieId})}" target="_blank">
 											<div class="movie-poster">
-											<img th:src="@{/movieImg/cover/{filename} (filename=${m.coverImage})}"
+											<img th:src="@{/movieImg/cover/{filename} (filename=${m.movieImage.image})}"
 												src = "/movieImg/cover/default.jpg">
 												
 												<div class="movie-overlay movie-overlay-bg">

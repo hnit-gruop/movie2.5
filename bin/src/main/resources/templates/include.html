@@ -3,6 +3,7 @@
 
 	<div class="header-inner">
 		<a href="#" class="logo" data-act="icon-click"></a>
+		
 		<div class="city-container" data-val="{currentcityid:265 }">
 			<div class="city-selected">
 				<div class="city-name">
@@ -28,7 +29,8 @@
 			</ul>
 		</div>
 		<script>
-		var index = [[${index}]];//js中取值
+		var index = 1;
+		index = [[${index==null?1:index}]];//js中取值
 		if(index==1){
 			$("#a1").attr("class","active");
 		}else if(index == 2){
@@ -72,8 +74,10 @@
 		<form action="/search" target="_blank"
 			class="search-form" data-actform="search-click">
 			<input name="kw" class="search" type="search" maxlength="32"
-				placeholder="找电影、影人" autocomplete="off"> <input
-				class="submit" type="submit" value="">
+				placeholder="找电影、影人" autocomplete="off"> 
+				<input name="type" value="1" type="hidden" > 
+				<input name="pageNum" value="1" type="hidden" > 
+				<input class="submit" type="submit" value="">
 		</form>
 	</div>
 </div>
