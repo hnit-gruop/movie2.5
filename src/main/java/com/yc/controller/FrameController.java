@@ -140,7 +140,6 @@ public class FrameController {
 			for(MovieType mt:m.getType()) {
 				type+=tsi.findTypeByTypeID(mt.getTypeId()).getName()+"   ";
 			}
-			System.err.println(m1);
 			m1.put("type", type);
 			list.add(m1);
 		}
@@ -250,11 +249,68 @@ public class FrameController {
         }
         return "上传失败！";
     }
+ 	/**
+ 	 * 添加大图
+ 	 * @param file
+ 	 * @param MovieId
+ 	 * @return
+ 	 */
+ 	@PostMapping("ImgUploadBig")
+    @ResponseBody
+    public String uploadBig(@RequestParam("file2") MultipartFile file,@RequestParam(name="movieId") String MovieId) {
+        if (file.isEmpty()) {
+            return "上传失败，请选择文件";
+        }
+        MovieImage mi = new MovieImage();
+        mi.setImage(file.getOriginalFilename());
+        mi.setMovieId(Integer.parseInt(MovieId));
+        mi.setType(MovieImageService.BIG_IMG_TYPE);
+        int s = misi.add(mi);
+        String fileName = file.getOriginalFilename();
+        String filePath = "D:\\upload\\movieImg\\big\\";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            return "成功";
+        } catch (IOException e) {
+        }
+        return "失败！";
+    }
  	
+ 	/**
+ 	 * 添加小图
+ 	 * @param file
+ 	 * @param MovieId
+ 	 * @return
+ 	 */
+ 	@PostMapping("ImgUploadSmall")
+    @ResponseBody
+    public String uploadSmall(@RequestParam("file3") MultipartFile file,@RequestParam(name="movieId") String MovieId) {
+        if (file.isEmpty()) {
+            return "上传失败，请选择文件";
+        }
+        MovieImage mi = new MovieImage();
+        mi.setImage(file.getOriginalFilename());
+        mi.setMovieId(Integer.parseInt(MovieId));
+        mi.setType(MovieImageService.SMALL_IMG_TYPE);
+        int r = misi.add(mi);
+        String fileName = file.getOriginalFilename();
+        String filePath = "D:\\upload\\movieImg\\small\\";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (IOException e) {
+        }
+        return "上传失败！";
+    }
+ 	
+
  	@RequestMapping("toAddMovie")
 	@ResponseBody
 	public Result addMovie(Movie movie,@RequestParam(value = "typeList[]")String[] typeList,@RequestParam(value = "actor")String actor,@RequestParam(value = "dire")String dire) {
-		int r = msi.add(movie);
+		
+ 		int r = msi.add(movie);
 		int movieId = msi.getMovieId(movie);
 		movie.setMovieId(movieId);
 		mtsi.add(movie, typeList);
@@ -332,28 +388,34 @@ public class FrameController {
  	
  	@PostMapping("ImgActorUpload")
     @ResponseBody
-    public String Actorupload(@RequestParam("file") MultipartFile file,@RequestParam(name="movieId") String MovieId) {
+    public String Actorupload(@RequestParam("file") MultipartFile file) {
+ 		
         if (file.isEmpty()) {
             return "上传失败，请选择文件";
         }
-        MovieImage mi = new MovieImage();
-        mi.setImage(file.getOriginalFilename());
-        mi.setMovieId(Integer.parseInt(MovieId));
-        mi.setType(MovieImageService.COVER_TYPE);
-        String s = misi.getCover(mi.getMovieId());
-        if(s == null) {
-        	misi.add(mi);
-        }else {
-        	misi.update(mi);
-        }
         String fileName = file.getOriginalFilename();
-        String filePath = "D:\\upload\\ActorImg";
+        String filePath = "D:\\upload\\userHead\\";
         File dest = new File(filePath + fileName);
+        System.err.println(dest.getPath());
         try {
             file.transferTo(dest);
-            return "上传成功";
+            return "成功";
         } catch (IOException e) {
         }
-        return "上传失败！";
+        return "失败！";
     }
+ 	
+ 	@RequestMapping("toAddActor")
+ 	public ModelAndView toAddActor(ModelAndView model) {
+ 		model.setViewName("manage/toAddActor");
+ 		return model;
+ 	}
+ 	
+ 	@RequestMapping("addActor")
+ 	@ResponseBody
+ 	public Result addActor(Actor actor) {
+ 		asi.add(actor);
+ 		Result re = new Result(1, "添加成功!");
+ 		return re;
+ 	}
 }
