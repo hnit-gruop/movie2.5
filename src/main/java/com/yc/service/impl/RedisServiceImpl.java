@@ -69,7 +69,10 @@ public class RedisServiceImpl implements RedisService {
 				String cnt = split[1];
 				double s = Double.parseDouble(sum);
 				int c = Integer.parseInt(cnt);
-				return s/c;
+				
+				Double d = s/c;
+				String format = String.format("%.1f", d);
+				return new Double(format);
 			}
 		}
 		return 8.0;
@@ -144,7 +147,6 @@ public class RedisServiceImpl implements RedisService {
 			}
 		 }
 		 
-		 
 		//评论赞数
 		 Map<String,Object> et2 = redisTemplate.opsForHash().entries("comment_agree_cnt");
 		 for (Map.Entry<String, Object> m : et2.entrySet()) {
@@ -182,7 +184,9 @@ public class RedisServiceImpl implements RedisService {
 			String cnt = split[1];
 			double s = Double.parseDouble(sum);
 			int c = Integer.parseInt(cnt);
-			score.setScore(s/c);
+			Double d = s/c;
+			String format = String.format("%.1f", d);
+			score.setScore(new Double(format));
 			score.setSumPeople(c);
 			score.setSumScore(s);
 			int width = (int) (score.getScore()*10);

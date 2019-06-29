@@ -39,7 +39,7 @@
 				</div>
 			</div>
 
-
+			
 
 			<div class="celeInfo-right clearfix">
 				<div class="movie-brief-container">
@@ -59,11 +59,21 @@
 							上映</li>
 					</ul>
 				</div>
+				
+				<script type="text/javascript">
+				
+					function wants(){
+							$.get("want",{userId:},function(){
+								
+							});						
+					}
+				</script>
+				
 				<div class="action-buyBtn">
 					<div class="action clearfix" data-val="{movieid:1242431}">
 						<a class="wish " data-wish="false" data-score=""
 							data-bid="b_gbxqtw6x">
-							<div>
+							<div onclick="wants()">
 								<i class="icon wish-icon"></i> <span class="wish-msg"
 									data-act="wish-click">想看</span>
 							</div>
@@ -96,8 +106,6 @@
 							</div>
 						</div>
 					</div>
-
-
 
 					<div class="movie-index">
 						<p class="movie-index-title">累计票房</p>

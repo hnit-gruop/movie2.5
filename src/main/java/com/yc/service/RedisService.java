@@ -35,7 +35,6 @@ public interface RedisService {
 	 */
 	int getCommentAgreeCnt(int commentsId);
 	
-	
 	/**
 	 * 用户是否点赞过这个评论
 	 * @param userId

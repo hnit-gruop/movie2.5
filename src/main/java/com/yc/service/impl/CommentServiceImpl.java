@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.bean.CommentAgreeCnt;
 import com.yc.bean.CommentAgreeCntExample;
@@ -67,13 +69,12 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 	}
 
 	@Override
+	@Transactional
 	public int addComment(Comments comments) {
 		Timestamp timestamp = new Timestamp(new Date().getTime());
 		comments.setCommentsTime(timestamp);
 		return 	commentsMapper.insertSelective(comments);
 	}
-
-
 
 
 
@@ -155,7 +156,11 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		record.setCommentid(commentsId);
 		CommentAgreeCntExample example = new CommentAgreeCntExample();
 		example.createCriteria().andCommentidEqualTo(commentsId);
-		commentAgreeCntMapper.updateByExampleSelective(record, example);
+		int update = commentAgreeCntMapper.updateByExampleSelective(record, example);
+		//如果没用更新成功，说明这是一条新添加的评论，直接插入到数据库
+		if(update==0) {
+			commentAgreeCntMapper.insertSelective(record);
+		}
 	}
 
 	@Override
@@ -198,7 +203,6 @@ public class CommentServiceImpl implements com.yc.service.CommentService{
 		//如果没有更新成功，可能是用户没来点过赞，表中没这条数据
 		if(update==0) {
 			commentAgreeUserMapper.insertSelective(commentAgreeUser);
-			
 		}
 		
 	}

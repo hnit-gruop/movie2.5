@@ -64,66 +64,14 @@ layui.use('layer', function () {
             //登陆
             // var JsonData = {login: login, pwd: pwd, code: code};
             //此处做为ajax内部判断
-            var url = "";
-            {
-                url = "/Login?email="+login+"&Upswd="+pwd;
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    contentType: "charset=utf-8",
-                    error: function (error) {
-                        layer.msg("连接服务器失败！");
-                    },
-                    success: function (data) {
-
-                        setTimeout(function () {
-                            $('.authent').show().animate({right: 90},
-                                {
-                                    easing: 'easeOutQuint',
-                                    duration: 600,
-                                    queue: false
-                                }
-                            );
-                            $('.authent').animate({opacity: 0},
-                                {
-                                    duration: 200,
-                                    queue: false
-                                }
-                            );
-                            $('.login').removeClass('testtwo'); //平移特效
-                        }, 2000);
-                        setTimeout(function () {
-                            $('.authent').hide();
-                            $('.login').removeClass('test');
-
-                            var res = data.split(":");
-
-                            if (res[0]=== 'successful') {
-                                //登录成功
-                                layer.msg("登录成功！");
-                                //写入数据到local
-                                localStorage.setItem('name',res[2]);
-                                localStorage.setItem('email',res[1]);
-                                localStorage.setItem('isLogin','true');
-                                //跳转操作
-                                setTimeout(function () {
-                                    if(localStorage.getItem('oldPage')==null){
-                                        window.location.href = "../pages/HomePage.html";
-                                        localStorage.removeItem('oldPage')
-                                    }else {
-                                        window.location.href = localStorage.getItem('oldPage');
-                                        localStorage.removeItem('oldPage')
-                                    }
-
-                                }, 1000);
-
-                            } else {
-                                layer.msg("登录失败！");
-                            }
-                        }, 2400);
-                    }
-                });
-            }
+           $.post("doLogin",{username:login,password:pwd},function(data){
+        	   if(data==1){
+        		   window.location.href="index"; 
+        	   }else{
+        		   alert("登陆失败，用户名或密码错误");
+        		   window.location.href="login"; 
+        	   }
+           });
 
         }
     })

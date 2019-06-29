@@ -31,6 +31,7 @@ public class HelloController {
         return "temp/thymeleaf";
     }
     
+    
     //thymelea基本语法
 //    @RequestMapping("/t1")
 //    public String thymeleaf1(Model m) {

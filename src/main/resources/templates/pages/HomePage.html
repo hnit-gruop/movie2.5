@@ -324,7 +324,7 @@
 								<dd th:each="m,status:${listShowing}">
 									<div class="movie-item">
 									
-										<a th:href="@{movieDetail?id={id}(id=${m.movieId})}" target="_blank">
+										<a th:href="@{movieDetail?id={id}(id=${m.movieId})}" >
 											<div class="movie-poster">
 												<img class="poster-default" src="img/loading_2.e3d934bf.png">
 												
@@ -367,7 +367,7 @@
 							<dl class="movie-list">
 								<dd th:each="m:${listUpComing}">
 									<div class="movie-item">
-										<a th:href="@{movieDetail?id={id}(id=${m.movieId})}" target="_blank">
+										<a th:href="@{movieDetail?id={id}(id=${m.movieId})}" >
 											<div class="movie-poster">
 											<img th:src="@{/movieImg/cover/{filename} (filename=${m.movieImage.image})}"
 												src = "/movieImg/cover/default.jpg">

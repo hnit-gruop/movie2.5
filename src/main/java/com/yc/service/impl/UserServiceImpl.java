@@ -37,4 +37,14 @@ public class UserServiceImpl implements UserService{
 		return selectByPrimaryKey;
 	}
 
+	@Override
+	public User loginByEamil(String username, String email) {
+		UserExample example = new UserExample();
+		example.createCriteria().andUsernameEqualTo(username).andEmailEqualTo(email);
+		List<User> list = userMapper.selectByExample(example);
+		if(list.size()>0)
+			return list.get(0);
+		return null;
+	}
+
 }

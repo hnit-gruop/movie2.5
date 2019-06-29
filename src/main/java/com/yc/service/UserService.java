@@ -7,4 +7,5 @@ public interface UserService {
 	int reg(User u);
 	
 	User get(int userId);
+	User loginByEamil(String username, String email);
 }

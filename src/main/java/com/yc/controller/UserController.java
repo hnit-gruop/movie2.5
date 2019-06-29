@@ -15,7 +15,6 @@ import com.yc.service.UserService;
 @Controller
 public class UserController {
 	
-	
 	@Autowired
 	UserService userService;
 	
@@ -25,12 +24,28 @@ public class UserController {
 		return "redirect:index";
 	}
 	
-	@RequestMapping("testlog")
+	@ResponseBody
+	@RequestMapping("doLogin")
 	public String login(String username,String password,HttpSession session) {
-		User user = userService.login("cxw", "aaa");
+		User user = userService.login(username, password);
+		if(user==null) {
+			 user = userService.loginByEamil(username, password);
+		}
 		session.setAttribute("user", user);
-		return "redirect:index";
+		if(user!=null)
+			return "1";
+		return "0";
 	}
+	
+    @RequestMapping("/login")
+    public String log() {
+        return "pages/Login";
+    }
+	
+    @RequestMapping("/reg")
+    public String reg() {
+        return "pages/Register";
+    }
 	
 	@RequestMapping("t")
 	public String test1(){
