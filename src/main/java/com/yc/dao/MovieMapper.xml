@@ -91,7 +91,7 @@
 			property="description" />
 		<result column="status" jdbcType="VARCHAR" property="status" />
 		<collection property="movieImage" column="movie_id"
-			ofType="com.yc.bean.MovieImage" autoMapping="true">
+			javaType="com.yc.bean.MovieImage" autoMapping="true">
 			<id column="id" property="id" />
 		</collection>
 	</resultMap>
