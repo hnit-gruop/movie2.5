@@ -41,6 +41,7 @@ import com.yc.service.RedisService;
 import com.yc.service.ScoreService;
 import com.yc.service.TypeService;
 import com.yc.util.Utils;
+import com.yc.vo.MovieFilter;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -375,4 +376,18 @@ public class MovieServiceImpl implements MovieService {
 		return listShowing;
 	}
 
+	
+	
+	
+	@Override
+	public List<Movie> filterMovie(MovieFilter movieFilter) {
+//		int status = movieFilter.getSelectType();//电影状态
+//		int catId = movieFilter.getCatId();//分类id
+//		String region = movieFilter.getRegion();
+//		int yearId = movieFilter.getYearId();
+//		int order = movieFilter.getOrder();
+		List<Movie> list = movieMapper.filter(movieFilter);
+		setScore(list);
+		return list;
+	}
 }

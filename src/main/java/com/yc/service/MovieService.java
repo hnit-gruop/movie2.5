@@ -11,6 +11,7 @@ import com.yc.bean.Movie;
 import com.yc.bean.MovieType;
 import com.yc.bean.User;
 import com.yc.bean.Wants;
+import com.yc.vo.MovieFilter;
 
 public interface MovieService {
 	PageInfo<Movie> findAllMoive(int pageNum,String sname,Date sTime);
@@ -105,5 +106,11 @@ public interface MovieService {
 	List<String> findAllRegion();
 
 	List<Movie> hotMovie();
+	
+	
+	/**
+	 * 组合条件查询电影
+	 */
+	List<Movie> filterMovie(MovieFilter movieFilter);
 	
 }

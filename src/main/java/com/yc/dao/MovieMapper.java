@@ -2,6 +2,8 @@ package com.yc.dao;
 
 import com.yc.bean.Movie;
 import com.yc.bean.MovieExample;
+import com.yc.vo.MovieFilter;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -43,4 +45,6 @@ public interface MovieMapper {
 	List<Movie> getTypeList(Integer movieId);
 	
 	List<Movie> listRegion();
+	
+	List<Movie> filter(MovieFilter movieFilter);
 }

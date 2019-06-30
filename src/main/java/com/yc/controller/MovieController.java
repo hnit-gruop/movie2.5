@@ -27,6 +27,7 @@ import com.yc.service.MovieService;
 import com.yc.service.MovieTypeService;
 import com.yc.service.RedisService;
 import com.yc.service.TypeService;
+import com.yc.vo.MovieFilter;
 
 @Controller
 public class MovieController {
@@ -69,7 +70,6 @@ public class MovieController {
 	@RequestMapping("movieDetail")
 	public String movieDetail(Model m, @RequestParam(required = true) int id,HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		int wantCnt = movieService.getWantCnt(id);
 		
 		
 		Movie movie = movieService.get(id);
@@ -116,19 +116,16 @@ public class MovieController {
 	
 	@ResponseBody
 	@RequestMapping("selectMovie")
-	public List<Movie> selectMovie(Model m,Integer selectType,@RequestParam(defaultValue="0")Integer catId,@RequestParam(defaultValue="0")String region,@RequestParam(defaultValue="0")Integer yearId) {
-
-		if(selectType==1) {
-			List<Movie> list = movieService.hotMovie();
-			return list;
-		}else if(selectType==2) {
-			List<Movie> list = movieService.hotMovie();
-			return list;
-		}else if(selectType==3){
-			List<Movie> list = movieService.hotMovie();
-			return list;
+	public List<Movie> selectMovie(Model m,MovieFilter movieFilter) {
+		
+		System.out.println("selectType:"+movieFilter.getSelectType()+" catId:"+movieFilter.getCatId()+" region: "+movieFilter.getRegion()+" yearId:"+movieFilter.getYearId());
+		int order = movieFilter.getOrder();
+		System.out.println(order);
+		List<Movie> filterMovie = movieService.filterMovie(movieFilter);
+		for (Movie movie : filterMovie) {
+			System.out.println(movie);
 		}
-		return null;
+		return  filterMovie;
 	}
 	
 }

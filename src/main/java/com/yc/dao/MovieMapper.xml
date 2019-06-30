@@ -3,66 +3,129 @@
 
 <mapper namespace="com.yc.dao.MovieMapper">
 
+	<!-- 电影筛选 -->
+	<select id="filter" resultMap="rm">
+		SELECT a.movie_id,a.`name`
+		name,d.image FROM movie a LEFT JOIN
+		movie_type b ON a.movie_id =
+		b.movie_id LEFT JOIN score c ON a.movie_id
+		= c.movie_id LEFT JOIN
+		movie_image d ON a.movie_id = d.movie_id
+		<where>
+			d.type = 'cover_type'
+			<if test="catId!=0">
+				and b.type_id = #{catId}
+			</if>
+			<!-- 字符串值比较使用 内双外单 -->
+			<if test='region!="0"'>
+				and region = #{region}
+			</if>
+			<if test="yearId!=0">
+				<if test="yearId==1">
+					and YEAR(release_time) <![CDATA[>]]> 2018
+				</if>
+				<if test="yearId==2">
+					and YEAR(release_time) <![CDATA[<]]> 2012
+				</if>
+				<if test="yearId>2">
+					and YEAR(release_time) = #{yearId}
+				</if>
+			</if>
+			<if test="selectType==1">
+				and a.`status` = 'showing'
+			</if>
+			<if test="selectType==2">
+				and a.`status` = 'upcoming'
+			</if>
+			<if test="selectType==3">
+				and a.`status` = 'typical'
+			</if>
+		</where>
 		
-		<select id="listRegion" resultType="com.yc.bean.Movie">
-			select movie_id as movieId,region from movie
-		</select>
+		<if test="order==1">
+			ORDER BY c.sum_people DESC
+		</if>
+		
+		<if test="order==2">
+			ORDER BY release_time DESC
+		</if>
+		
+		<if test="order==3">
+			ORDER BY c.sum_score/c.sum_people DESC
+		</if>
+	</select>
 
-		<resultMap type="com.yc.bean.Movie" id="rm3">
+
+	<!-- 查询地区 -->
+	<select id="listRegion" resultType="com.yc.bean.Movie">
+		select movie_id as
+		movieId,region from movie
+	</select>
+
+	<resultMap type="com.yc.bean.Movie" id="rm3">
 		<id column="movie_id" property="movieId" />
 		<collection property="listActor" ofType="com.yc.bean.Actor">
-			<id property="actorId" column="actor_id"/>
-			<result property="aname" column="aname"/>
-			<result property="pic" column="pic"/>
-			<result property="position" column="position"/>
+			<id property="actorId" column="actor_id" />
+			<result property="aname" column="aname" />
+			<result property="pic" column="pic" />
+			<result property="position" column="position" />
 		</collection>
 	</resultMap>
 
 	<select id="listActor" resultMap="rm3">
-		SELECT * FROM movie a LEFT JOIN movie_actor b ON a.movie_id = b.movie_id LEFT JOIN actor c ON b.actor_id = c.actor_id  WHERE a.movie_id = #{movie_id} 
+		SELECT * FROM movie a LEFT JOIN
+		movie_actor b ON a.movie_id = b.movie_id LEFT JOIN actor c ON
+		b.actor_id = c.actor_id WHERE a.movie_id = #{movie_id}
 	</select>
-	
+
 	<!-- 关联所有分类 -->
 	<resultMap type="com.yc.bean.Movie" id="rm2">
 		<id column="movie_id" property="movieId" />
 		<collection property="listType" ofType="com.yc.bean.Type">
-			<id property="typeId" column="type_id"/>
-			<result property="name" column="name"/>
+			<id property="typeId" column="type_id" />
+			<result property="name" column="name" />
 		</collection>
 	</resultMap>
-	
+
 	<select id="getTypeList" resultMap="rm2">
-	SELECT a.movie_id,b.type_id,b.movie_id,c.type_id,c.`name`  from movie a LEFT JOIN movie_type b  on a.movie_id = b.movie_id  LEFT JOIN type c ON b.type_id = c.type_id WHERE a.movie_id = #{movieId}
+		SELECT
+		a.movie_id,b.type_id,b.movie_id,c.type_id,c.`name` from movie a LEFT
+		JOIN movie_type b on a.movie_id = b.movie_id LEFT JOIN type c ON
+		b.type_id = c.type_id WHERE a.movie_id = #{movieId}
 	</select>
 
 	<!--关联电影封面 -->
-	<resultMap type="com.yc.bean.Movie" id="rm" >
+	<resultMap type="com.yc.bean.Movie" id="rm">
 		<id column="movie_id" property="movieId" />
-		<result column="name" property="name"/>
+		<result column="name" property="name" />
 		<association property="movieImage"
-			javaType="com.yc.bean.MovieImage" >
+			javaType="com.yc.bean.MovieImage">
 			<id column="id" property="id" />
-			<result column="image" property="image"/>
+			<result column="image" property="image" />
 		</association>
 	</resultMap>
-	
+
 	<!-- 正在播放 -->
 	<select id="listShowing" resultMap="rm">
-		SELECT a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
+		SELECT
+		a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
 		a.movie_id = b.movie_id WHERE status = 'showing'
-		and b.type = 'cover_type'
+		and b.type =
+		'cover_type'
 		LIMIT #{start},#{offset}
 	</select>
-	
+
 	<!-- 即将上映 -->
 	<select id="listUpComing" resultMap="rm">
-		SELECT a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
+		SELECT
+		a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
 		a.movie_id = b.movie_id WHERE status = 'upcoming'
-		and b.type = 'cover_type'
+		and b.type =
+		'cover_type'
 		LIMIT #{start},#{offset}
 	</select>
-	
-	
+
+
 
 	<resultMap id="BaseResultMap" type="com.yc.bean.Movie">
 		<id column="movie_id" jdbcType="INTEGER" property="movieId" />
@@ -108,7 +171,8 @@
 	<select id="selectAll" resultMap="BaseResultMap1">
 		SELECT a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
 		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
-		and type='cover_type' 
+		and
+		type='cover_type'
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="example.orderByClause != null">
 			order by ${example.orderByClause}
@@ -133,7 +197,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -165,7 +230,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -185,12 +251,13 @@
 
 
 	<sql id="Base_Column_List">
-		movie_id, name, duration, release_time, foreign_name, region, language,
+		movie_id, name, duration, release_time, foreign_name,
+		region, language,
 		description,
 		status
 	</sql>
 
-<select id="selectByExample"
+	<select id="selectByExample"
 		parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap">
 		SELECT
 		<if test="distinct">
@@ -214,17 +281,20 @@
 		parameterType="com.yc.bean.MovieExample" resultMap="BaseResultMap1">
 		SELECT
 		a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
-		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id 
-		and type='cover_type'
+		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+		and
+		type='cover_type'
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="kw1!=null">
 			where name like #{kw1}
 		</if>
 		union
 		SELECT
-		a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people score
-		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id 
-		and type='cover_type'
+		a.*,TYPE,image,sum_score,sum_people,sum_score/sum_people
+		score
+		FROM movie a LEFT JOIN movie_image b ON a.movie_id=b.movie_id
+		and
+		type='cover_type'
 		LEFT JOIN score c ON a.movie_id=c.movie_id
 		<if test="kw2!=null">
 			where foreign_name like #{kw2}
@@ -247,7 +317,8 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from movie
-		where movie_id = #{movieId,jdbcType=INTEGER}
+		where movie_id =
+		#{movieId,jdbcType=INTEGER}
 	</delete>
 	<delete id="deleteByExample"
 		parameterType="com.yc.bean.MovieExample">
@@ -257,14 +328,19 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.yc.bean.Movie">
-		insert into movie (movie_id, name, duration,
+		insert into movie (movie_id,
+		name, duration,
 		release_time, foreign_name, region,
-		language, description, status
+		language,
+		description, status
 		)
-		values (#{movieId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		values (#{movieId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
 		#{duration,jdbcType=INTEGER},
-		#{releaseTime,jdbcType=DATE}, #{foreignName,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
-		#{language,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+		#{releaseTime,jdbcType=DATE}, #{foreignName,jdbcType=VARCHAR},
+		#{region,jdbcType=VARCHAR},
+		#{language,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
 		#{status,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -374,14 +450,22 @@
 	<update id="updateByExample" parameterType="map">
 		update movie
 		set movie_id = #{record.movieId,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		duration = #{record.duration,jdbcType=INTEGER},
-		release_time = #{record.releaseTime,jdbcType=DATE},
-		foreign_name = #{record.foreignName,jdbcType=VARCHAR},
-		region = #{record.region,jdbcType=VARCHAR},
-		language = #{record.language,jdbcType=VARCHAR},
-		description = #{record.description,jdbcType=VARCHAR},
-		status = #{record.status,jdbcType=VARCHAR}
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		duration =
+		#{record.duration,jdbcType=INTEGER},
+		release_time =
+		#{record.releaseTime,jdbcType=DATE},
+		foreign_name =
+		#{record.foreignName,jdbcType=VARCHAR},
+		region =
+		#{record.region,jdbcType=VARCHAR},
+		language =
+		#{record.language,jdbcType=VARCHAR},
+		description =
+		#{record.description,jdbcType=VARCHAR},
+		status =
+		#{record.status,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -422,11 +506,14 @@
 		update movie
 		set name = #{name,jdbcType=VARCHAR},
 		duration = #{duration,jdbcType=INTEGER},
-		release_time = #{releaseTime,jdbcType=DATE},
-		foreign_name = #{foreignName,jdbcType=VARCHAR},
+		release_time =
+		#{releaseTime,jdbcType=DATE},
+		foreign_name =
+		#{foreignName,jdbcType=VARCHAR},
 		region = #{region,jdbcType=VARCHAR},
 		language = #{language,jdbcType=VARCHAR},
-		description = #{description,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
 		status = #{status,jdbcType=VARCHAR}
 		where movie_id = #{movieId,jdbcType=INTEGER}
 	</update>
