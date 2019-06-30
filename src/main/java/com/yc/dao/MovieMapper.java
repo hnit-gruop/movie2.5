@@ -7,8 +7,9 @@ import org.apache.ibatis.annotations.Param;
 
 public interface MovieMapper {
 	
-	 List<Movie> listShowing();
-	 List<Movie> listUpComing();
+	 List<Movie> listShowing(@Param("start")int start, @Param("offset")int offset);
+	 List<Movie> listUpComing(@Param("start")int start, @Param("offset")int offset);
+	 
 	
     long countByExample(MovieExample example);
 
@@ -40,4 +41,6 @@ public interface MovieMapper {
     List<Movie> listActor(Integer movieId);
     
 	List<Movie> getTypeList(Integer movieId);
+	
+	List<Movie> listRegion();
 }

@@ -5,9 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -74,17 +76,17 @@ public class MovieServiceImpl implements MovieService {
 	RedisService redisServie;
 
 	@Override
-	public List<Movie> listShowing() {
-		List<Movie> listShowing = movieMapper.listShowing();
+	public List<Movie> listShowing(int start,int offset) {
+		List<Movie> listShowing = movieMapper.listShowing(start,offset);
 		// redis中查询分数
 		setScore(listShowing);
 		return listShowing;
 	}
 
 	@Override
-	public List<Movie> listUpComing() {
+	public List<Movie> listUpComing(int start,int offset) {
 		/* 关联查询中设置电影封面优化sql性能 */
-		List<Movie> list = movieMapper.listUpComing();
+		List<Movie> list = movieMapper.listUpComing(start,offset);
 		return list;
 	}
 
@@ -351,4 +353,26 @@ public class MovieServiceImpl implements MovieService {
 		long countByExample = wantsMapper.countByExample(example);
 		return (int) countByExample;
 	}
+
+	@Override
+	public List<String> findAllRegion() {
+		List<Movie> listRegion = movieMapper.listRegion();
+		Set<String> set = new HashSet<>();
+		for (Movie m : listRegion) {
+			if(m.getRegion()!=null) {
+				set.add(m.getRegion());
+			}
+		}
+		List<String> regions = new ArrayList<>();
+		regions.addAll(set);
+		return regions;
+	}
+
+	@Override
+	public List<Movie> hotMovie() {
+		List<Movie> listShowing = movieMapper.listShowing(0, 18);
+		setScore(listShowing);
+		return listShowing;
+	}
+
 }

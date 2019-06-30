@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yc.dao.MovieMapper">
+
+		
+		<select id="listRegion" resultType="com.yc.bean.Movie">
+			select movie_id as movieId,region from movie
+		</select>
+
 		<resultMap type="com.yc.bean.Movie" id="rm3">
 		<id column="movie_id" property="movieId" />
 		<collection property="listActor" ofType="com.yc.bean.Actor">
@@ -32,6 +38,7 @@
 	<!--关联电影封面 -->
 	<resultMap type="com.yc.bean.Movie" id="rm" >
 		<id column="movie_id" property="movieId" />
+		<result column="name" property="name"/>
 		<association property="movieImage"
 			javaType="com.yc.bean.MovieImage" >
 			<id column="id" property="id" />
@@ -44,7 +51,7 @@
 		SELECT a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
 		a.movie_id = b.movie_id WHERE status = 'showing'
 		and b.type = 'cover_type'
-		LIMIT 0,8
+		LIMIT #{start},#{offset}
 	</select>
 	
 	<!-- 即将上映 -->
@@ -52,7 +59,7 @@
 		SELECT a.movie_id,a.`name`,b.image from movie a LEFT JOIN movie_image b ON
 		a.movie_id = b.movie_id WHERE status = 'upcoming'
 		and b.type = 'cover_type'
-		LIMIT 0,8
+		LIMIT #{start},#{offset}
 	</select>
 	
 	

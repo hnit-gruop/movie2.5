@@ -28,14 +28,6 @@ public class PageController {
 	}
 
 	/**
-	 * 电影列表
-	 */
-	@RequestMapping("movieList")
-	public String movieList(Model m) {
-		m.addAttribute("index", 2);
-		return "pages/MovieList";
-	}
-	/**
 	 * 影院
 	 */
 	@RequestMapping("cinema")

@@ -29,40 +29,118 @@
 <div class="header-placeholder"></div>
 
 <script type="text/javascript">
-	function select(element){
-		$("#list1").find(".active").removeAttr("class");
-		$(element).attr("class","active");
-	}
+$(function(){
+	select([[${selectType}]]);
+	query();
+});
+
+function select(t){
+	$("#t"+t).attr("class","active");
+	$("#selectType").val(t);
+}
+function sl(e){
+	query(e);
+}
+
+
+function query(e){
+	var selectType = $("#selectType").val();
+	var catId = $("#catId").val();
+	var region = $("#region").val();
+	var yearId = $("#yearId").val();
+	
+	$.getJSON("selectMovie",{
+		selectType:selectType,
+		catId:catId,
+		region:region,
+		yearId:yearId
+	},function(data){
+		if(data){
+			
+			
+			$("#list1").find(".active").removeClass();
+			$(e).attr("class","active");
+			var t = $(e).attr('id');
+			if(t=="t1"){
+				$("#selectType").val(1);
+			}else if(t=="t2"){
+				$("#selectType").val(2);
+			}else if(t=="t3"){
+				$("#selectType").val(3);
+			}
+			
+
+			
+			$("#ajax").empty();
+			for(var i = 0;i<data.length;i++){
+				$("#ajax").append(
+						  '<dd><div class="movie-item"><a href="movieDetail?id='+data[i].movieId+'" target="_blank">'+
+						      '<div class="movie-poster">'+
+						        '<img class="poster-default" src="">'+
+						        '<img src="/movieImg/cover/'+data[i].movieImage.image+'"></div></a>'+
+
+						        '<div class="channel-action channel-action-sale"><a>购票</a></div>'+
+						      '<div class="movie-ver"></div></div>'+
+						      
+						    '<div class="channel-detail movie-item-title" title="绝杀慕尼黑"><a href="#" >'+data[i].name+'</a></div>'+
+						'<div class="channel-detail channel-detail-orange"><i class="integer">'+data[i].score+'</i></div></dd>'
+			   );
+			}
+		}
+	});
+}
+
 </script>
+
+
 
 <div class="subnav">
   <ul class="navbar" id="list1">
     <li >
-      <a class="active" onclick = "select(this)">正在热映</a>
+      <a id = "t1" class="active"  href="#" onclick="sl(this)"> 正在热映</a>
     </li>
     <li>
-      <a  onclick = "select(this)">即将上映</a>
+      <a id = "t2" href="#" onclick="sl(this)"> 即将上映</a>
     </li>
     <li>
-      <a onclick = "select(this)">经典影片</a>
+      <a   id = "t3" href="#" onclick="sl(this)">经典影片</a>
     </li>
   </ul>
 </div>
-
     <div class="container" id="app">
 
-
 <div class="movies-channel">
+
+	<form id="query" action="selectMovie" method="post">
+	
+		<!-- 大类型 -->
+		<input id="selectType" name = "selectType" value="1" hidden="hidden">
+		
+		<!-- 类型 -->
+		<input id="catId"  name = "catId" value="0" hidden="hidden">
+		
+		<!-- 地区 -->
+		<input id="region"  name = "region"  hidden="hidden" value="0">
+		
+		
+		<!-- 年代 -->
+		<input id="yearId"  name = "yearId" hidden="hidden" value="0">
+		
+		
+		
   <div class="tags-panel">
     <ul class="tags-lines">
       <li class="tags-line" data-val="{tagTypeName:&#39;cat&#39;}">
         <div class="tags-title">类型 :</div>
         <ul class="tags">
+        
           <li class="active" data-state-val="{ catTagName:&#39;全部&#39;}">
             <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;爱情&#39;}" href="https://maoyan.com/films?sortId=3&amp;catId=3">爱情</a>
+          
+          
+          <li th:each="t:${typelist}">
+            <a  th:href="@{'/selectByTypeId?id='+${t.typeId}}" th:text="${t.name}">爱情</a>
           </li>
 		
           <li>
@@ -76,10 +154,10 @@
           <li class="active" data-state-val="{ sourceTagName:&#39;全部&#39;}">
             <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;大陆&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=2">大陆</a>
-          </li>
           
+          <li th:each="r:${regions}">
+            <a  th:href="@{'selectByRegion?region='+${r}}"  th:text="${r}">大陆</a>
+          </li>
           <li>
             <a data-act="tag-click" data-val="{TagName:&#39;其他&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=100">其他</a>
           </li>
@@ -92,10 +170,7 @@
             <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2019以后&#39;}" href="#">2019以后</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2019&#39;}" href="#">2019</a>
+            <a data-act="tag-click" data-val="{TagName:&#39;2019以后&#39;}" href="#">2018以后</a>
           </li>
           <li>
             <a data-act="tag-click" data-val="{TagName:&#39;2018&#39;}" href="#">2018</a>
@@ -125,21 +200,14 @@
             <a data-act="tag-click" data-val="{TagName:&#39;2000-2010&#39;}"href="#">2000-2010</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;90年代&#39;}" href="#">90年代</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;80年代&#39;}" href="#">80年代</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;70年代&#39;}" href="#">70年代</a>
-          </li>
-          <li>
             <a data-act="tag-click" data-val="{TagName:&#39;更早&#39;}" href="#">更早</a>
           </li>
         </ul>
       </li>
     </ul>
   </div>
+  
+  </form>
   <div class="movies-panel">
     <div class="movies-sorter">
       <div class="cat-sorter">
@@ -179,28 +247,22 @@
     </div>
     <div class="movies-list">
     
-    <dl class="movie-list">
-	
-  <dd th:each="i:${#numbers.sequence(0,30)}">
-    <div class="movie-item">
-      <a href="#" target="_blank" data-act="movie-click" data-val="{movieid:1204589}">
-      <div class="movie-poster">
-        <img class="poster-default" src="">
-        <img src="img/绝杀幕尼黑.jpg">
-      </div>
-      </a>
-        <div class="channel-action channel-action-sale">
-  <a>购票</a>
-</div>
-
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="绝杀慕尼黑">
-      <a href="#" target="_blank" data-act="movies-click" data-val="{movieId:1204589}">绝杀慕尼黑</a>
-    </div>
-<div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">6</i></div>
-  
-  </dd></dl>
+    <dl class="movie-list" id="ajax">
+    
+    
+    </dl>
+    
+<!--     <dl class="movie-list" > -->
+<!--     	  <dd th:each="m:${list}"><div class="movie-item"><a href="#" target="_blank">  -->
+<!-- 					      <div class="movie-poster">  -->
+<!-- 					        '<img class="poster-default" src="">  -->
+<!-- 					        <img src="img/绝杀幕尼黑.jpg"></div></a>  -->
+<!-- 					        <div class="channel-action channel-action-sale"><a>购票</a></div>  -->
+<!-- 					     <div class="movie-ver"></div></div>  -->
+<!-- 					    <div class="channel-detail movie-item-title" title="绝杀慕尼黑"><a href="#" >绝杀慕尼黑</a></div>  -->
+<!-- 					 <div class="channel-detail channel-detail-orange"><i class="integer">9.5</i></div></dd>  -->
+<!--     </dl> -->
+    
 
     </div>
     <div class="movies-pager">

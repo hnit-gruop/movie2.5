@@ -38,11 +38,11 @@ public interface MovieService {
 	/**
 	 * 正在热映
 	 */
-	List<Movie> listShowing();
+	List<Movie> listShowing(int start,int offset);
 	/**
 	 * 即将上映
 	 */
-	List<Movie> listUpComing();
+	List<Movie> listUpComing(int start,int offset);
 	
 	/**
 	 * 最受期待
@@ -101,5 +101,9 @@ public interface MovieService {
 	int updateWants(Integer userId, int movieId, int flag);
 	
 	int getWantCnt(int movieId);
+
+	List<String> findAllRegion();
+
+	List<Movie> hotMovie();
 	
 }
