@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +57,20 @@ public class FrameController {
 	MovieActorServiceImpl masi;
 	@Resource
 	ActorServiceImpl asi;
+	
+	
+	@Value("${coverPath}")
+	private String coverPath;
+	
+	@Value("${bigPath}")
+	private String bigPath;
+	
+	@Value("${smallPath}")
+	private String smallPath;
+	
+	@Value("${actorPath}")
+	private String actorPath;
+	
 	
 	/**
 	 * 打开后台页面
@@ -240,7 +255,7 @@ public class FrameController {
         	misi.update(mi);
         }
         String fileName = file.getOriginalFilename();
-        String filePath = "D:\\upload\\movieImg\\cover\\";
+        String filePath = coverPath;
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
@@ -267,7 +282,7 @@ public class FrameController {
         mi.setType(MovieImageService.BIG_IMG_TYPE);
         int s = misi.add(mi);
         String fileName = file.getOriginalFilename();
-        String filePath = "D:\\upload\\movieImg\\big\\";
+        String filePath = bigPath;
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
@@ -295,7 +310,7 @@ public class FrameController {
         mi.setType(MovieImageService.SMALL_IMG_TYPE);
         int r = misi.add(mi);
         String fileName = file.getOriginalFilename();
-        String filePath = "D:\\upload\\movieImg\\small\\";
+        String filePath = smallPath;
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
@@ -394,7 +409,7 @@ public class FrameController {
             return "上传失败，请选择文件";
         }
         String fileName = file.getOriginalFilename();
-        String filePath = "D:\\upload\\userHead\\";
+        String filePath = actorPath;
         File dest = new File(filePath + fileName);
         System.err.println(dest.getPath());
         try {
