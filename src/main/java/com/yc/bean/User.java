@@ -11,6 +11,10 @@ public class User {
 
     private String headImg;
 
+    private String phone;
+
+    private Integer status;
+
     public Integer getUserId() {
         return userId;
     }
@@ -51,9 +55,19 @@ public class User {
         this.headImg = headImg == null ? null : headImg.trim();
     }
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", headImg=" + headImg + "]";
-	}
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
