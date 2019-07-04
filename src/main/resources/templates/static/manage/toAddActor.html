@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+		
+		#movieImage{
+			position:absolute;
+			width:200px;
+			right:750px;
+			top:40px;
+			z-index:100;
+		}
+		
+		#typeList{
+			width: 300px;
+		}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../fonts/iconfont.css">
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-form.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script type="text/javascript" src="../../layui/layui.js"></script>
+		<!-- 仅供所有子页面使用
+		公共样式 结束 -->
+		<link rel="stylesheet" type="text/css" href="css/zxf_page.css"/>
+		<!-- easyui -->
+		<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+		<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+		<script type="text/javascript">
+		function cleanForm(){
+			$("#img-change").attr("src","");
+			$("#birthplace").val("");
+			$("#file").val("");
+			$("#atname").val("");
+			$("#sex").val("");
+			$("#tflag").val();
+			$("#secondName").val("");
+			$("#birth").val("");
+			$("#country").val("");
+			$("#nation").val("");
+			$("#height").val("");
+			$("#constellation").val("");
+			CKEDITOR.instances.description.setData("");
+		}
+
+		function getFileName(o){
+			var index = o.lastIndexOf("\\");
+			return o.substring(index+1);
+		}
+		
+
+		function addImage(){
+			$("#ImgUpload").ajaxSubmit(function(message) {  
+		  		return;
+		    }); 
+			
+			return false;
+		}
+		
+		function addActor(){
+			var file = $("#file").val();
+			var pic = getFileName(file);
+			var date = new Date($("#birth").val());
+			$.post("addActor",{
+				pic:pic,
+				aname:$("#atname").val(),
+				sex:$("#sex").val(),
+				position:$("#tflag").val(),
+				secondName:$("#secondName").val(),
+				birthday:date,
+				birthplace:$("#birthplace").val(),
+				country:$("#country").val(),
+				nation:$("#nation").val(),
+				height:$("#height").val(),
+				constellation:$("#constellation").val(),
+				description:CKEDITOR.instances.description.getData()
+			},function(data){
+				if($("#file").val() != null && $("#file").val() != ""){
+					addImage();
+				}
+				alert(data.message);
+				cleanForm();
+			});
+		} 
+		
+		</script>
+</head>
+<body>
+		姓名:<input class="easyui-text" type="text" id="atname"><br>
+		性别:
+		<select id="sex" class="easyui-combobox"style="width:200px;">
+		    <option value="男">男</option>
+		    <option value="女">女</option>
+		</select>
+		<br>
+		艺名:<input class="easyui-text" type="text" id="secondName"><br>
+		生日:<input class="easyui-datebox" type="text" id="birth"><br>
+		国籍:<input class="easyui-text" type="text" id="country"><br>
+		籍贯:<input class="easyui-text" type="text" id="birthplace"><br>
+		民族:<input class="easyui-text" type="text" id="nation"><br>
+		身高:<input class="easyui-text" type="text" id="height"><br>
+		星座:<input class="easyui-text" type="text" id="constellation"><br>
+		类型:
+		<select id="tflag" class="easyui-combobox"style="width:200px;">
+		    <option value="actor">演员</option>
+		    <option value="director">导演</option>
+		</select>
+			<br>
+		个人简介:<textarea rows="5" cols="20" id="description" name="description"></textarea>
+		<script>
+             CKEDITOR.replace( 'description' );
+        </script>
+		<div id="movieImage">
+		头像:
+		<form id="ImgUpload" action="ImgActorUpload" method="post" enctype="multipart/form-data" onsubmit="return upload();">
+			<input type="file" id="file" name="file" style="display:none;" onchange="filechange(event)">
+			<img src="" width="200px" height="200px" id="img-change">
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change").click(function () {
+			    $("#file").click();
+			})
+			
+			var filechange=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change").attr("src",imgURL);
+			    }
+			};
+		</script>
+        <div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="addActor()">添加</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#win').window('close')">返回</a>
+		</div>
+</body>
+</html>

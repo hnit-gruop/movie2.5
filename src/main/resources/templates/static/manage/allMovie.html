@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit">
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>穷在闹市出品</title>
+
+		<!-- 公共样式 开始 -->
+		<style type="text/css">
+		
+		#movieImage{
+			position:absolute;
+			width:200px;
+			height:200px;
+			right:20px;
+			top:40px;
+			z-index:100;
+		}
+		
+		#typeList{
+			width: 300px;
+		}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../fonts/iconfont.css">
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-form.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script type="text/javascript" src="../../layui/layui.js"></script>
+		<!-- 仅供所有子页面使用
+		公共样式 结束 -->
+		<link rel="stylesheet" type="text/css" href="css/zxf_page.css"/>
+		<!-- easyui -->
+		<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+		<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+		<script type="text/javascript">
+		
+			function upd(movieId,number){
+				if(confirm("确认此操作？")==true){
+					$.get("deleteMovie",{
+						movieId:movieId,
+						number:number
+					},function(data){
+						alert(data.message);
+					})
+				}else{
+					
+				}
+				
+				
+			}
+			
+			function upload(){
+				$("#ImgUpload").ajaxSubmit(function(message) {  
+			  
+			    }); 
+				
+				return false;
+			}
+			
+			function upload2(){
+				$("#BigImage").ajaxSubmit(function(message) {  
+			  
+			    }); 
+				
+				return false;
+			}
+			function upload3(){
+				$("#SmallImage").ajaxSubmit(function(message) {  
+			  
+			    }); 
+				
+				return false;
+			}
+			
+			
+			function cleanForm(){
+				$("input").removeAttr("checked");
+				$("#img-change").attr("src","");
+				$("#file").val("");
+				$("#mname").val("");
+				$("#director").val("");
+				$("#actor").val("");
+				$("#releaseTime").datebox('setValue',"");
+				$("#duration").val("");
+				$("#region").val("");
+				$("#language").val("");
+				$("#foreignName").val("");
+				CKEDITOR.instances.description.setData("");
+			}
+		
+			function details(movieId){
+				cleanForm();
+				$.get("getMovieDetail",{
+					movieId:movieId
+				},function(data){
+					var type = data.typeList;
+					for(var i = 0; i < type.length; i++){
+						var t = type[i];
+						var $typeList = $('input[value="'+t.typeId+'"]')
+						$typeList.attr("checked","true");
+					}
+					if(data.imageList[0] != null){
+						 $("#img-change").attr("src","movieImg/cover/"+data.imageList[0].image);
+					}
+					$("#moid").val(data.movieId);
+					$("#moid2").val(data.movieId);
+					$("#moid3").val(data.movieId);
+					$("#mname").val(data.name);
+					$("#director").val(data.direlist);
+					$("#actor").val(data.actorList);
+					$("#releaseTime").datebox('setValue',data.releaseTime);
+					$("#duration").val(data.duration);
+					$("#region").val(data.region);
+					$("#language").val(data.language);
+					$("#foreignName").val(data.foreignName);
+					CKEDITOR.instances.description.setData(data.description);
+					$('#win').window('open');
+				}
+				)
+				
+			}
+			
+			function alterMovie(){
+				var typeList = [];
+				var date = new Date($("#releaseTime").val());
+				var movieId = $("#moid").val();
+				var name = $("#mname").val();
+				var dire = $("#director").val();
+				var actor = $("#actor").val();
+				var releaseTime = date;
+				var duration = $("#duration").val();
+				var region = $("#region").val();
+				var language = $("#language").val();
+				var foreignName = $("#foreignName").val();
+				var description = CKEDITOR.instances.description.getData();
+				$('input[name="typeId"]:checked').each(function(i){
+					typeList[i] =$(this).val();
+				});
+				$.post("alterMovie",{
+					typeList:typeList,
+					movieId:movieId,
+					name:name,
+					dire:dire,
+					actor:actor,
+					releaseTime:releaseTime,
+					duration:duration,
+					region:region,
+					language:language,
+					foreignName:foreignName,
+					description:description
+				},function(data){
+					if($("#file").val() != null && $("#file").val() != ""){
+						upload();
+					}
+					if($("#file2").val() != null && $("#file2").val() != ""){
+						upload2();
+					}
+					if($("#file3").val() != null && $("#file3").val() != ""){
+						upload3();
+					}
+					alert(data.message);
+					$('#win').window('close');
+				})
+			}
+			
+			function search(){
+				$.get("getAllMovieBypage",{
+					current:1,
+					sname:$("#sname").val(),
+					sTime:$("#sTime").val()
+				},function(data){
+					$("#tbody").empty();
+					$.each(data,function(k,v){
+						if(v.total == "" || v.total == null){
+							$("#tbody").append(
+									 '	<tr>' +
+									 '		<td>'+v.name+'</td>' +
+									 '		<td>'+v.type+'</td>' +
+									 '		<td>'+v.duration+'</td>' +
+									 '		<td>'+v.releaseTime+'</td>' +
+									 '		<td>'+v.region+'</td>' +
+									 '		<td>'+v.language+'</td>' +
+									 '		<td>' +
+									 '			<button class="layui-btn" onclick="details('+v.movieId+')">详细信息</button>\n' +
+									 '			<button class="layui-btn" onclick="upd('+v.movieId+')">下架</button>\n' +
+									 '		</td>' +
+									 '	</tr>'
+									)
+						}else{
+							
+						}
+						
+					}); 
+				})
+			}
+		</script>
+	</head>
+	<body>
+	<div id="win" class="easyui-window" title="影片详情" closed="true" style="width:550px;height:650px;padding:5px;">
+		
+		影片名称:<input class="easyui-text" type="text" id="mname"><br>
+		导&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;演:<input class="easyui-text" type="text" id="director"><br>
+		主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;演:<input class="easyui-text" type="text" id="actor">以'，'分隔<br>
+		类型: 
+		<div id="typeList" name="movieType">
+    		<input id="type" name="typeId" type="checkbox" th:each="t:${typeList}" th:value="${t.typeId}" th:text="${t.name}">
+		</div>
+			<br>
+		上映时间:<input class="easyui-datebox" type="text" required style="width:200px" id="releaseTime"><br>
+		影片时长:<input class="easyui-text" type="text" id="duration"><br>
+		地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区:<input class="easyui-text" type="text" id="region"><br>
+		语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言:<input class="easyui-text" type="text" id="language"><br>
+		外文名称:<input class="easyui-text" type="text" id="foreignName"><br>
+		影片详情:<textarea rows="5" cols="20" id="description" name="description"></textarea>
+		<script>
+             CKEDITOR.replace( 'description' );
+        </script>
+		
+		<div id="movieImage">
+		电影封面:
+		<form id="ImgUpload" action="ImgUpload" method="post" enctype="multipart/form-data" onsubmit="return upload();">
+			<input type="file" id="file" name="file" style="display:none;" onchange="filechange(event)">
+			<input type="text" id="moid" name="movieId" hidden="hidden">
+			<img src="" width="200px" height="200px" id="img-change">
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change").click(function () {
+			    $("#file").click();
+			})
+			
+			var filechange=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change").attr("src",imgURL);
+			    }
+			};
+			
+		</script>
+		
+		<div id="addBig">
+		电影大图:
+		<form id="BigImage" action="ImgUploadBig" method="post" enctype="multipart/form-data" onsubmit="return upload2();">
+			<input type="file" id="file2" name="file2" style="display:none;" onchange="filechange2(event)" >
+			<input type="text" id="moid3" name="movieId" hidden="hidden">
+			<img src="" width="200px" height="200px" id="img-change2"><br>
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change2").click(function () {
+			    $("#file2").click();
+			})
+			
+			var filechange2=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change2").attr("src",imgURL);
+			    }
+			};
+			
+		</script>
+		
+		<div id="addSmall">
+		电影小图:
+		<form id="SmallImage" action="ImgUploadSmall" method="post" enctype="multipart/form-data" onsubmit="return upload3();">
+			<input type="file" id="file3" name="file3" style="display:none;" onchange="filechange3(event)">
+			<input type="text" id="moid2" name="movieId" hidden="hidden">
+			<img src="" width="200px" height="200px" id="img-change3"><br>
+		</form>
+		</div>
+		<script type="text/javascript">
+			$("#img-change3").click(function () {
+			    $("#file3").click();
+			})
+			
+			var filechange3=function(event){
+			    var files = event.target.files, file;
+			    if (files && files.length > 0) {
+			        // 获取目前上传的文件
+			        file = files[0];// 文件大小校验的动作
+			        if(file.size > 1024 * 1024 * 4) {
+			            alert('图片大小不能超过 4MB!');
+			            return false;
+			        }
+			        // 获取 window 的 URL 工具
+			        var URL = window.URL || window.webkitURL;
+			        // 通过 file 生成目标 url
+			        var imgURL = URL.createObjectURL(file);
+			        //用attr将img的src属性改成获得的url
+			        $("#img-change3").attr("src",imgURL);
+			    }
+			};
+			
+		</script>
+        <div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="alterMovie()">修改</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#win').window('close')">返回</a>
+		</div>
+	</div>
+	<input type="hidden" th:value="${total}" id="total">
+	<input type="hidden" id="num" value="1">
+		<div class="cBody">
+			<div class="console">
+				<div class="layui-input-inline">
+					<input type="text" name="name" lay-verify="required" id="sname" placeholder="请输入影片名称" autocomplete="off" class="layui-input">
+				</div> 
+				上映日期:<input class="easyui-datebox" id="sTime" type="text" style="width:200px" >
+				<button class="layui-btn" onclick="search()">查询</button>
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>名称</th>
+						<th>类型</th>
+						<th>时长(分钟)</th>
+						<th>上映时间</th>
+						<th>地区</th>
+						<th>语言</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr th:each="m:${movieList}" >
+						<td th:text="${m.name}"></td>
+						<td th:text="${m.type}"></td>
+						<td th:text="${m.duration}"></td>
+						<td th:text="${#dates.format(m.releaseTime, 'yyyy-MM-dd')}"></td>
+						<td th:text="${m.region}"></td>
+						<td th:text="${m.language}"></td>
+						<td>
+							<button class="layui-btn" th:onclick="'javascript:details('+${m.movieId}+')' ">详细信息</button>
+							<button class="layui-btn" th:if="${m.status} == 'showing'" th:onclick="'javascript:upd('+${m.movieId}+',1'+')' ">下架</button>
+							<button class="layui-btn" th:if="${m.status} == 'typical'" th:onclick="'javascript:upd('+${m.movieId}+',2'+')' ">上映</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- 分页模块 -->		
+	<!-- 分页样式 -->
+	<script type="text/javascript" src="js/zxf_page.js"></script>
+	<div class="zxf_pagediv"></div>
+	<script type="text/javascript">
+	//翻页
+	var total = $("#total").val();
+	var num = $("#num").val();
+	$(".zxf_pagediv").createPage({
+		pageNum: total,
+		current: Number(num),
+		backfun: function(e) {
+			$.get("getAllMovieBypage",{
+				current:e.current,
+				sname:$("#sname").val(),
+				sTime:$("#sTime").val()
+			},function(data){
+				$("#tbody").empty();
+				$.each(data,function(k,v){
+					if(v.total == "" || v.total == null){
+						$("#tbody").append(
+								 '	<tr>' +
+								 '		<td>'+v.name+'</td>' +
+								 '		<td>'+v.type+'</td>' +
+								 '		<td>'+v.duration+'</td>' +
+								 '		<td>'+v.releaseTime+'</td>' +
+								 '		<td>'+v.region+'</td>' +
+								 '		<td>'+v.language+'</td>' +
+								 '		<td>' +
+								 '			<button class="layui-btn" onclick="details('+v.movieId+')">详细信息</button>\n' +
+								 '			<button class="layui-btn" onclick="upd('+v.movieId+')">下架</button>\n' +
+								 '		</td>' +
+								 '	</tr>'
+								)
+					}else{
+						
+					}
+					
+				}); 
+			})
+		}
+	});
+	</script>
+	</div>
+	</body>
+</html>
