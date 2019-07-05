@@ -35,4 +35,5 @@ build/
 /mvnw
 /mvnw.cmd
 /pom.xml
+/qqconnect.log
 /src/
