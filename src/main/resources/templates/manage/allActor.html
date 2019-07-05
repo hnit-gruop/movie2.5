@@ -77,6 +77,7 @@
 			
 			function cleanForm(){
 				$("#img-change").attr("src","");
+				$("#birthplace").val("");
 				$("#file").val("");
 				$("#atname").val("");
 				$("#sex").val("");
@@ -104,6 +105,8 @@
 					$("#country").val(data.country);
 					$("#nation").val(data.nation);
 					$("#height").val(data.height);
+					$("#birthplace").val(data.birthplace);
+					$("#birth").datebox("setValue",data.birthday);
 					$("#constellation").val(data.constellation);
 					$('#tflag').combobox('select',data.position);
 					$("#actorId").val(data.actorId);
@@ -111,11 +114,10 @@
 					$('#win').window('open');
 				} 
 				)
-				
 			}
 			
-			function upload(){
-				$("#ImgActorUpload").ajaxSubmit(function(message) {  
+			function addImage(){
+				$("#ImgUpload").ajaxSubmit(function(message) {  
 			  
 			    }); 
 				
@@ -131,6 +133,7 @@
 					position:$("#tflag").val(),
 					secondName:$("#secondName").val(),
 					birthday:date,
+					birthplace:$("#birthplace").val(),
 					country:$("#country").val(),
 					nation:$("#nation").val(),
 					height:$("#height").val(),
@@ -138,7 +141,7 @@
 					description:CKEDITOR.instances.description.getData()
 				},function(data){
 					if($("#file").val() != null && $("#file").val() != ""){
-						upload();
+						addImage();
 					}
 					alert(data.message);
 					$('#win').window('close');
@@ -160,6 +163,7 @@
 		艺名:<input class="easyui-text" type="text" id="secondName"><br>
 		生日:<input class="easyui-datebox" type="text" id="birth"><br>
 		国籍:<input class="easyui-text" type="text" id="country"><br>
+		籍贯:<input class="easyui-text" type="text" id="birthplace"><br>
 		民族:<input class="easyui-text" type="text" id="nation"><br>
 		身高:<input class="easyui-text" type="text" id="height"><br>
 		星座:<input class="easyui-text" type="text" id="constellation"><br>
@@ -175,7 +179,7 @@
         </script>
 		<div id="movieImage">
 		头像:
-		<form id="ImgUpload" action="ImgUpload" method="post" enctype="multipart/form-data" onsubmit="return upload();">
+		<form id="ImgUpload" action="ImgActorUpload" method="post" enctype="multipart/form-data" onsubmit="return addImage();">
 			<input type="file" id="file" name="file" style="display:none;" onchange="filechange(event)">
 			<img src="" width="200px" height="200px" id="img-change">
 		</form>

@@ -16,9 +16,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   
+  <script type="text/javascript" src="pace-master/pace.js"></script>
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/movie-list.22f5a22a.css">
+ <link rel="stylesheet" href="pace-master/themes/red/pace-theme-minimal.css" />
  
 <meta name="lx:autopv" content="off"><meta name="lx:appnm" content="movie"><meta name="lx:category" content="movie"></head>
 <body>
@@ -29,142 +31,263 @@
 <div class="header-placeholder"></div>
 
 <script type="text/javascript">
-	function select(element){
-		$("#list1").find(".active").removeAttr("class");
-		$(element).attr("class","active");
+$(function(){
+	select([[${selectType}]]);
+	query();
+});
+
+function select(t){
+	$("#t"+t).attr("class","active");
+	$("#selectType").val(t);
+}
+
+function activeCss1(e){
+	if(e){
+		$("#list1").find(".active").removeClass();
+		$(e).attr("class","active");
 	}
+}
+function activeCss2(e){
+	if(e){
+		$("#allTypes").find(".active").removeClass();
+		$(e).parent().attr("class","active");
+	}
+}
+function activeCss3(e){
+	if(e){
+		$("#allRegion").find(".active").removeClass();
+		$(e).parent().attr("class","active");
+	}
+}
+function activeCss4(e){
+	if(e){
+		$("#allYear").find(".active").removeClass();
+		$(e).parent().attr("class","active");
+	}
+}
+function activeCss5(e){
+	if(e){
+	   $("#list2").find(".sort-radio-checked").attr("class","sort-control sort-radio");
+	   $(e).attr("class","sort-control sort-radio sort-radio-checked");
+	}
+}
+
+function setValue(e1,e2,e3,e4,e5){
+	if(e1){
+		var t = $(e1).attr('id');
+		if(t=="t1"){
+			$("#selectType").val(1);
+		}else if(t=="t2"){
+			$("#selectType").val(2);
+		}else if(t=="t3"){
+			$("#selectType").val(3);
+		}
+	}
+	if(e2){
+		var t = $(e2).attr("class");
+		$("#catId").val(t);
+	}
+	if(e3){
+		var t = $(e3).attr("class");
+		$("#region").val(t);
+	}
+	if(e4){
+		var t = $(e4).attr("class");
+		$("#yearId").val(t);
+	}
+	if(e5){
+		var t = $(e5).attr("id");
+		if(t=="o1"){
+			$("#order").val(1);
+		}else if(t=="o2"){
+			$("#order").val(2);
+		}else if(t=="o3"){
+			$("#order").val(3);
+		}
+	}
+		
+}
+
+
+
+
+function query(e1,e2,e3,e4,e5){
+	//在input里面设值
+	setValue(e1,e2,e3,e4,e5);
+	
+	
+	//取值
+	var selectType = $("#selectType").val();
+	var catId = $("#catId").val();
+	var region = $("#region").val();
+	var yearId = $("#yearId").val();
+	var order = $("#order").val();
+	
+	$.getJSON("selectMovie",{
+		selectType:selectType,
+		catId:catId,
+		region:region,
+		yearId:yearId,
+		order:order
+	},function(data){
+		if(data){
+			//数据返回再修改前端样式
+				activeCss1(e1);
+				activeCss2(e2);
+				activeCss3(e3);
+				activeCss4(e4);
+				activeCss5(e5);
+				
+			$("#ajax").empty();
+			for(var i = 0;i<data.length;i++){
+				$("#ajax").append(
+						  '<dd><div class="movie-item"><a href="movieDetail?id='+data[i].movieId+'" target="_blank">'+
+						      '<div class="movie-poster">'+
+						        '<img class="poster-default" src="">'+
+						        '<img src="/movieImg/cover/'+data[i].movieImage.image+'"></div></a>'+
+
+						        '<div class="channel-action channel-action-sale"><a>购票</a></div>'+
+						      '<div class="movie-ver"></div></div>'+
+						      
+						    '<div class="channel-detail movie-item-title" title="绝杀慕尼黑"><a href="#" >'+data[i].name+'</a></div>'+
+						'<div class="channel-detail channel-detail-orange"><i class="integer">'+data[i].score+'分</i></div></dd>'
+			   );
+			}
+		}
+	});
+}
 </script>
+
+
 
 <div class="subnav">
   <ul class="navbar" id="list1">
     <li >
-      <a class="active" onclick = "select(this)">正在热映</a>
+      <a id = "t1" class="active"  href="#" onclick="query(this,null,null,null,null)"> 正在热映</a>
     </li>
     <li>
-      <a  onclick = "select(this)">即将上映</a>
+      <a id = "t2" href="#" onclick="query(this,null,null,null,null)"> 即将上映</a>
     </li>
     <li>
-      <a onclick = "select(this)">经典影片</a>
+      <a   id = "t3" href="#" onclick="query(this,null,null,null,null)">经典影片</a>
     </li>
   </ul>
 </div>
-
     <div class="container" id="app">
 
-
 <div class="movies-channel">
+
+	<form id="query" action="selectMovie" method="post">
+	
+		<!-- 大类型 -->
+		<input id="selectType" name = "selectType" value="1" hidden="hidden">
+		
+		<!-- 类型 -->
+		<input id="catId"  name = "catId" value="0" hidden="hidden">
+		
+		<!-- 地区 -->
+		<input id="region"  name = "region"  hidden="hidden" value="0">
+		
+		
+		<!-- 年代 -->
+		<input id="yearId"  name = "yearId" hidden="hidden" value="0">
+		
+		
+		<input id="order"  name = "order" hidden="hidden" value="1">
+		
+		
   <div class="tags-panel">
     <ul class="tags-lines">
       <li class="tags-line" data-val="{tagTypeName:&#39;cat&#39;}">
         <div class="tags-title">类型 :</div>
-        <ul class="tags">
-          <li class="active" data-state-val="{ catTagName:&#39;全部&#39;}">
-            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+        <ul class="tags" id="allTypes">
+        
+          <li class="active"  >
+            <a class="0" href="#"  onclick="query(null,this,null,null,null)">全部</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;爱情&#39;}" href="https://maoyan.com/films?sortId=3&amp;catId=3">爱情</a>
-          </li>
-		
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;其他&#39;}" href="https://maoyan.com/films?sortId=3&amp;catId=100">其他</a>
+          
+          
+          <li th:each="t:${typelist}">
+            <a  th:class="${t.typeId}"   href="#"  onclick="query(null,this,null,null,null)"  th:text="${t.name}">爱情</a>
           </li>
         </ul>
       </li>
+      
       <li class="tags-line tags-line-border" data-val="{tagTypeName:&#39;source&#39;}">
         <div class="tags-title">区域 :</div>
-        <ul class="tags">
-          <li class="active" data-state-val="{ sourceTagName:&#39;全部&#39;}">
-            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+        
+        
+        <ul class="tags" id="allRegion">
+          <li class="active" >
+            <a  class="0" href="#" onclick="query(null,null,this,null,null)">全部</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;大陆&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=2">大陆</a>
-          </li>
-          
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;其他&#39;}" href="https://maoyan.com/films?sortId=3&amp;sourceId=100">其他</a>
+          <li th:each="r:${regions}">
+            <a  th:class="${r}" href="#" onclick="query(null,null,this,null,null)" th:text="${r}">大陆</a>
           </li>
         </ul>
       </li>
       <li class="tags-line tags-line-border" data-val="{tagTypeName:&#39;year&#39;}">
         <div class="tags-title">年代 :</div>
-        <ul class="tags">
+        <ul class="tags" id="allYear">
           <li class="active" data-state-val="{ yearTagName:&#39;全部&#39;}">
-            <a data-act="tag-click" data-val="{TagName:&#39;全部&#39;}" href="javascript:void(0);" style="cursor: default">全部</a>
+            <a class="0" href="#" onclick="query(null,null,null,this,null)" >全部</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2019以后&#39;}" href="#">2019以后</a>
+            <a class="1" onclick="query(null,null,null,this,null)" href="#">2018以后</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2019&#39;}" href="#">2019</a>
+            <a class="2018" onclick="query(null,null,null,this,null)" href="#">2018</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2018&#39;}" href="#">2018</a>
+            <a class="2017" onclick="query(null,null,null,this,null)" href="#">2017</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2017&#39;}" href="#">2017</a>
+            <a class="2016" onclick="query(null,null,null,this,null)" href="#">2016</a>
           </li>
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2016&#39;}" href="#">2016</a>
+            <a class="2015" onclick="query(null,null,null,this,null)" href="#">2015</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2015&#39;}" href="#">2015</a>
+          
+            <li>
+            <a class="2014" onclick="query(null,null,null,this,null)" href="#">2014</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2014&#39;}" href="#">2014</a>
+          
+            <li>
+            <a class="2013" onclick="query(null,null,null,this,null)" href="#">2013</a>
           </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2013&#39;}"href="#">2013</a>
+            <li>
+            <a class="2012" onclick="query(null,null,null,this,null)" href="#">2012</a>
           </li>
+          
           <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2012&#39;}" href="#">2012</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2011&#39;}" href="#">2011</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;2000-2010&#39;}"href="#">2000-2010</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;90年代&#39;}" href="#">90年代</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;80年代&#39;}" href="#">80年代</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;70年代&#39;}" href="#">70年代</a>
-          </li>
-          <li>
-            <a data-act="tag-click" data-val="{TagName:&#39;更早&#39;}" href="#">更早</a>
+            <a class="2" onclick="query(null,null,null,this,null)" href="#">更早</a>
           </li>
         </ul>
       </li>
     </ul>
   </div>
+  
+  </form>
   <div class="movies-panel">
     <div class="movies-sorter">
       <div class="cat-sorter">
-      <script>
-      	function select2(e){
-      		$("#list2").find(".sort-radio-checked").attr("class","sort-control sort-radio");
-    		$(e).attr("class","sort-control sort-radio sort-radio-checked");
-      	}
-      </script>
+ 
         <ul id = "list2">
           <li>
             <span class="sort-control-group" >
-              <span class="sort-control sort-radio sort-radio-checked" onclick="select2(this)"></span>
+              <span id="o1" class="sort-control sort-radio sort-radio-checked" onclick="query(null,null,null,null,this)"></span>
               <span class="sort-control-label">按热门排序</span>
             </span>
           </li>
           <li>
             <span class="sort-control-group" >
-              <span class="sort-control sort-radio" onclick="select2(this)" ></span>
+              <span id="o2" class="sort-control sort-radio" onclick="query(null,null,null,null,this)" ></span>
               <span class="sort-control-label">按时间排序</span>
             </span>
           </li>
           <li>
             <span class="sort-control-group"  >
-              <span class="sort-control sort-radio"  onclick="select2(this)"></span>
+              <span id="o3" class="sort-control sort-radio"  onclick="query(null,null,null,null,this)"></span>
               <span class="sort-control-label">按评价排序</span>
             </span>
           </li>
@@ -179,28 +302,22 @@
     </div>
     <div class="movies-list">
     
-    <dl class="movie-list">
-	
-  <dd th:each="i:${#numbers.sequence(0,30)}">
-    <div class="movie-item">
-      <a href="#" target="_blank" data-act="movie-click" data-val="{movieid:1204589}">
-      <div class="movie-poster">
-        <img class="poster-default" src="">
-        <img src="img/绝杀幕尼黑.jpg">
-      </div>
-      </a>
-        <div class="channel-action channel-action-sale">
-  <a>购票</a>
-</div>
-
-      <div class="movie-ver"></div>
-    </div>
-    <div class="channel-detail movie-item-title" title="绝杀慕尼黑">
-      <a href="#" target="_blank" data-act="movies-click" data-val="{movieId:1204589}">绝杀慕尼黑</a>
-    </div>
-<div class="channel-detail channel-detail-orange"><i class="integer">9.</i><i class="fraction">6</i></div>
-  
-  </dd></dl>
+    <dl class="movie-list" id="ajax">
+    
+    
+    </dl>
+    
+<!--     <dl class="movie-list" > -->
+<!--     	  <dd th:each="m:${list}"><div class="movie-item"><a href="#" target="_blank">  -->
+<!-- 					      <div class="movie-poster">  -->
+<!-- 					        '<img class="poster-default" src="">  -->
+<!-- 					        <img src="img/绝杀幕尼黑.jpg"></div></a>  -->
+<!-- 					        <div class="channel-action channel-action-sale"><a>购票</a></div>  -->
+<!-- 					     <div class="movie-ver"></div></div>  -->
+<!-- 					    <div class="channel-detail movie-item-title" title="绝杀慕尼黑"><a href="#" >绝杀慕尼黑</a></div>  -->
+<!-- 					 <div class="channel-detail channel-detail-orange"><i class="integer">9.5</i></div></dd>  -->
+<!--     </dl> -->
+    
 
     </div>
     <div class="movies-pager">

@@ -14,11 +14,10 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" type="text/css" href="css/star.css">
-<link rel="stylesheet" href="css/common.css">
-<link rel="stylesheet" href="css/movie-detail.css">
-<script type="text/javascript" src="js/jquery.min.js"></script>
-
+<link rel="stylesheet" type="text/css"  href="/css/star.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/movie-detail.css">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
 <meta name="lx:autopv" content="off">
 <meta name="lx:appnm" content="movie">
 <meta name="lx:category" content="movie">
@@ -39,7 +38,7 @@
 				</div>
 			</div>
 
-
+			
 
 			<div class="celeInfo-right clearfix">
 				<div class="movie-brief-container">
@@ -59,20 +58,63 @@
 							上映</li>
 					</ul>
 				</div>
+				
+				<script type="text/javascript">
+				
+					function wants(e){
+						var flag;
+						var movieId = [[${movie.movieId}]];
+						if($(e).children().eq(1).html()=="已想看"){
+							flag = 0;
+						}else{
+							flag = 1;
+						}
+						$.get("wants",{movieId:movieId,flag:flag},function(data){
+							if(data=="1"){
+								$(e).parent().attr("class","wish active");
+								$(e).children().eq(1).html("已想看")
+							}else if(data=="2"){
+								$(e).parent().attr("class","wish");
+								$(e).children().eq(1).html("想看")
+							}else{
+								alert("操作失败,请先登陆")
+	          					window.location.href="/login";
+							}
+						});
+					}
+				</script>
+				
 				<div class="action-buyBtn">
 					<div class="action clearfix" data-val="{movieid:1242431}">
-						<a class="wish " data-wish="false" data-score=""
-							data-bid="b_gbxqtw6x">
-							<div>
+					
+						<a class="wish" 
+							th:if="${w==null}">
+							<div onclick="wants(this)">
 								<i class="icon wish-icon"></i> <span class="wish-msg"
 									data-act="wish-click">想看</span>
 							</div>
-						</a> <a class="score-btn " onclick="writeComment()">
+						</a> 
+						
+							<a class="wish active" 
+							th:if="${w!=null}">
+							<div onclick="wants(this)">
+								<i class="icon wish-icon"></i> <span class="wish-msg"
+									data-act="wish-click">已想看</span>
+							</div>
+						</a> 
+						
+						
+						
+						<a class="score-btn " onclick="writeComment()">
 							<div>
 								<i class="icon score-btn-icon"></i> <span class="score-btn-msg"
 									data-act="comment-open-click"> 评分 </span>
 							</div>
 						</a>
+						
+						
+						
+						
 					</div>
 					<a class="btn buy"
 						href="https://maoyan.com/cinemas?movieId=1242431" target="_blank">特惠购票</a>
@@ -97,13 +139,11 @@
 						</div>
 					</div>
 
-
-
 					<div class="movie-index">
 						<p class="movie-index-title">累计票房</p>
 						<div class="movie-index-content box">
 							<span class="stonefont"
-								th:text=${score.sumPeople*score.sumScore*100}></span><span
+								th:text=${score.sumPeople*10}></span><span
 								class="unit">万</span>
 						</div>
 					</div>
@@ -221,32 +261,33 @@
 							<script type="text/javascript">
           	function agree(e){
           		//如果已经赞过
-          		var userId =  [[${session.user==null?null:session.user.userId}]];
           		var commentsId = $(e).children().eq(0).val();
-          		
           		if($(e).hasClass("approve active")){
           			$.post("concelAgree",{
-						userId:userId,
 						commentsId:commentsId
           			},function(data){
           				if(data=="1"){
           					$(e).attr("class","approve");
-          					
           					var a = $(e).find(".num").html();
           					if(a>0){
           						$(e).find(".num").html(parseInt(a)-1);
           					}
+          				}else{
+          					alert("操作失败,请先登陆")
+          					window.location.href="/login";
           				}
           			});
           		}else{
 					$.post("agree",{
-						userId:userId,
        					commentsId:commentsId
           			},function(data){
           				if(data=="1"){
           					$(e).attr("class","approve active");
           					var a = $(e).find(".num").html();
           					$(e).find(".num").html(parseInt(a)+1);
+          				}else{
+          					alert("操作失败,请先登陆")
+          					window.location.href="/login";
           				}
           			});
           			
@@ -630,17 +671,17 @@
   	}
 	function mysubmit(){
 		$.post("addComment",{
-			userId:[[${session.user==null?null:session.user.userId}]],
 			comments:$("#content").val(),
 			score:$("#score").val(),
 			movieId:[[${movie.movieId}]]
 		},function(data){
 			if(data=="1"){
 				alert("评论成功")
+				location.reload();
 			}else{
-				alert("评论失败")
+				alert("评论失败,请先登陆")
+				window.location.href="/login";
 			}
-			location.reload();
 		});
   		cls();
   	}

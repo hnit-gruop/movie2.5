@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Movie {
-	
     private Integer movieId;
 
     private String name;
@@ -23,107 +22,14 @@ public class Movie {
 
     private String status;
     
-    private MovieImage movieImage;
-    
-    public MovieImage getMovieImage() {
-		return movieImage;
-	}
+    private List<MovieType> type;
 
-	public void setMovieImage(MovieImage movieImage) {
-		this.movieImage = movieImage;
-	}
-	
-	
-	/**
-     * 非数据库字段
-     */
-    private String coverImage;
-    private String bigImage;
-    private List<MovieImage> smallImage;
-    private List<Actor> listActor;
-    private Actor director;
-    private Double score;
-    
-    
-    public Actor getDirector() {
-		return director;
-	}
-
-	public void setDirector(Actor director) {
-		this.director = director;
-	}
-
-	public List<Actor> getListActor() {
-		return listActor;
-	}
-
-	public void setListActor(List<Actor> listActor) {
-		this.listActor = listActor;
-	}
-
-	public String getBigImage() {
-		return bigImage;
-	}
-
-	public void setBigImage(String bigImage) {
-		this.bigImage = bigImage;
-	}
-
-	public List<MovieImage> getSmallImage() {
-		return smallImage;
-	}
-
-	public void setSmallImage(List<MovieImage> smallImage) {
-		this.smallImage = smallImage;
-	}
-
-	private List<MovieType> type;
-    
-    //用于关联查询
-    private Type tempType;
-    private List<Type> listType;
-    
-    
-
-    public Type getTempType() {
-		return tempType;
-	}
-
-	public void setTempType(Type tempType) {
-		this.tempType = tempType;
-	}
-
-	public List<Type> getListType() {
-		return listType;
-	}
-
-	public void setListType(List<Type> listType) {
-		this.listType = listType;
-	}
-
-
-	public List<MovieType> getType() {
+    public List<MovieType> getType() {
 		return type;
 	}
 
 	public void setType(List<MovieType> type) {
 		this.type = type;
-	}
-    
-    public Double getScore() {
-		return score;
-	}
-
-	public void setScore(Double score) {
-		this.score = score;
-	}
-
-	public String getCoverImage() {
-		return coverImage;
-	}
-
-	public void setCoverImage(String coverImage) {
-		this.coverImage = coverImage;
 	}
 
 	public Integer getMovieId() {
@@ -198,11 +104,48 @@ public class Movie {
         this.status = status == null ? null : status.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Movie [movieId=" + movieId + ", name=" + name + ", duration=" + duration + ", releaseTime="
-				+ releaseTime + ", foreignName=" + foreignName + ", region=" + region + ", language=" + language
-				+ ", description=" + description + ", status=" + status + ", movieImage=" + movieImage + ", coverImage="
-				+ coverImage + ", score=" + score + ", type=" + type + "]";
+	public void setBigImage(String bigImage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setListType(List<Type> listType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSmallImage(List<MovieImage> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Type> getListType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setCoverImage(String cover) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setScore(double avgScore) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDirector(Actor next) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Actor> getListActor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setListActor(List<Actor> listActor) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -15,51 +15,7 @@ public class Comments {
 
     private Integer score;
 
-    private User user;
-    
-    //点赞数
-    private int agreeCnt;
-    
-    //详细时间描述
-    private String tipTime;
-    
-    //是否赞过
-    private boolean agree;
-    
-
-	public int getAgreeCnt() {
-		return agreeCnt;
-	}
-
-	public void setAgreeCnt(int agreeCnt) {
-		this.agreeCnt = agreeCnt;
-	}
-
-	public boolean isAgree() {
-		return agree;
-	}
-
-	public void setAgree(boolean agree) {
-		this.agree = agree;
-	}
-
-	public String getTipTime() {
-		return tipTime;
-	}
-
-	public void setTipTime(String tipTime) {
-		this.tipTime = tipTime;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Integer getCommentsId() {
+    public Integer getCommentsId() {
         return commentsId;
     }
 
@@ -107,11 +63,23 @@ public class Comments {
         this.score = score;
     }
 
-	@Override
-	public String toString() {
-		return "Comments [commentsId=" + commentsId + ", userId=" + userId + ", comments=" + comments + ", movieId="
-				+ movieId + ", commentsTime=" + commentsTime + ", score=" + score + ", user=" + user + ", agreeCnt="
-				+ agreeCnt + ", tipTime=" + tipTime + ", agree=" + agree + "]";
+	public void setTipTime(String convertTimeToFormat) {
+		// TODO Auto-generated method stub
+		
 	}
-    
+
+	public void setUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAgree(boolean ifAgree) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAgreeCnt(int ac) {
+		// TODO Auto-generated method stub
+		
+	}
 }

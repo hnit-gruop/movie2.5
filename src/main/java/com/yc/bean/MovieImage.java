@@ -13,12 +13,7 @@ public class MovieImage {
         return id;
     }
 
-    @Override
-	public String toString() {
-		return "MovieImage [id=" + id + ", type=" + type + ", image=" + image + ", movieId=" + movieId + "]";
-	}
-
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

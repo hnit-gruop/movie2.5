@@ -120,11 +120,28 @@
 			<scope>test</scope>
 		</dependency>
 
+<<<<<<< HEAD
 	    <dependency>
             <groupId>cn.kiwipeach</groupId>
             <artifactId>qq-sdk4j</artifactId>
             <version>1.0.0</version>
         </dependency>
+=======
+        
+        
+        <!--httpclient-->
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+</dependency>
+<!--阿里 JSON-->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.47</version>
+</dependency>
+
+>>>>>>> branch 'master' of https://github.com/hnit-gruop/movie2.1
 
 	</dependencies>
 
