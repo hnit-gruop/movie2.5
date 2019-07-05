@@ -120,7 +120,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 	    <dependency>
             <groupId>cn.kiwipeach</groupId>
             <artifactId>qq-sdk4j</artifactId>

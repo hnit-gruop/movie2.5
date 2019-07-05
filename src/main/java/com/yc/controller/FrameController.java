@@ -28,12 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.yc.bean.Actor;
+import com.yc.bean.Cinema;
 import com.yc.bean.Movie;
 import com.yc.bean.MovieImage;
 import com.yc.bean.MovieType;
 import com.yc.bean.Type;
 import com.yc.service.MovieImageService;
 import com.yc.service.impl.ActorServiceImpl;
+import com.yc.service.impl.CinemaServiceImpl;
 import com.yc.service.impl.MovieActorServiceImpl;
 import com.yc.service.impl.MovieImageServiceImpl;
 import com.yc.service.impl.MovieServiceImpl;
@@ -57,7 +59,8 @@ public class FrameController {
 	MovieActorServiceImpl masi;
 	@Resource
 	ActorServiceImpl asi;
-	
+	@Resource
+	CinemaServiceImpl csi;
 	
 	@Value("${coverPath}")
 	private String coverPath;
@@ -432,5 +435,72 @@ public class FrameController {
  		asi.add(actor);
  		Result re = new Result(1, "添加成功!");
  		return re;
+ 	}
+ 	
+ 	@RequestMapping("toAddCinema")
+ 	public String toAddCinema() {
+ 		return "manage/addCinema";
+ 	}
+ 	
+ 	@RequestMapping("addCinema")
+ 	@ResponseBody
+ 	public Result AddCinema(Model model,Cinema cinema) {
+ 		int addCineme = csi.addCinema(cinema);
+ 		if(addCineme > 0) {
+ 			Result result = new Result(addCineme, "添加成功!");
+ 			return result;
+ 		}else {
+ 			Result result = new Result(addCineme, "添加失败!");
+ 			return result;
+ 		}
+ 		
+ 	}
+ 	
+ 	@RequestMapping("updataCinema")
+ 	@ResponseBody
+ 	public Result updataCinema(Model model,Cinema cinema) {
+ 		int addCineme = csi.updataCinema(cinema);
+ 		if(addCineme > 0) {
+ 			Result result = new Result(addCineme, "修改成功!");
+ 			return result;
+ 		}else {
+ 			Result result = new Result(addCineme, "修改失败!");
+ 			return result;
+ 		}
+ 		
+ 	}
+ 	
+ 	@RequestMapping("allCinema")
+ 	public String allCinema(Model model) {
+ 		List<Cinema> allCinema = csi.getAllCinema(1);
+ 		model.addAttribute("allCinema", allCinema);
+ 		return "manage/allCinema";
+ 	}
+ 	
+ 	@RequestMapping("cinemaDetail")
+ 	@ResponseBody
+ 	public Map<String,Object> cinemaDetail(@RequestParam(name="id")int id){
+ 		Cinema cinemaDetail = csi.getCinemaDetail(id);
+ 		String name = cinemaDetail.getName();
+ 		String address = cinemaDetail.getAddress();
+ 		String[] split = address.split(",");
+ 		String province = split[0];
+ 		String city = split[1];
+ 		String path = split[2];
+ 		int cid = cinemaDetail.getCinemaId();
+ 		Map<String,Object> map = new HashMap<>();
+ 		map.put("name", name);
+ 		map.put("province",province);
+ 		map.put("city", city);
+ 		map.put("path", path);
+ 		map.put("id", cid);
+ 		return map;
+ 	}
+ 	
+ 	@RequestMapping("getCinemaByName")
+ 	@ResponseBody
+ 	public List<Cinema> getCinemaByName(@RequestParam(name="name")String name,@RequestParam(defaultValue="1") int current){
+ 		List<Cinema> cinemaByName = csi.getCinemaByName(name,current);
+ 		return cinemaByName;
  	}
 }
